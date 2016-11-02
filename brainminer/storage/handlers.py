@@ -1,5 +1,8 @@
+from brainminer.base.handlers import ResourceListGetHandler, ResourceListPostHandler
+
+
 # ----------------------------------------------------------------------------------------------------------------------
-class RepositoryFilesResourceGetHandler(object):
+class RepositoryFilesResourceGetHandler(ResourceListGetHandler):
     
     @staticmethod
     def response():
@@ -7,7 +10,7 @@ class RepositoryFilesResourceGetHandler(object):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class RepositoryFilesResourcePostHandler(object):
+class RepositoryFilesResourcePostHandler(ResourceListPostHandler):
     
     @staticmethod
     def response():

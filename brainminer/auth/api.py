@@ -1,4 +1,5 @@
 from brainminer.base.api import LoginProtectedResource, TokenProtectedResource
+from brainminer.auth.handlers import TokensResourcePostHandler
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -7,7 +8,8 @@ class TokensResource(LoginProtectedResource):
     URI = '/tokens'
     
     def post(self):
-        return {}, 201
+        handler = TokensResourcePostHandler()
+        return handler.response()
 
 
 # ----------------------------------------------------------------------------------------------------------------------
