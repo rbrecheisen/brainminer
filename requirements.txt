@@ -1,0 +1,6 @@
+pip-autoremove>=0.9.0
+flask>=0.11
+flask-restful>=0.2.1
+flask-sqlalchemy>=2.1
+python-jose>=0.5.2
+pytest>=3.0.3
