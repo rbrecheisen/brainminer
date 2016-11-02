@@ -151,6 +151,16 @@ class UserGroup(Principal):
     # Flag to indicate if user group is visible in UI
     is_visible = Column(Boolean, default=True)
 
+    def add_user(self, user):
+        if user in self.users:
+            return
+        self.users.append(user)
+
+    def remove_user(self, user):
+        if user not in self.users:
+            return
+        self.users.remove(user)
+
     def to_dict(self):
         users = []
         for user in self.users:

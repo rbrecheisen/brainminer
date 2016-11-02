@@ -2,7 +2,9 @@ from flask import g
 from brainminer.base.handlers import (
     ResourceListPostHandler, ResourceListGetHandler, ResourceGetHandler, ResourcePutHandler, ResourceDeleteHandler)
 from brainminer.auth.authentication import create_token
-from brainminer.auth.parameters import UserQueryParameters, UserCreateParameters, UserUpdateParameters
+from brainminer.auth.parameters import (
+    UserQueryParameters, UserCreateParameters, UserUpdateParameters, UserGroupQueryParameters,
+    UserGroupCreateParameters, UserGroupUpdateParameters)
 from brainminer.auth.dao import UserDao, UserGroupDao
 
 
@@ -100,6 +102,11 @@ class UserPutHandler(ResourcePutHandler):
 class UserDeleteHandler(ResourceDeleteHandler):
     
     def handle_response(self):
+
+        user_dao = UserDao(self.db_session())
+        user = user_dao.retrieve(id=self.id())
+        user_dao.delete(user)
+
         return {}, 204
     
     def check_permissions(self):
@@ -110,7 +117,13 @@ class UserDeleteHandler(ResourceDeleteHandler):
 class UserGroupsGetHandler(ResourceListGetHandler):
     
     def handle_response(self):
-        return [], 200
+
+        parameters = UserGroupQueryParameters()
+        user_group_dao = UserGroupDao(self.db_session())
+        user_groups = user_group_dao.retrieve_all(**parameters.get())
+        result = [user_group.to_dict() for user_group in user_groups]
+
+        return result, 200
     
     def check_permissions(self):
         self.current_user().check_permission('retrieve:user-group')
@@ -120,7 +133,12 @@ class UserGroupsGetHandler(ResourceListGetHandler):
 class UserGroupsPostHandler(ResourceListPostHandler):
     
     def handle_response(self):
-        return {}, 201
+
+        parameters = UserGroupCreateParameters()
+        user_group_dao = UserGroupDao(self.db_session())
+        user_group = user_group_dao.create(**parameters.get())
+
+        return user_group.to_dict(), 201
 
     def check_permissions(self):
         self.current_user().check_permission('create:user-group')
@@ -130,7 +148,11 @@ class UserGroupsPostHandler(ResourceListPostHandler):
 class UserGroupGetHandler(ResourceGetHandler):
     
     def handle_response(self):
-        return {}, 200
+
+        user_group_dao = UserGroupDao(self.db_session())
+        user_group = user_group_dao.retrieve(id=self.id())
+
+        return user_group.to_dict(), 200
 
     def check_permissions(self):
         self.current_user().check_permission('retrieve:user-group@{}'.format(self.id()))
@@ -140,7 +162,18 @@ class UserGroupGetHandler(ResourceGetHandler):
 class UserGroupPutHandler(ResourcePutHandler):
     
     def handle_response(self):
-        return {}, 200
+
+        parameters = UserGroupUpdateParameters()
+        user_group_dao = UserGroupDao(self.db_session())
+        user_group = user_group_dao.retrieve(id=self.id())
+        args = parameters.get()
+
+        if args['name'] != user_group.name:
+            user_group.name = args['name']
+
+        user_group_dao.save(user_group)
+
+        return user_group.to_dict(), 200
 
     def check_permissions(self):
         self.current_user().check_permission('update:user-group@{}'.format(self.id()))
@@ -150,6 +183,11 @@ class UserGroupPutHandler(ResourcePutHandler):
 class UserGroupDeleteHandler(ResourceDeleteHandler):
     
     def handle_response(self):
+
+        user_group_dao = UserGroupDao(self.db_session())
+        user_group = user_group_dao.retrieve(id=self.id())
+        user_group_dao.delete(user_group)
+
         return {}, 204
 
     def check_permissions(self):
@@ -160,7 +198,12 @@ class UserGroupDeleteHandler(ResourceDeleteHandler):
 class UserGroupUsersGetHandler(ResourceListGetHandler):
     
     def handle_response(self):
-        return [], 200
+
+        user_group_dao = UserGroupDao(self.db_session())
+        user_group = user_group_dao.retrieve(id=self.id())
+        result = [user.to_dict() for user in user_group.users]
+
+        return result, 200
 
     def check_permissions(self):
         self.current_user().check_permission('retrieve:user-group@{}'.format(self.id()))
@@ -177,7 +220,15 @@ class UserGroupUserPutHandler(ResourcePutHandler):
         return self.user_id
         
     def handle_response(self):
-        return {}, 200
+
+        user_group_dao = UserGroupDao(self.db_session())
+        user_group = user_group_dao.retrieve(id=self.id())
+        user_dao = UserDao(self.db_session())
+        user = user_dao.retrieve(id=self.user_id())
+        user_group.add_user(user)
+        user_group_dao.save(user_group)
+
+        return user_group.to_dict(), 200
 
     def check_permissions(self):
         # First check whether we're allowed to retrieve the user we're trying to add
@@ -197,7 +248,15 @@ class UserGroupUserDeleteHandler(ResourceDeleteHandler):
         return self.user_id
 
     def handle_response(self):
-        return {}, 200
+
+        user_group_dao = UserGroupDao(self.db_session())
+        user_group = user_group_dao.retrieve(id=self.id())
+        user_dao = UserDao(self.db_session())
+        user = user_dao.retrieve(id=self.user_id())
+        user_group.remove_user(user)
+        user_group_dao.save(user_group)
+
+        return user_group.to_dict(), 200
 
     def check_permissions(self):
         self.current_user().check_permission('update:user-group@{}'.format(self.id()))

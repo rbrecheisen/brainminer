@@ -63,3 +63,42 @@ class UserUpdateParameters(Parameters):
         args = parser.parse_args()
         
         return args
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+class UserGroupQueryParameters(Parameters):
+
+    @staticmethod
+    def get():
+
+        parser = reqparse.RequestParser()
+        parser.add_argument('name', type=str, location='args')
+        args = parser.parse_args()
+
+        return args
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+class UserGroupCreateParameters(Parameters):
+
+    @staticmethod
+    def get():
+
+        parser = reqparse.RequestParser()
+        parser.add_argument('name', type=str, required=True, location='json')
+        args = parser.parse_args()
+
+        return args
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+class UserGroupUpdateParameters(Parameters):
+
+    @staticmethod
+    def get():
+
+        parser = reqparse.RequestParser()
+        parser.add_argument('name', type=str, location='json')
+        args = parser.parse_args()
+
+        return args
