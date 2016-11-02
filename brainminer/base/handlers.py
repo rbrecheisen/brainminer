@@ -20,10 +20,10 @@ class ResourceHandler(object):
         return self.handle_response()
     
     def check_permissions(self):
-        pass
+        raise NotImplementedError()
     
     def handle_response(self):
-        pass
+        raise NotImplementedError()
 
     @staticmethod
     def db_session():
