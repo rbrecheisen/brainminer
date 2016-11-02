@@ -4,3 +4,5 @@ flask-restful>=0.2.1
 flask-sqlalchemy>=2.1
 python-jose>=0.5.2
 pytest>=3.0.3
+pyinstaller>=3.2
+uwsgi>=2.0
