@@ -17,8 +17,12 @@ class ResourceHandler(object):
         except PermissionDeniedException as e:
             print('[ERROR] {}.check_permissions() {}'.format(self.__class__.__name__, e.message))
             return {'message': e.message}, 403
-        return self.handle_response()
-    
+        try:
+            return self.handle_response()
+        except Exception as e:
+            print('[ERROR] {}.handle_response() {}'.format(self.__class__.__name__, e.message))
+            return {'message', e.message}, 500
+
     def check_permissions(self):
         raise NotImplementedError()
     

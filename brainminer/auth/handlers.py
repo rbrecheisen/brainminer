@@ -2,8 +2,6 @@ from flask import g
 from brainminer.base.handlers import (
     ResourceListPostHandler, ResourceListGetHandler, ResourceGetHandler, ResourcePutHandler, ResourceDeleteHandler)
 from brainminer.auth.authentication import create_token
-from brainminer.auth.exceptions import (
-    SecretKeyNotFoundException, SecretKeyInvalidException, TokenEncodingFailedException)
 from brainminer.auth.parameters import UserQueryParameters, UserCreateParameters, UserUpdateParameters
 from brainminer.auth.dao import UserDao, UserGroupDao
 
@@ -13,19 +11,9 @@ class TokensPostHandler(ResourceListPostHandler):
 
     def handle_response(self):
         
-        try:
-            token = create_token(g.current_user)
-            return {'token': token}, 201
-        except SecretKeyNotFoundException as e:
-            message = e.message
-        except SecretKeyInvalidException as e:
-            message = e.message
-        except TokenEncodingFailedException as e:
-            message = e.message
+        token = create_token(g.current_user)
+        return {'token': token}, 201
 
-        print('[ERROR] TokensPostHandler.response() {}'.format(message))
-        return {'message': message}, 403
-    
     def check_permissions(self):
         pass
 
@@ -39,6 +27,7 @@ class UsersGetHandler(ResourceListGetHandler):
         user_dao = UserDao(self.db_session())
         users = user_dao.retrieve_all(**parameters.get())
         result = [user.to_dict() for user in users]
+
         return result, 200
     
     def check_permissions(self):
@@ -53,6 +42,7 @@ class UsersPostHandler(ResourceListPostHandler):
         parameters = UserCreateParameters()
         user_dao = UserDao(self.db_session())
         user = user_dao.create(**parameters.get())
+
         return user.to_dict(), 201
     
     def check_permissions(self):
@@ -63,7 +53,11 @@ class UsersPostHandler(ResourceListPostHandler):
 class UserGetHandler(ResourceGetHandler):
     
     def handle_response(self):
-        return {}, 200
+
+        user_dao = UserDao(self.db_session())
+        user = user_dao.retrieve(id=self.id())
+
+        return user.to_dict(), 200
 
     def check_permissions(self):
         self.current_user().check_permission('retrieve:user@{}'.format(self.id()))
@@ -73,7 +67,30 @@ class UserGetHandler(ResourceGetHandler):
 class UserPutHandler(ResourcePutHandler):
     
     def handle_response(self):
-        return {}, 200
+
+        parameters = UserUpdateParameters()
+        user_dao = UserDao(self.db_session())
+        user = user_dao.retrieve(id=self.id())
+        args = parameters.get()
+
+        if args['username'] != user.username:
+            user.username = args['username']
+        if args['password'] != user.password:
+            user.password = args['password']
+        if args['email'] != user.email:
+            user.email = args['email']
+        if args['first_name'] != user.first_name:
+            user.first_name = args['first_name']
+        if args['last_name'] != user.last_name:
+            user.last_name = args['last_name']
+        if args['is_admin'] != user.is_admin:
+            user.is_admin = args['is_admin']
+        if args['is_active'] != user.is_active:
+            user.is_active = args['is_active']
+
+        user = user_dao.save(user)
+
+        return user.to_dict(), 200
     
     def check_permissions(self):
         self.current_user().check_permission('update:user@{}'.format(self.id()))
