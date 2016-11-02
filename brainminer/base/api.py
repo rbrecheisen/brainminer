@@ -1,4 +1,3 @@
-from flask import g
 from flask_restful import Resource
 from brainminer.auth.exceptions import (
     MissingAuthorizationHeaderException, UserNotFoundException, UserNotActiveException, InvalidPasswordException,
@@ -10,20 +9,8 @@ from brainminer.auth.authentication import check_login, check_token
 class BaseResource(Resource):
 
     def dispatch_request(self, *args, **kwargs):
-        # We can some additional logging here...
+        # We can some additional logging or checking here...
         return super(BaseResource, self).dispatch_request(*args, **kwargs)
-
-    @staticmethod
-    def db_session():
-        return g.db_session
-    
-    @staticmethod
-    def current_user():
-        return g.current_user
-    
-    @staticmethod
-    def config():
-        return g.config
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -54,7 +41,8 @@ class LoginProtectedResource(BaseResource):
             message = e.message
             
         if message is not None:
-            return {'message': message}
+            print('[ERROR] LoginProtectedResource.dispatch_request() {}'.format(message))
+            return {'message': message}, 403
         
         return super(BaseResource, self).dispatch_request(*args, **kwargs)
 
@@ -82,6 +70,7 @@ class TokenProtectedResource(BaseResource):
             message = e.message
             
         if message is not None:
-            return {'message': message}
+            print('[ERROR] TokenProtectedResource.dispatch_request() {}'.format(message))
+            return {'message': message}, 403
         
         return super(BaseResource, self).dispatch_request(*args, **kwargs)

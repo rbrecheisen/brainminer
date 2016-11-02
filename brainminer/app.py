@@ -20,6 +20,19 @@ app = Flask(__name__)
 app.config.from_pyfile(
     os.getenv('BRAINMINER_SETTINGS', os.path.abspath('brainminer/settings.py')))
 
+if 'SQLITE_DB_FILE' not in app.config.keys():
+    raise MissingSettingException('SQLITE_DB_FILE')
+if 'SQLALCHEMY_DATABASE_URI' not in app.config.keys():
+    raise MissingSettingException('SQLALCHEMY_DATABASE_URI')
+if 'DATABASE' not in app.config.keys():
+    raise MissingSettingException('DATABASE')
+if 'SECRET_KEY' not in app.config.keys():
+    raise MissingSettingException('SECRET_KEY')
+if 'PASSWORD_SCHEMES' not in app.config.keys():
+    raise MissingSettingException('PASSWORD_SCHEMES')
+if 'USERS' not in app.config.keys():
+    raise MissingSettingException('USERS')
+
 api = Api(app)
 api.add_resource(RootResource, RootResource.URI)
 api.add_resource(TokensResource, TokensResource.URI)
@@ -43,9 +56,6 @@ db = SQLAlchemy(app)
 
 # ----------------------------------------------------------------------------------------------------------------------
 def init_tables():
-    # Check there is a 'USERS' item in the settings
-    if 'USERS' not in app.config.keys():
-        raise MissingSettingException('USERS')
     # Check there is a 'root' user in the settings. The username should be
     # 'root' and the 'is_superuser' should be True.
     found = False
@@ -127,7 +137,7 @@ def shutdown_database(e):
 if __name__ == '__main__':
 
     if app.config['DATABASE'] == 'sqlite':
-        os.system('rm {}'.format(app.config['SQLITE_DB_FILE']))
+        os.system('rm -f {}'.format(app.config['SQLITE_DB_FILE']))
     
     host = os.getenv('BRAINMINER_HOST', '0.0.0.0')
     port = os.getenv('BRAINMINER_PORT', '5000')

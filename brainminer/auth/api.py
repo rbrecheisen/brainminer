@@ -1,5 +1,8 @@
 from brainminer.base.api import LoginProtectedResource, TokenProtectedResource
-from brainminer.auth.handlers import TokensResourcePostHandler
+from brainminer.auth.handlers import (
+    TokensPostHandler, UsersGetHandler, UsersPostHandler, UserGetHandler, UserPutHandler, UserDeleteHandler,
+    UserGroupsGetHandler, UserGroupsPostHandler, UserGroupGetHandler, UserGroupPutHandler, UserGroupDeleteHandler,
+    UserGroupUsersGetHandler, UserGroupUserPutHandler, UserGroupUserDeleteHandler)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -7,8 +10,9 @@ class TokensResource(LoginProtectedResource):
     
     URI = '/tokens'
     
-    def post(self):
-        handler = TokensResourcePostHandler()
+    @staticmethod
+    def post():
+        handler = TokensPostHandler()
         return handler.response()
 
 
@@ -17,11 +21,15 @@ class UsersResource(TokenProtectedResource):
 
     URI = '/users'
     
-    def get(self):
-        return [], 200
+    @staticmethod
+    def get():
+        handler = UsersGetHandler()
+        return handler.response()
     
-    def post(self):
-        return {}, 201
+    @staticmethod
+    def post():
+        handler = UsersPostHandler()
+        return handler.response()
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -29,14 +37,20 @@ class UserResource(TokenProtectedResource):
 
     URI = '/users/{}'
     
-    def get(self, id):
-        return {}, 200
+    @staticmethod
+    def get(id):
+        handler = UserGetHandler(id)
+        return handler.response()
     
-    def put(self, id):
-        return {}, 200
+    @staticmethod
+    def put(id):
+        handler = UserPutHandler(id)
+        return handler.response()
     
-    def delete(self, id):
-        return {}, 204
+    @staticmethod
+    def delete(id):
+        handler = UserDeleteHandler(id)
+        return handler.response()
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -44,11 +58,15 @@ class UserGroupsResource(TokenProtectedResource):
 
     URI = '/user-groups'
     
-    def get(self):
-        return [], 200
+    @staticmethod
+    def get():
+        handler = UserGroupsGetHandler()
+        return handler.response()
     
-    def post(self):
-        return {}, 201
+    @staticmethod
+    def post():
+        handler = UserGroupsPostHandler()
+        return handler.response()
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -56,14 +74,20 @@ class UserGroupResource(TokenProtectedResource):
 
     URI = '/user-groups/{}'
 
-    def get(self, id):
-        return {}, 200
+    @staticmethod
+    def get(id):
+        handler = UserGroupGetHandler(id)
+        return handler.response()
 
-    def put(self, id):
-        return {}, 200
+    @staticmethod
+    def put(id):
+        handler = UserGroupPutHandler(id)
+        return handler.response()
 
-    def delete(self, id):
-        return {}, 204
+    @staticmethod
+    def delete(id):
+        handler = UserGroupDeleteHandler(id)
+        return handler.response()
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -71,8 +95,10 @@ class UserGroupUsersResource(TokenProtectedResource):
 
     URI = '/user-groups/{}/users'
     
-    def get(self, id):
-        return [], 200
+    @staticmethod
+    def get(id):
+        handler = UserGroupUsersGetHandler(id)
+        return handler.response()
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -80,8 +106,12 @@ class UserGroupUserResource(TokenProtectedResource):
 
     URI = '/user-groups/{}/users/{}'
     
-    def put(self, id, user_id):
-        return {}, 200
+    @staticmethod
+    def put(id, user_id):
+        handler = UserGroupUserPutHandler(id, user_id)
+        return handler.response()
     
-    def delete(self, id, user_id):
-        return {}, 200
+    @staticmethod
+    def delete(id, user_id):
+        handler = UserGroupUserDeleteHandler(id, user_id)
+        return handler.response()

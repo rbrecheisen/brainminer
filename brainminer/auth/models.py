@@ -4,6 +4,7 @@ from sqlalchemy.orm import relationship, validates
 from sqlalchemy_utils import PasswordType, force_auto_coercion
 
 from brainminer.base.models import Base, BaseModel
+from brainminer.auth.exceptions import PermissionDeniedException
 
 force_auto_coercion()
 
@@ -30,7 +31,9 @@ class Principal(BaseModel):
     }
 
     def has_permission(self, permission):
-        # Get action and resource info from permission string
+        # Get action and resource info from permission string. Each permission has
+        # the following format "<action>:<resource class>@<resource id>" where the
+        # <resource id> is optional.
         resource_id = None
         action, resource_class = permission.split(':')
         if '@' in resource_class:
@@ -49,7 +52,7 @@ class Principal(BaseModel):
                         return p.granted
         # All failed, return False
         return False
-
+    
     def to_dict(self):
         obj = super(Principal, self).to_dict()
         obj.update({
@@ -104,6 +107,10 @@ class User(Principal):
                 return True
         # Nothing matched
         return False
+
+    def check_permission(self, permission):
+        if not self.has_permission(permission):
+            raise PermissionDeniedException(permission)
 
     def to_dict(self):
         user_groups = []

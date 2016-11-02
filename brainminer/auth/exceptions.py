@@ -64,3 +64,11 @@ class InvalidPasswordException(Exception):
     def __init__(self):
         message = 'Invalid password'
         super(InvalidPasswordException, self).__init__(message)
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+class PermissionDeniedException(Exception):
+    
+    def __init__(self, permission):
+        message = 'Permission {} denied'.format(permission)
+        super(PermissionDeniedException, self).__init__(message)

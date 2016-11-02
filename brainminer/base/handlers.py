@@ -1,9 +1,41 @@
+from flask import g
+from brainminer.auth.exceptions import PermissionDeniedException
+
+
 # ----------------------------------------------------------------------------------------------------------------------
 class ResourceHandler(object):
     
+    def __init__(self, id=None):
+        self.id = id
+        
+    def id(self):
+        return self.id
+    
+    def response(self):
+        try:
+            self.check_permissions()
+        except PermissionDeniedException as e:
+            print('[ERROR] {}.check_permissions() {}'.format(self.__class__.__name__, e.message))
+            return {'message': e.message}, 403
+        return self.handle_response()
+    
+    def check_permissions(self):
+        pass
+    
+    def handle_response(self):
+        pass
+
     @staticmethod
-    def response():
-        return {}, 200
+    def db_session():
+        return g.db_session
+
+    @staticmethod
+    def current_user():
+        return g.current_user
+
+    @staticmethod
+    def config():
+        return g.config
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -18,18 +50,12 @@ class ResourcePutHandler(ResourceHandler):
 
 # ----------------------------------------------------------------------------------------------------------------------
 class ResourceDeleteHandler(ResourceHandler):
-    
-    @staticmethod
-    def response():
-        return {}, 204
+    pass
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class ResourceListHandler(object):
-    
-    @staticmethod
-    def response():
-        return [], 200
+class ResourceListHandler(ResourceHandler):
+    pass
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -39,7 +65,4 @@ class ResourceListGetHandler(ResourceListHandler):
 
 # ----------------------------------------------------------------------------------------------------------------------
 class ResourceListPostHandler(ResourceListHandler):
-
-    @staticmethod
-    def response():
-        return {}, 201
+    pass
