@@ -3,14 +3,14 @@ from flask import send_from_directory, current_app
 from flask_restful import reqparse
 from werkzeug.datastructures import FileStorage
 from brainminer.base.handlers import (
-    ResourceListGetHandler, ResourceListPostHandler, ResourceGetHandler, ResourcePutHandler, ResourceDeleteHandler)
+    ResourceListRetrieveHandler, ResourceListCreateHandler, ResourceRetrieveHandler, ResourceUpdateHandler, ResourceDeleteHandler)
 from brainminer.base.util import generate_string
 from brainminer.storage.dao import RepositoryDao, FileDao, FileSetDao
 from brainminer.storage.exceptions import FileNotInRepositoryException
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class RepositoriesGetHandler(ResourceListGetHandler):
+class RepositoriesRetrieveHandler(ResourceListRetrieveHandler):
 
     def handle_response(self):
 
@@ -29,7 +29,7 @@ class RepositoriesGetHandler(ResourceListGetHandler):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class RepositoriesPostHandler(ResourceListPostHandler):
+class RepositoriesCreateHandler(ResourceListCreateHandler):
 
     def handle_response(self):
 
@@ -47,7 +47,7 @@ class RepositoriesPostHandler(ResourceListPostHandler):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class RepositoryGetHandler(ResourceGetHandler):
+class RepositoryRetrieveHandler(ResourceRetrieveHandler):
 
     def handle_response(self):
 
@@ -61,7 +61,7 @@ class RepositoryGetHandler(ResourceGetHandler):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class RepositoryPutHandler(ResourcePutHandler):
+class RepositoryUpdateHandler(ResourceUpdateHandler):
 
     def handle_response(self):
 
@@ -99,7 +99,7 @@ class RepositoryDeleteHandler(ResourceDeleteHandler):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class RepositoryFilesGetHandler(ResourceListGetHandler):
+class FilesRetrieveHandler(ResourceListRetrieveHandler):
     
     def handle_response(self):
 
@@ -114,7 +114,7 @@ class RepositoryFilesGetHandler(ResourceListGetHandler):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class RepositoryFilesPostHandler(ResourceListPostHandler):
+class FilesCreateHandler(ResourceListCreateHandler):
     
     def handle_response(self):
 
@@ -158,10 +158,10 @@ class RepositoryFilesPostHandler(ResourceListPostHandler):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class RepositoryFileGetHandler(ResourceGetHandler):
+class FileRetrieveHandler(ResourceRetrieveHandler):
 
     def __init__(self, id, file_id):
-        super(RepositoryFileGetHandler, self).__init__(id)
+        super(FileRetrieveHandler, self).__init__(id)
         self._file_id = file_id
 
     def file_id(self):
@@ -184,10 +184,10 @@ class RepositoryFileGetHandler(ResourceGetHandler):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class RepositoryFileContentGetHandler(ResourceGetHandler):
+class FileContentRetrieveHandler(ResourceRetrieveHandler):
 
     def __init__(self, id, file_id):
-        super(RepositoryFileContentGetHandler, self).__init__(id)
+        super(FileContentRetrieveHandler, self).__init__(id)
         self._file_id = file_id
 
     def file_id(self):
@@ -211,10 +211,10 @@ class RepositoryFileContentGetHandler(ResourceGetHandler):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class RepositoryFileDeleteHandler(ResourceDeleteHandler):
+class FileDeleteHandler(ResourceDeleteHandler):
 
     def __init__(self, id, file_id):
-        super(RepositoryFileDeleteHandler, self).__init__(id)
+        super(FileDeleteHandler, self).__init__(id)
         self._file_id = file_id
 
     def file_id(self):
@@ -238,7 +238,7 @@ class RepositoryFileDeleteHandler(ResourceDeleteHandler):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class RepositoryFileSetsGetHandler(ResourceListGetHandler):
+class FileSetsRetrieveHandler(ResourceListRetrieveHandler):
 
     def handle_response(self):
         return {}, 200
@@ -248,7 +248,7 @@ class RepositoryFileSetsGetHandler(ResourceListGetHandler):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class RepositoryFileSetsPostHandler(ResourceListPostHandler):
+class FileSetsCreateHandler(ResourceListCreateHandler):
 
     def handle_response(self):
         return {}, 200
@@ -259,10 +259,10 @@ class RepositoryFileSetsPostHandler(ResourceListPostHandler):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class RepositoryFileSetGetHandler(ResourceGetHandler):
+class FileSetRetrieveHandler(ResourceRetrieveHandler):
 
     def __init__(self, id, file_set_id):
-        super(RepositoryFileSetGetHandler, self).__init__(id)
+        super(FileSetRetrieveHandler, self).__init__(id)
         self._file_set_id = file_set_id
 
     def file_set_id(self):
@@ -277,10 +277,10 @@ class RepositoryFileSetGetHandler(ResourceGetHandler):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class RepositoryFileSetPutHandler(ResourcePutHandler):
+class FileSetUpdateHandler(ResourceUpdateHandler):
 
     def __init__(self, id, file_set_id):
-        super(RepositoryFileSetPutHandler, self).__init__(id)
+        super(FileSetUpdateHandler, self).__init__(id)
         self._file_set_id = file_set_id
 
     def file_set_id(self):
@@ -295,10 +295,10 @@ class RepositoryFileSetPutHandler(ResourcePutHandler):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class RepositoryFileSetDeleteHandler(ResourceDeleteHandler):
+class FileSetDeleteHandler(ResourceDeleteHandler):
 
     def __init__(self, id, file_set_id):
-        super(RepositoryFileSetDeleteHandler, self).__init__(id)
+        super(FileSetDeleteHandler, self).__init__(id)
         self._file_set_id = file_set_id
 
     def file_set_id(self):
@@ -313,10 +313,10 @@ class RepositoryFileSetDeleteHandler(ResourceDeleteHandler):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class RepositoryFileSetFilesGetHandler(ResourceListGetHandler):
+class FileSetFilesRetrieveHandler(ResourceListRetrieveHandler):
 
     def __init__(self, id, file_set_id):
-        super(RepositoryFileSetFilesGetHandler, self).__init__(id)
+        super(FileSetFilesRetrieveHandler, self).__init__(id)
         self._file_set_id = file_set_id
 
     def file_set_id(self):
@@ -331,10 +331,10 @@ class RepositoryFileSetFilesGetHandler(ResourceListGetHandler):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class RepositoryFileSetFilePutHandler(ResourcePutHandler):
+class FileSetFileUpdateHandler(ResourceUpdateHandler):
 
     def __init__(self, id, file_set_id):
-        super(RepositoryFileSetFilePutHandler, self).__init__(id)
+        super(FileSetFileUpdateHandler, self).__init__(id)
         self._file_set_id = file_set_id
 
     def file_set_id(self):
@@ -349,10 +349,10 @@ class RepositoryFileSetFilePutHandler(ResourcePutHandler):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class RepositoryFileSetFileDeleteHandler(ResourceDeleteHandler):
+class FileSetFileDeleteHandler(ResourceDeleteHandler):
 
     def __init__(self, id, file_set_id):
-        super(RepositoryFileSetFileDeleteHandler, self).__init__(id)
+        super(FileSetFileDeleteHandler, self).__init__(id)
         self._file_set_id = file_set_id
 
     def file_set_id(self):

@@ -49,12 +49,12 @@ class ResourceHandler(object):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class ResourceGetHandler(ResourceHandler):
+class ResourceRetrieveHandler(ResourceHandler):
     pass
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class ResourcePutHandler(ResourceHandler):
+class ResourceUpdateHandler(ResourceHandler):
     pass
 
 
@@ -69,10 +69,10 @@ class ResourceListHandler(ResourceHandler):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class ResourceListGetHandler(ResourceListHandler):
+class ResourceListRetrieveHandler(ResourceListHandler):
     pass
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class ResourceListPostHandler(ResourceListHandler):
+class ResourceListCreateHandler(ResourceListHandler):
     pass

@@ -1,8 +1,8 @@
 from brainminer.base.api import LoginProtectedResource, TokenProtectedResource
 from brainminer.auth.handlers import (
-    TokensPostHandler, UsersGetHandler, UsersPostHandler, UserGetHandler, UserPutHandler, UserDeleteHandler,
-    UserGroupsGetHandler, UserGroupsPostHandler, UserGroupGetHandler, UserGroupPutHandler, UserGroupDeleteHandler,
-    UserGroupUsersGetHandler, UserGroupUserPutHandler, UserGroupUserDeleteHandler)
+    TokensCreateHandler, UsersRetrieveHandler, UsersCreateHandler, UserRetrieveHandler, UserUpdateHandler, UserDeleteHandler,
+    UserGroupsRetrieveHandler, UserGroupsCreateHandler, UserGroupRetrieveHandler, UserGroupUpdateHandler, UserGroupDeleteHandler,
+    UserGroupUsersRetrieveHandler, UserGroupUserUpdateHandler, UserGroupUserDeleteHandler)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -12,7 +12,7 @@ class TokensResource(LoginProtectedResource):
     
     @staticmethod
     def post():
-        handler = TokensPostHandler()
+        handler = TokensCreateHandler()
         return handler.response()
 
 
@@ -23,12 +23,12 @@ class UsersResource(TokenProtectedResource):
     
     @staticmethod
     def get():
-        handler = UsersGetHandler()
+        handler = UsersRetrieveHandler()
         return handler.response()
     
     @staticmethod
     def post():
-        handler = UsersPostHandler()
+        handler = UsersCreateHandler()
         return handler.response()
 
 
@@ -39,12 +39,12 @@ class UserResource(TokenProtectedResource):
     
     @staticmethod
     def get(id):
-        handler = UserGetHandler(id)
+        handler = UserRetrieveHandler(id)
         return handler.response()
     
     @staticmethod
     def put(id):
-        handler = UserPutHandler(id)
+        handler = UserUpdateHandler(id)
         return handler.response()
     
     @staticmethod
@@ -60,12 +60,12 @@ class UserGroupsResource(TokenProtectedResource):
     
     @staticmethod
     def get():
-        handler = UserGroupsGetHandler()
+        handler = UserGroupsRetrieveHandler()
         return handler.response()
     
     @staticmethod
     def post():
-        handler = UserGroupsPostHandler()
+        handler = UserGroupsCreateHandler()
         return handler.response()
 
 
@@ -76,12 +76,12 @@ class UserGroupResource(TokenProtectedResource):
 
     @staticmethod
     def get(id):
-        handler = UserGroupGetHandler(id)
+        handler = UserGroupRetrieveHandler(id)
         return handler.response()
 
     @staticmethod
     def put(id):
-        handler = UserGroupPutHandler(id)
+        handler = UserGroupUpdateHandler(id)
         return handler.response()
 
     @staticmethod
@@ -97,7 +97,7 @@ class UserGroupUsersResource(TokenProtectedResource):
     
     @staticmethod
     def get(id):
-        handler = UserGroupUsersGetHandler(id)
+        handler = UserGroupUsersRetrieveHandler(id)
         return handler.response()
 
 
@@ -108,7 +108,7 @@ class UserGroupUserResource(TokenProtectedResource):
     
     @staticmethod
     def put(id, user_id):
-        handler = UserGroupUserPutHandler(id, user_id)
+        handler = UserGroupUserUpdateHandler(id, user_id)
         return handler.response()
     
     @staticmethod

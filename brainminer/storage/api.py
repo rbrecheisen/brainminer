@@ -1,8 +1,8 @@
 from brainminer.base.api import TokenProtectedResource
 from brainminer.storage.handlers import (
-    RepositoriesGetHandler, RepositoriesPostHandler, RepositoryGetHandler, RepositoryPutHandler,
-    RepositoryDeleteHandler, RepositoryFilesGetHandler, RepositoryFilesPostHandler, RepositoryFileGetHandler,
-    RepositoryFileContentGetHandler, RepositoryFileDeleteHandler, RepositoryFileSetsGetHandler)
+    RepositoriesRetrieveHandler, RepositoriesCreateHandler, RepositoryRetrieveHandler, RepositoryUpdateHandler,
+    RepositoryDeleteHandler, FilesRetrieveHandler, FilesCreateHandler, FileRetrieveHandler,
+    FileContentRetrieveHandler, FileDeleteHandler, FileSetsRetrieveHandler)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -11,11 +11,11 @@ class RepositoriesResource(TokenProtectedResource):
     URI = '/repositories'
     
     def get(self):
-        handler = RepositoriesGetHandler()
+        handler = RepositoriesRetrieveHandler()
         return handler.response()
     
     def post(self):
-        handler = RepositoriesPostHandler()
+        handler = RepositoriesCreateHandler()
         return handler.response()
 
 
@@ -25,11 +25,11 @@ class RepositoryResource(TokenProtectedResource):
     URI = '/repositories/{}'
     
     def get(self, id):
-        handler = RepositoryGetHandler()
+        handler = RepositoryRetrieveHandler()
         return handler.response()
     
     def put(self, id):
-        handler = RepositoryPutHandler()
+        handler = RepositoryUpdateHandler()
         return handler.response()
     
     def delete(self, id):
@@ -38,45 +38,45 @@ class RepositoryResource(TokenProtectedResource):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class RepositoryFilesResource(TokenProtectedResource):
+class FilesResource(TokenProtectedResource):
 
     URI = '/repositories/{}/files'
     
     def get(self, id):
-        handler = RepositoryFilesGetHandler(id)
+        handler = FilesRetrieveHandler(id)
         return handler.response()
     
     def post(self, id):
-        handler = RepositoryFilesPostHandler(id)
+        handler = FilesCreateHandler(id)
         return handler.response()
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class RepositoryFileResource(TokenProtectedResource):
+class FileResource(TokenProtectedResource):
 
     URI = '/repositories/{}/files/{}'
     
     def get(self, id, file_id):
-        handler = RepositoryFileGetHandler(id, file_id)
+        handler = FileRetrieveHandler(id, file_id)
         return handler.response()
     
     def delete(self, id, file_id):
-        handler = RepositoryFileDeleteHandler(id, file_id)
+        handler = FileDeleteHandler(id, file_id)
         return handler.response()
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class RepositoryFileContentResource(TokenProtectedResource):
+class FileContentResource(TokenProtectedResource):
 
     URI = '/repositories/{}/files/{}/content'
 
     def get(self, id, file_id):
-        handler = RepositoryFileContentGetHandler(id, file_id)
+        handler = FileContentRetrieveHandler(id, file_id)
         return handler.response()
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class RepositoryFileSetsResource(TokenProtectedResource):
+class FileSetsResource(TokenProtectedResource):
 
     URI = '/repositories/{}/file-sets'
 
@@ -89,7 +89,7 @@ class RepositoryFileSetsResource(TokenProtectedResource):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class RepositoryFileSetResource(TokenProtectedResource):
+class FileSetResource(TokenProtectedResource):
 
     URI = '/repositories/{}/file-sets/{}'
     
@@ -104,7 +104,7 @@ class RepositoryFileSetResource(TokenProtectedResource):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class RepositoryFileSetFilesResource(TokenProtectedResource):
+class FileSetFilesResource(TokenProtectedResource):
 
     URI = '/repositories/{}/file-sets/{}/files'
     
@@ -113,7 +113,7 @@ class RepositoryFileSetFilesResource(TokenProtectedResource):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class RepositoryFileSetFileResource(TokenProtectedResource):
+class FileSetFileResource(TokenProtectedResource):
 
     URI = '/repositories/{}/file-sets/{}/files/{}'
     

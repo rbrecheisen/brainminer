@@ -1,13 +1,13 @@
 from flask import g
 from flask_restful import reqparse
 from brainminer.base.handlers import (
-    ResourceListPostHandler, ResourceListGetHandler, ResourceGetHandler, ResourcePutHandler, ResourceDeleteHandler)
+    ResourceListCreateHandler, ResourceListRetrieveHandler, ResourceRetrieveHandler, ResourceUpdateHandler, ResourceDeleteHandler)
 from brainminer.auth.authentication import create_token
 from brainminer.auth.dao import UserDao, UserGroupDao
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class TokensPostHandler(ResourceListPostHandler):
+class TokensCreateHandler(ResourceListCreateHandler):
 
     def handle_response(self):
         
@@ -19,7 +19,7 @@ class TokensPostHandler(ResourceListPostHandler):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class UsersGetHandler(ResourceListGetHandler):
+class UsersRetrieveHandler(ResourceListRetrieveHandler):
     
     def handle_response(self):
 
@@ -43,7 +43,7 @@ class UsersGetHandler(ResourceListGetHandler):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class UsersPostHandler(ResourceListPostHandler):
+class UsersCreateHandler(ResourceListCreateHandler):
     
     def handle_response(self):
 
@@ -67,7 +67,7 @@ class UsersPostHandler(ResourceListPostHandler):
     
     
 # ----------------------------------------------------------------------------------------------------------------------
-class UserGetHandler(ResourceGetHandler):
+class UserRetrieveHandler(ResourceRetrieveHandler):
     
     def handle_response(self):
 
@@ -81,7 +81,7 @@ class UserGetHandler(ResourceGetHandler):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class UserPutHandler(ResourcePutHandler):
+class UserUpdateHandler(ResourceUpdateHandler):
     
     def handle_response(self):
 
@@ -137,7 +137,7 @@ class UserDeleteHandler(ResourceDeleteHandler):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class UserGroupsGetHandler(ResourceListGetHandler):
+class UserGroupsRetrieveHandler(ResourceListRetrieveHandler):
     
     def handle_response(self):
 
@@ -156,7 +156,7 @@ class UserGroupsGetHandler(ResourceListGetHandler):
     
     
 # ----------------------------------------------------------------------------------------------------------------------
-class UserGroupsPostHandler(ResourceListPostHandler):
+class UserGroupsCreateHandler(ResourceListCreateHandler):
     
     def handle_response(self):
 
@@ -174,7 +174,7 @@ class UserGroupsPostHandler(ResourceListPostHandler):
 
     
 # ----------------------------------------------------------------------------------------------------------------------
-class UserGroupGetHandler(ResourceGetHandler):
+class UserGroupRetrieveHandler(ResourceRetrieveHandler):
     
     def handle_response(self):
 
@@ -188,7 +188,7 @@ class UserGroupGetHandler(ResourceGetHandler):
 
     
 # ----------------------------------------------------------------------------------------------------------------------
-class UserGroupPutHandler(ResourcePutHandler):
+class UserGroupUpdateHandler(ResourceUpdateHandler):
     
     def handle_response(self):
 
@@ -226,7 +226,7 @@ class UserGroupDeleteHandler(ResourceDeleteHandler):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class UserGroupUsersGetHandler(ResourceListGetHandler):
+class UserGroupUsersRetrieveHandler(ResourceListRetrieveHandler):
     
     def handle_response(self):
 
@@ -241,10 +241,10 @@ class UserGroupUsersGetHandler(ResourceListGetHandler):
 
     
 # ----------------------------------------------------------------------------------------------------------------------
-class UserGroupUserPutHandler(ResourcePutHandler):
+class UserGroupUserUpdateHandler(ResourceUpdateHandler):
     
     def __init__(self, id, user_id):
-        super(UserGroupUserPutHandler, self).__init__(id)
+        super(UserGroupUserUpdateHandler, self).__init__(id)
         self._user_id = user_id
         
     def user_id(self):
