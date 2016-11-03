@@ -16,6 +16,11 @@ if [ "${1}" == "" ] || [ "${1}" == "help" ]; then
     echo "help"
     echo ""
 
+elif [ "${1}" == "build" ]; then
+
+    eval $(docker-machine env default)
+    docker build -t brainminer/nginx:v1 ./nginx
+
 elif [ "${1}" == "start" ]; then
 
     ./manage.sh package

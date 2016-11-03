@@ -1,5 +1,5 @@
 from sqlalchemy.sql import func
-from brainminer.base.exceptions import ModelNotFoundException
+# from brainminer.base.exceptions import ModelNotFoundException
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -31,17 +31,17 @@ class BaseDao(object):
     def retrieve(self, **kwargs):
         if 'id' in kwargs.keys():
             obj = self.obj_class.query.get(kwargs['id'])
-            if obj is None:
-                criteria = 'id={}'.format(kwargs['id'])
-                raise ModelNotFoundException(self.obj_class.__class__.__name__, criteria)
+            # if obj is None:
+            #     criteria = 'id={}'.format(kwargs['id'])
+            #     raise ModelNotFoundException(self.obj_class.__class__.__name__, criteria)
         else:
             obj = self.obj_class.query.filter_by(**kwargs).first()
-            if obj is None:
-                criteria = []
-                for key in kwargs.keys():
-                    criteria.append('{}={}, '.format(key, kwargs[key]))
-                criteria = ','.join(criteria)
-                raise ModelNotFoundException(self.obj_class.__class__.__name__, criteria)
+            # if obj is None:
+            #     criteria = []
+            #     for key in kwargs.keys():
+            #         criteria.append('{}={}, '.format(key, kwargs[key]))
+            #     criteria = ','.join(criteria)
+            #     raise ModelNotFoundException(self.obj_class.__class__.__name__, criteria)
         return obj
 
     def retrieve_all(self, **kwargs):

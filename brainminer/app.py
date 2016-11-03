@@ -12,8 +12,8 @@ from brainminer.auth.api import (
     UserGroupUsersResource, UserGroupUserResource)
 from brainminer.storage.api import (
     RepositoriesResource, RepositoryResource, RepositoryFilesResource, RepositoryFileResource,
-    RepositoryFileSetsResource, RepositoryFileSetResource, RepositoryFileSetFilesResource,
-    RepositoryFileSetFileResource)
+    RepositoryFileContentResource, RepositoryFileSetsResource, RepositoryFileSetResource,
+    RepositoryFileSetFilesResource, RepositoryFileSetFileResource)
 from brainminer.auth.dao import UserDao, UserGroupDao
 
 app = Flask(__name__)
@@ -32,6 +32,8 @@ if 'PASSWORD_SCHEMES' not in app.config.keys():
     raise MissingSettingException('PASSWORD_SCHEMES')
 if 'USERS' not in app.config.keys():
     raise MissingSettingException('USERS')
+if 'UPLOAD_DIR' not in app.config.keys():
+    raise MissingSettingException('UPLOAD_DIR')
 
 api = Api(app)
 api.add_resource(RootResource, RootResource.URI)
@@ -46,6 +48,7 @@ api.add_resource(RepositoriesResource, RepositoriesResource.URI)
 api.add_resource(RepositoryResource, RepositoryResource.URI.format('<int:id>'))
 api.add_resource(RepositoryFilesResource, RepositoryFilesResource.URI.format('<int:id>'))
 api.add_resource(RepositoryFileResource, RepositoryFileResource.URI.format('<int:id>', '<int:file_id>'))
+api.add_resource(RepositoryFileContentResource, RepositoryFileContentResource.URI.format('<int:id>', '<int:file_id>'))
 api.add_resource(RepositoryFileSetsResource, RepositoryFileSetsResource.URI.format('<int:id>'))
 api.add_resource(RepositoryFileSetResource, RepositoryFileSetResource.URI.format('<int:id>', '<int:file_set_id>'))
 api.add_resource(RepositoryFileSetFilesResource, RepositoryFileSetFilesResource.URI.format('<int:id>', '<int:file_set_id>'))
@@ -106,9 +109,13 @@ def drop_tables():
 # ----------------------------------------------------------------------------------------------------------------------
 @api.representation('application/json')
 def output_json(data, code, headers=None):
-    response = make_response(json.dumps(data), code)
-    response.headers.extend(headers or {})
-    return response
+    if isinstance(data, dict):
+        # Only wrap data in JSON string if it's a dictionary. If it's a file
+        # stream we directly return it
+        response = make_response(json.dumps(data), code)
+        response.headers.extend(headers or {})
+        return response
+    return data
 
 
 # ----------------------------------------------------------------------------------------------------------------------

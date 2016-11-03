@@ -1,10 +1,8 @@
 from flask import g
+from flask_restful import reqparse
 from brainminer.base.handlers import (
     ResourceListPostHandler, ResourceListGetHandler, ResourceGetHandler, ResourcePutHandler, ResourceDeleteHandler)
 from brainminer.auth.authentication import create_token
-from brainminer.auth.parameters import (
-    UserQueryParameters, UserCreateParameters, UserUpdateParameters, UserGroupQueryParameters,
-    UserGroupCreateParameters, UserGroupUpdateParameters)
 from brainminer.auth.dao import UserDao, UserGroupDao
 
 
@@ -25,9 +23,17 @@ class UsersGetHandler(ResourceListGetHandler):
     
     def handle_response(self):
 
-        parameters = UserQueryParameters()
+        parser = reqparse.RequestParser()
+        parser.add_argument('username', type=str, location='args')
+        parser.add_argument('email', type=str, location='args')
+        parser.add_argument('first_name', type=str, location='args')
+        parser.add_argument('last_name', type=str, location='args')
+        parser.add_argument('is_admin', type=bool, location='args')
+        parser.add_argument('is_active', type=bool, location='args')
+        args = parser.parse_args()
+
         user_dao = UserDao(self.db_session())
-        users = user_dao.retrieve_all(**parameters.get())
+        users = user_dao.retrieve_all(**args)
         result = [user.to_dict() for user in users]
 
         return result, 200
@@ -41,9 +47,18 @@ class UsersPostHandler(ResourceListPostHandler):
     
     def handle_response(self):
 
-        parameters = UserCreateParameters()
+        parser = reqparse.RequestParser()
+        parser.add_argument('username', type=str, required=True, location='json')
+        parser.add_argument('password', type=str, required=True, location='json')
+        parser.add_argument('email', type=str, required=True, location='json')
+        parser.add_argument('first_name', type=str, location='json')
+        parser.add_argument('last_name', type=str, location='json')
+        parser.add_argument('is_admin', type=bool, location='json')
+        parser.add_argument('is_active', type=bool, location='json')
+        args = parser.parse_args()
+
         user_dao = UserDao(self.db_session())
-        user = user_dao.create(**parameters.get())
+        user = user_dao.create(**args)
 
         return user.to_dict(), 201
     
@@ -70,10 +85,18 @@ class UserPutHandler(ResourcePutHandler):
     
     def handle_response(self):
 
-        parameters = UserUpdateParameters()
+        parser = reqparse.RequestParser()
+        parser.add_argument('username', type=str, location='json')
+        parser.add_argument('password', type=str, location='json')
+        parser.add_argument('email', type=str, location='json')
+        parser.add_argument('first_name', type=str, location='json')
+        parser.add_argument('last_name', type=str, location='json')
+        parser.add_argument('is_admin', type=bool, location='json')
+        parser.add_argument('is_active', type=bool, location='json')
+        args = parser.parse_args()
+
         user_dao = UserDao(self.db_session())
         user = user_dao.retrieve(id=self.id())
-        args = parameters.get()
 
         if args['username'] != user.username:
             user.username = args['username']
@@ -118,9 +141,12 @@ class UserGroupsGetHandler(ResourceListGetHandler):
     
     def handle_response(self):
 
-        parameters = UserGroupQueryParameters()
+        parser = reqparse.RequestParser()
+        parser.add_argument('name', type=str, location='args')
+        args = parser.parse_args()
+
         user_group_dao = UserGroupDao(self.db_session())
-        user_groups = user_group_dao.retrieve_all(**parameters.get())
+        user_groups = user_group_dao.retrieve_all(**args)
         result = [user_group.to_dict() for user_group in user_groups]
 
         return result, 200
@@ -134,9 +160,12 @@ class UserGroupsPostHandler(ResourceListPostHandler):
     
     def handle_response(self):
 
-        parameters = UserGroupCreateParameters()
+        parser = reqparse.RequestParser()
+        parser.add_argument('name', type=str, required=True, location='json')
+        args = parser.parse_args()
+
         user_group_dao = UserGroupDao(self.db_session())
-        user_group = user_group_dao.create(**parameters.get())
+        user_group = user_group_dao.create(**args)
 
         return user_group.to_dict(), 201
 
@@ -163,10 +192,12 @@ class UserGroupPutHandler(ResourcePutHandler):
     
     def handle_response(self):
 
-        parameters = UserGroupUpdateParameters()
+        parser = reqparse.RequestParser()
+        parser.add_argument('name', type=str, location='json')
+        args = parser.parse_args()
+
         user_group_dao = UserGroupDao(self.db_session())
         user_group = user_group_dao.retrieve(id=self.id())
-        args = parameters.get()
 
         if args['name'] != user_group.name:
             user_group.name = args['name']
@@ -214,10 +245,10 @@ class UserGroupUserPutHandler(ResourcePutHandler):
     
     def __init__(self, id, user_id):
         super(UserGroupUserPutHandler, self).__init__(id)
-        self.user_id = user_id
+        self._user_id = user_id
         
     def user_id(self):
-        return self.user_id
+        return self._user_id
         
     def handle_response(self):
 
@@ -242,10 +273,10 @@ class UserGroupUserDeleteHandler(ResourceDeleteHandler):
 
     def __init__(self, id, user_id):
         super(UserGroupUserDeleteHandler, self).__init__(id)
-        self.user_id = user_id
+        self._user_id = user_id
 
     def user_id(self):
-        return self.user_id
+        return self._user_id
 
     def handle_response(self):
 

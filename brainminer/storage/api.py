@@ -1,5 +1,8 @@
 from brainminer.base.api import TokenProtectedResource
-from brainminer.storage.handlers import RepositoryFilesResourceGetHandler, RepositoryFilesResourcePostHandler
+from brainminer.storage.handlers import (
+    RepositoriesGetHandler, RepositoriesPostHandler, RepositoryGetHandler, RepositoryPutHandler,
+    RepositoryDeleteHandler, RepositoryFilesGetHandler, RepositoryFilesPostHandler, RepositoryFileGetHandler,
+    RepositoryFileContentGetHandler, RepositoryFileDeleteHandler, RepositoryFileSetsGetHandler)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -8,10 +11,12 @@ class RepositoriesResource(TokenProtectedResource):
     URI = '/repositories'
     
     def get(self):
-        return [], 200
+        handler = RepositoriesGetHandler()
+        return handler.response()
     
     def post(self):
-        return {}, 201
+        handler = RepositoriesPostHandler()
+        return handler.response()
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -20,13 +25,16 @@ class RepositoryResource(TokenProtectedResource):
     URI = '/repositories/{}'
     
     def get(self, id):
-        return {}, 200
+        handler = RepositoryGetHandler()
+        return handler.response()
     
     def put(self, id):
-        return {}, 200
+        handler = RepositoryPutHandler()
+        return handler.response()
     
     def delete(self, id):
-        return {}, 204
+        handler = RepositoryDeleteHandler()
+        return handler.response()
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -34,12 +42,12 @@ class RepositoryFilesResource(TokenProtectedResource):
 
     URI = '/repositories/{}/files'
     
-    def get(self):
-        handler = RepositoryFilesResourceGetHandler()
+    def get(self, id):
+        handler = RepositoryFilesGetHandler(id)
         return handler.response()
     
-    def post(self):
-        handler = RepositoryFilesResourcePostHandler()
+    def post(self, id):
+        handler = RepositoryFilesPostHandler(id)
         return handler.response()
 
 
@@ -49,13 +57,22 @@ class RepositoryFileResource(TokenProtectedResource):
     URI = '/repositories/{}/files/{}'
     
     def get(self, id, file_id):
-        return {}, 200
-    
-    def put(self, id, file_id):
-        return {}, 200
+        handler = RepositoryFileGetHandler(id, file_id)
+        return handler.response()
     
     def delete(self, id, file_id):
-        return {}, 204
+        handler = RepositoryFileDeleteHandler(id, file_id)
+        return handler.response()
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+class RepositoryFileContentResource(TokenProtectedResource):
+
+    URI = '/repositories/{}/files/{}/content'
+
+    def get(self, id, file_id):
+        handler = RepositoryFileContentGetHandler(id, file_id)
+        return handler.response()
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -64,6 +81,7 @@ class RepositoryFileSetsResource(TokenProtectedResource):
     URI = '/repositories/{}/file-sets'
 
     def get(self):
+
         return [], 200
     
     def post(self):

@@ -15,8 +15,8 @@ class InvalidSettingException(Exception):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class ModelNotFoundException(Exception):
+class ModelFieldValueException(Exception):
 
-    def __init__(self, name, criteria):
-        message = 'Model {} with criteria {} not found'.format(name, criteria)
-        super(ModelNotFoundException, self).__init__(message)
+    def __init__(self, model, field, value):
+        message = 'Model field {} has invalid value {}'.format(model, field, value)
+        super(ModelFieldValueException, self).__init__(message)

@@ -4,6 +4,7 @@ import os
 # Flask settings
 # ------------------------------------------------------------------------------------------------------------------
 
+BUNDLE_ERRORS = True
 PROPAGATE_EXCEPTIONS = True
 RESTFUL_JSON = {'indent': 2, 'sort_keys': True}
 
@@ -26,6 +27,14 @@ else:
     SQLALCHEMY_DATABASE_URI = 'sqlite:///{}'.format(SQLITE_DB_FILE)
     
 DATABASE = SQLALCHEMY_DATABASE_URI.split(':')[0]
+
+# ------------------------------------------------------------------------------------------------------------------
+# Security settings
+# ------------------------------------------------------------------------------------------------------------------
+
+UPLOAD_DIR = '/tmp/files'
+if not os.path.isdir(UPLOAD_DIR):
+    os.system('mkdir -p {}'.format(UPLOAD_DIR))
 
 # ------------------------------------------------------------------------------------------------------------------
 # Security settings

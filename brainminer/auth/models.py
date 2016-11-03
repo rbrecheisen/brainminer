@@ -4,6 +4,7 @@ from sqlalchemy.orm import relationship, validates
 from sqlalchemy_utils import PasswordType, force_auto_coercion
 
 from brainminer.base.models import Base, BaseModel
+from brainminer.base.exceptions import ModelFieldValueException
 from brainminer.auth.exceptions import PermissionDeniedException
 
 force_auto_coercion()
@@ -207,7 +208,7 @@ class Permission(BaseModel):
     @validates('action')
     def validate_action(self, key, action):
         if action not in Permission.ALL:
-            raise ValueError('Invalid action {}'.format(action))
+            raise ModelFieldValueException('Permission', 'action', action)
         return action
 
     def to_dict(self):
