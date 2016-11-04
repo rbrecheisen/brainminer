@@ -1,9 +1,12 @@
 from flask import g
 from flask_restful import reqparse
 from brainminer.base.handlers import (
-    ResourceListCreateHandler, ResourceListRetrieveHandler, ResourceRetrieveHandler, ResourceUpdateHandler, ResourceDeleteHandler)
+    ResourceListCreateHandler, ResourceListRetrieveHandler, ResourceRetrieveHandler, ResourceUpdateHandler,
+    ResourceDeleteHandler)
 from brainminer.auth.authentication import create_token
-from brainminer.auth.dao import UserDao, UserGroupDao
+from brainminer.auth.permissions import check_admin
+from brainminer.auth.exceptions import PermissionNotAssignedToUserException, PermissionNotAssignedToUserGroupException
+from brainminer.auth.dao import UserDao, UserGroupDao, PermissionDao
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -39,7 +42,7 @@ class UsersRetrieveHandler(ResourceListRetrieveHandler):
         return result, 200
     
     def check_permissions(self):
-        self.current_user().check_permission('retrieve:user')
+        check_admin(self.current_user())
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -63,7 +66,7 @@ class UsersCreateHandler(ResourceListCreateHandler):
         return user.to_dict(), 201
     
     def check_permissions(self):
-        self.current_user().check_permission('create:user')
+        check_admin(self.current_user())
     
     
 # ----------------------------------------------------------------------------------------------------------------------
@@ -77,7 +80,7 @@ class UserRetrieveHandler(ResourceRetrieveHandler):
         return user.to_dict(), 200
 
     def check_permissions(self):
-        self.current_user().check_permission('retrieve:user@{}'.format(self.id()))
+        check_admin(self.current_user())
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -118,7 +121,7 @@ class UserUpdateHandler(ResourceUpdateHandler):
         return user.to_dict(), 200
     
     def check_permissions(self):
-        self.current_user().check_permission('update:user@{}'.format(self.id()))
+        check_admin(self.current_user())
     
     
 # ----------------------------------------------------------------------------------------------------------------------
@@ -133,7 +136,142 @@ class UserDeleteHandler(ResourceDeleteHandler):
         return {}, 204
     
     def check_permissions(self):
-        self.current_user().check_permission('delete:user@{}'.format(self.id()))
+        check_admin(self.current_user())
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+class UserPermissionsRetrieveHandler(ResourceListRetrieveHandler):
+    
+    def handle_response(self):
+        
+        user_dao = UserDao(self.db_session())
+        user = user_dao.retrieve(id=self.id())
+        result = [p.to_dict() for p in user.permissions]
+                    
+        return result, 200
+        
+    def check_permissions(self):
+        check_admin(self.current_user())
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+class UserPermissionsCreateHandler(ResourceListCreateHandler):
+
+    def handle_response(self):
+        
+        parser = reqparse.RequestParser()
+        parser.add_argument('action', type=str, required=True, location='json')
+        parser.add_argument('resource_class', type=str, required=True, location='json')
+        parser.add_argument('resource_id', type=int, location='json')
+        parser.add_argument('granted', type=bool, location='json')
+        args = parser.parse_args()
+        
+        user_dao = UserDao(self.db_session())
+        user = user_dao.retrieve(id=self.id())
+        args['principal'] = user
+        
+        permission_dao = PermissionDao(self.db_session())
+        permission = permission_dao.create(**args)
+
+        return permission.to_dict(), 201
+    
+    def check_permissions(self):
+        check_admin(self.current_user())
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+class UserPermissionRetrieveHandler(ResourceRetrieveHandler):
+    
+    def __init__(self, id, permission_id):
+        super(UserPermissionRetrieveHandler, self).__init__(id)
+        self._permission_id = permission_id
+        
+    def permission_id(self):
+        return self._permission_id
+    
+    def handle_response(self):
+
+        user_dao = UserDao(self.db_session())
+        user = user_dao.retrieve(id=self.id())
+        permission_dao = PermissionDao(self.db_session())
+        permission = permission_dao.retrieve(id=self.permission_id())
+        if permission.principal != user:
+            raise PermissionNotAssignedToUserException(permission.to_str(), user.username)
+
+        return permission.to_dict(), 200
+    
+    def check_permissions(self):
+        check_admin(self.current_user())
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+class UserPermissionUpdateHandler(ResourceUpdateHandler):
+
+    def __init__(self, id, permission_id):
+        super(UserPermissionUpdateHandler, self).__init__(id)
+        self._permission_id = permission_id
+    
+    def permission_id(self):
+        return self._permission_id
+    
+    def handle_response(self):
+
+        parser = reqparse.RequestParser()
+        parser.add_argument('action', type=str, location='json')
+        parser.add_argument('resource_class', type=str, location='json')
+        parser.add_argument('resource_id', type=int, location='json')
+        parser.add_argument('granted', type=bool, location='json')
+        args = parser.parse_args()
+
+        user_dao = UserDao(self.db_session())
+        user = user_dao.retrieve(id=self.id())
+        permission_dao = PermissionDao(self.db_session())
+        permission = permission_dao.retrieve(id=self.permission_id())
+        if permission.principal != user:
+            raise PermissionNotAssignedToUserException(permission.to_str(), user.username)
+        
+        if args['action'] != permission.action:
+            permission.action = args['action']
+        if args['resource_class'] != permission.resource_class:
+            permission.resource_class = args['resource_class']
+        if args['resource_id'] != permission.resource_id:
+            permission.resource_id = args['resource_id']
+        if args['granted'] != permission.granted:
+            permission.granted = args['granted']
+            
+        permission_dao.save(permission)
+
+        return permission.to_dict(), 200
+    
+    def check_permissions(self):
+        check_admin(self.current_user())
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+class UserPermissionDeleteHandler(ResourceDeleteHandler):
+
+    def __init__(self, id, permission_id):
+        super(UserPermissionDeleteHandler, self).__init__(id)
+        self._permission_id = permission_id
+    
+    def permission_id(self):
+        return self._permission_id
+    
+    def handle_response(self):
+
+        user_dao = UserDao(self.db_session())
+        user = user_dao.retrieve(id=self.id())
+        permission_dao = PermissionDao(self.db_session())
+        permission = permission_dao.retrieve(id=self.permission_id())
+        if permission.principal != user:
+            raise PermissionNotAssignedToUserException(permission.to_str(), user.username)
+        
+        permission_dao.delete(permission)
+
+        return {}, 204
+    
+    def check_permissions(self):
+        check_admin(self.current_user())
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -152,7 +290,7 @@ class UserGroupsRetrieveHandler(ResourceListRetrieveHandler):
         return result, 200
     
     def check_permissions(self):
-        self.current_user().check_permission('retrieve:user-group')
+        check_admin(self.current_user())
     
     
 # ----------------------------------------------------------------------------------------------------------------------
@@ -170,7 +308,7 @@ class UserGroupsCreateHandler(ResourceListCreateHandler):
         return user_group.to_dict(), 201
 
     def check_permissions(self):
-        self.current_user().check_permission('create:user-group')
+        check_admin(self.current_user())
 
     
 # ----------------------------------------------------------------------------------------------------------------------
@@ -184,7 +322,7 @@ class UserGroupRetrieveHandler(ResourceRetrieveHandler):
         return user_group.to_dict(), 200
 
     def check_permissions(self):
-        self.current_user().check_permission('retrieve:user-group@{}'.format(self.id()))
+        check_admin(self.current_user())
 
     
 # ----------------------------------------------------------------------------------------------------------------------
@@ -207,7 +345,7 @@ class UserGroupUpdateHandler(ResourceUpdateHandler):
         return user_group.to_dict(), 200
 
     def check_permissions(self):
-        self.current_user().check_permission('update:user-group@{}'.format(self.id()))
+        check_admin(self.current_user())
 
     
 # ----------------------------------------------------------------------------------------------------------------------
@@ -222,7 +360,7 @@ class UserGroupDeleteHandler(ResourceDeleteHandler):
         return {}, 204
 
     def check_permissions(self):
-        self.current_user().check_permission('delete:user-group@{}'.format(self.id()))
+        check_admin(self.current_user())
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -237,7 +375,7 @@ class UserGroupUsersRetrieveHandler(ResourceListRetrieveHandler):
         return result, 200
 
     def check_permissions(self):
-        self.current_user().check_permission('retrieve:user-group@{}'.format(self.id()))
+        check_admin(self.current_user())
 
     
 # ----------------------------------------------------------------------------------------------------------------------
@@ -262,12 +400,9 @@ class UserGroupUserUpdateHandler(ResourceUpdateHandler):
         return user_group.to_dict(), 200
 
     def check_permissions(self):
-        # First check whether we're allowed to retrieve the user we're trying to add
-        self.current_user().check_permission('retrieve:user@{}'.format(self.user_id()))
-        # Then check whether we're allowed to update the user group
-        self.current_user().check_permission('update:user-group@{}'.format(self.id()))
+        check_admin(self.current_user())
 
-    
+
 # ----------------------------------------------------------------------------------------------------------------------
 class UserGroupUserDeleteHandler(ResourceDeleteHandler):
 
@@ -290,4 +425,139 @@ class UserGroupUserDeleteHandler(ResourceDeleteHandler):
         return user_group.to_dict(), 200
 
     def check_permissions(self):
-        self.current_user().check_permission('update:user-group@{}'.format(self.id()))
+        check_admin(self.current_user())
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+class UserGroupPermissionsRetrieveHandler(ResourceListRetrieveHandler):
+
+    def handle_response(self):
+        
+        user_group_dao = UserGroupDao(self.db_session())
+        user_group = user_group_dao.retrieve(id=self.id())
+        result = [p.to_dict() for p in user_group.permissions]
+        
+        return result, 200
+    
+    def check_permissions(self):
+        check_admin(self.current_user())
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+class UserGroupPermissionsCreateHandler(ResourceListCreateHandler):
+    
+    def handle_response(self):
+
+        parser = reqparse.RequestParser()
+        parser.add_argument('action', type=str, required=True, location='json')
+        parser.add_argument('resource_class', type=str, required=True, location='json')
+        parser.add_argument('resource_id', type=int, location='json')
+        parser.add_argument('granted', type=bool, location='json')
+        args = parser.parse_args()
+    
+        user_group_dao = UserGroupDao(self.db_session())
+        user_group = user_group_dao.retrieve(id=self.id())
+        args['principal'] = user_group
+    
+        permission_dao = PermissionDao(self.db_session())
+        permission = permission_dao.create(**args)
+    
+        return permission.to_dict(), 201
+    
+    def check_permissions(self):
+        check_admin(self.current_user())
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+class UserGroupPermissionRetrieveHandler(ResourceRetrieveHandler):
+    
+    def __init__(self, id, permission_id):
+        super(UserGroupPermissionRetrieveHandler, self).__init__(id)
+        self._permission_id = permission_id
+    
+    def permission_id(self):
+        return self._permission_id
+    
+    def handle_response(self):
+
+        user_group_dao = UserGroupDao(self.db_session())
+        user_group = user_group_dao.retrieve(id=self.id())
+        permission_dao = PermissionDao(self.db_session())
+        permission = permission_dao.retrieve(id=self.permission_id())
+        if permission.principal != user_group:
+            raise PermissionNotAssignedToUserGroupException(permission.to_str(), user_group.name)
+
+        return permission.to_dict(), 200
+    
+    def check_permissions(self):
+        check_admin(self.current_user())
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+class UserGroupPermissionUpdateHandler(ResourceUpdateHandler):
+    
+    def __init__(self, id, permission_id):
+        super(UserGroupPermissionUpdateHandler, self).__init__(id)
+        self._permission_id = permission_id
+    
+    def permission_id(self):
+        return self._permission_id
+    
+    def handle_response(self):
+    
+        parser = reqparse.RequestParser()
+        parser.add_argument('action', type=str, location='json')
+        parser.add_argument('resource_class', type=str, location='json')
+        parser.add_argument('resource_id', type=int, location='json')
+        parser.add_argument('granted', type=bool, location='json')
+        args = parser.parse_args()
+    
+        user_group_dao = UserGroupDao(self.db_session())
+        user_group = user_group_dao.retrieve(id=self.id())
+        permission_dao = PermissionDao(self.db_session())
+        permission = permission_dao.retrieve(id=self.permission_id())
+        if permission.principal != user_group:
+            raise PermissionNotAssignedToUserGroupException(permission.to_str(), user_group.name)
+    
+        if args['action'] != permission.action:
+            permission.action = args['action']
+        if args['resource_class'] != permission.resource_class:
+            permission.resource_class = args['resource_class']
+        if args['resource_id'] != permission.resource_id:
+            permission.resource_id = args['resource_id']
+        if args['granted'] != permission.granted:
+            permission.granted = args['granted']
+    
+        permission_dao.save(permission)
+
+        return permission.to_dict(), 200
+    
+    def check_permissions(self):
+        check_admin(self.current_user())
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+class UserGroupPermissionDeleteHandler(ResourceDeleteHandler):
+    
+    def __init__(self, id, permission_id):
+        super(UserGroupPermissionDeleteHandler, self).__init__(id)
+        self._permission_id = permission_id
+    
+    def permission_id(self):
+        return self._permission_id
+    
+    def handle_response(self):
+
+        user_group_dao = UserGroupDao(self.db_session())
+        user_group = user_group_dao.retrieve(id=self.id())
+        permission_dao = PermissionDao(self.db_session())
+        permission = permission_dao.retrieve(id=self.permission_id())
+        if permission.principal != user_group:
+            raise PermissionNotAssignedToUserGroupException(permission.to_str(), user_group.name)
+        
+        permission_dao.delete(permission_dao)
+        
+        return {}, 204
+    
+    def check_permissions(self):
+        check_admin(self.current_user())

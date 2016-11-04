@@ -1,6 +1,6 @@
 from flask import g
 from flask_restful import HTTPException
-from brainminer.auth.exceptions import PermissionDeniedException
+from brainminer.auth.exceptions import PermissionDeniedException, UserNotSuperUserException, UserNotAdminException
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -17,6 +17,12 @@ class ResourceHandler(object):
         try:
             self.check_permissions()
         except PermissionDeniedException as e:
+            print('[ERROR] {}.check_permissions() {}'.format(self.__class__.__name__, e.message))
+            return {'message': e.message}, 403
+        except UserNotSuperUserException as e:
+            print('[ERROR] {}.check_permissions() {}'.format(self.__class__.__name__, e.message))
+            return {'message': e.message}, 403
+        except UserNotAdminException as e:
             print('[ERROR] {}.check_permissions() {}'.format(self.__class__.__name__, e.message))
             return {'message': e.message}, 403
 

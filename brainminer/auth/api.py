@@ -1,8 +1,12 @@
 from brainminer.base.api import LoginProtectedResource, TokenProtectedResource
 from brainminer.auth.handlers import (
-    TokensCreateHandler, UsersRetrieveHandler, UsersCreateHandler, UserRetrieveHandler, UserUpdateHandler, UserDeleteHandler,
-    UserGroupsRetrieveHandler, UserGroupsCreateHandler, UserGroupRetrieveHandler, UserGroupUpdateHandler, UserGroupDeleteHandler,
-    UserGroupUsersRetrieveHandler, UserGroupUserUpdateHandler, UserGroupUserDeleteHandler)
+    TokensCreateHandler, UsersRetrieveHandler, UsersCreateHandler, UserRetrieveHandler, UserUpdateHandler,
+    UserDeleteHandler, UserGroupsRetrieveHandler, UserGroupsCreateHandler, UserGroupRetrieveHandler,
+    UserGroupUpdateHandler, UserGroupDeleteHandler, UserGroupUsersRetrieveHandler, UserGroupUserUpdateHandler,
+    UserGroupUserDeleteHandler, UserPermissionsRetrieveHandler, UserPermissionsCreateHandler,
+    UserPermissionRetrieveHandler, UserPermissionUpdateHandler, UserPermissionDeleteHandler,
+    UserGroupPermissionsRetrieveHandler, UserGroupPermissionsCreateHandler, UserGroupPermissionRetrieveHandler,
+    UserGroupPermissionUpdateHandler, UserGroupPermissionDeleteHandler)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -54,6 +58,43 @@ class UserResource(TokenProtectedResource):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
+class UserPermissionsResource(TokenProtectedResource):
+    
+    URI = '/users/{}/permissions'
+    
+    @staticmethod
+    def get(id):
+        handler = UserPermissionsRetrieveHandler(id)
+        return handler.response()
+    
+    @staticmethod
+    def post(id):
+        handler = UserPermissionsCreateHandler(id)
+        return handler.response()
+    
+    
+# ----------------------------------------------------------------------------------------------------------------------
+class UserPermissionResource(TokenProtectedResource):
+    
+    URI = '/users/{}/permissions/{}'
+    
+    @staticmethod
+    def get(id, permission_id):
+        handler = UserPermissionRetrieveHandler(id, permission_id)
+        return handler.response()
+    
+    @staticmethod
+    def put(id, permission_id):
+        handler = UserPermissionUpdateHandler(id, permission_id)
+        return handler.response()
+    
+    @staticmethod
+    def delete(id, permission_id):
+        handler = UserPermissionDeleteHandler(id, permission_id)
+        return handler.response()
+    
+    
+# ----------------------------------------------------------------------------------------------------------------------
 class UserGroupsResource(TokenProtectedResource):
 
     URI = '/user-groups'
@@ -87,6 +128,43 @@ class UserGroupResource(TokenProtectedResource):
     @staticmethod
     def delete(id):
         handler = UserGroupDeleteHandler(id)
+        return handler.response()
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+class UserGroupPermissionsResource(TokenProtectedResource):
+    
+    URI = '/user-groups/{}/permissions'
+    
+    @staticmethod
+    def get(id):
+        handler = UserGroupPermissionsRetrieveHandler(id)
+        return handler.response()
+    
+    @staticmethod
+    def post(id):
+        handler = UserGroupPermissionsCreateHandler(id)
+        return handler.response()
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+class UserGroupPermissionResource(TokenProtectedResource):
+    
+    URI = '/user-groups/{}/permissions/{}'
+    
+    @staticmethod
+    def get(id, permission_id):
+        handler = UserGroupPermissionRetrieveHandler(id, permission_id)
+        return handler.response()
+    
+    @staticmethod
+    def put(id, permission_id):
+        handler = UserGroupPermissionUpdateHandler(id, permission_id)
+        return handler.response()
+    
+    @staticmethod
+    def delete(id, permission_id):
+        handler = UserGroupPermissionDeleteHandler(id, permission_id)
         return handler.response()
 
 

@@ -8,12 +8,12 @@ from brainminer.base.models import Base
 from brainminer.base.exceptions import MissingSettingException, InvalidSettingException
 from brainminer.base.api import RootResource
 from brainminer.auth.api import (
-    TokensResource, UsersResource, UserResource, UserGroupsResource, UserGroupResource,
-    UserGroupUsersResource, UserGroupUserResource)
+    TokensResource, UsersResource, UserResource, UserPermissionsResource, UserPermissionResource, UserGroupsResource,
+    UserGroupResource, UserGroupPermissionsResource, UserGroupPermissionResource, UserGroupUsersResource,
+    UserGroupUserResource)
 from brainminer.storage.api import (
-    RepositoriesResource, RepositoryResource, FilesResource, FileResource,
-    FileContentResource, FileSetsResource, FileSetResource,
-    FileSetFilesResource, FileSetFileResource)
+    RepositoriesResource, RepositoryResource, FilesResource, FileResource, FileContentResource, FileSetsResource,
+    FileSetResource, FileSetFilesResource, FileSetFileResource)
 from brainminer.auth.dao import UserDao, UserGroupDao
 
 app = Flask(__name__)
@@ -40,8 +40,12 @@ api.add_resource(RootResource, RootResource.URI)
 api.add_resource(TokensResource, TokensResource.URI)
 api.add_resource(UsersResource, UsersResource.URI)
 api.add_resource(UserResource, UserResource.URI.format('<int:id>'))
+api.add_resource(UserPermissionsResource, UserPermissionsResource.URI.format('<int:id>'))
+api.add_resource(UserPermissionResource, UserPermissionResource.URI.format('<int:id>', '<int:permission_id>'))
 api.add_resource(UserGroupsResource, UserGroupsResource.URI)
 api.add_resource(UserGroupResource, UserGroupResource.URI.format('<int:id>'))
+api.add_resource(UserGroupPermissionsResource, UserGroupPermissionsResource.URI.format('<int:id>'))
+api.add_resource(UserGroupPermissionResource, UserGroupPermissionResource.URI.format('<int:id>', '<int:permission_id>'))
 api.add_resource(UserGroupUsersResource, UserGroupUsersResource.URI.format('<int:id>'))
 api.add_resource(UserGroupUserResource, UserGroupUserResource.URI.format('<int:id>', '<int:user_id>'))
 api.add_resource(RepositoriesResource, RepositoriesResource.URI)

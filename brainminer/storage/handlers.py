@@ -3,8 +3,10 @@ from flask import send_from_directory, current_app
 from flask_restful import reqparse
 from werkzeug.datastructures import FileStorage
 from brainminer.base.handlers import (
-    ResourceListRetrieveHandler, ResourceListCreateHandler, ResourceRetrieveHandler, ResourceUpdateHandler, ResourceDeleteHandler)
+    ResourceListRetrieveHandler, ResourceListCreateHandler, ResourceRetrieveHandler,
+    ResourceUpdateHandler, ResourceDeleteHandler)
 from brainminer.base.util import generate_string
+from brainminer.auth.permissions import has_permission, check_permission, add_permission
 from brainminer.storage.dao import RepositoryDao, FileDao, FileSetDao
 from brainminer.storage.exceptions import FileNotInRepositoryException, FileSetNotInRepositoryException
 
@@ -25,7 +27,7 @@ class RepositoriesRetrieveHandler(ResourceListRetrieveHandler):
         return result, 200
 
     def check_permissions(self):
-        self.current_user().check_permission('retrieve:repository')
+        check_permission(self.current_user(), 'retrieve:repository')
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -39,11 +41,14 @@ class RepositoriesCreateHandler(ResourceListCreateHandler):
 
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.create(**args)
+        # We give current user Permission.ALL for this repository. If he already has
+        # class-level permissions, no additional permission will be created
+        add_permission(self.current_user(), 'all:repository@{}'.format(repository.id))
 
         return repository.to_dict(), 201
 
     def check_permissions(self):
-        self.current_user().check_permission('create:repository')
+        check_permission(self.current_user(), 'create:repository')
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -57,7 +62,7 @@ class RepositoryRetrieveHandler(ResourceRetrieveHandler):
         return repository.to_dict(), 200
 
     def check_permissions(self):
-        self.current_user().check_permission('retrieve:repository@{}'.format(self.id()))
+        check_permission(self.current_user(), 'retrieve:repository@{}'.format(self.id()))
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -80,7 +85,8 @@ class RepositoryUpdateHandler(ResourceUpdateHandler):
         return repository.to_dict(), 200
 
     def check_permissions(self):
-        self.current_user().check_permission('update:repository@{}'.format(self.id()))
+        check_permission(self.current_user(), 'retrieve:repository@{}'.format(self.id()))
+        check_permission(self.current_user(), 'update:repository@{}'.format(self.id()))
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -95,7 +101,8 @@ class RepositoryDeleteHandler(ResourceDeleteHandler):
         return {}, 204
 
     def check_permissions(self):
-        self.current_user().check_permission('delete:repository@{}'.format(self.id()))
+        check_permission(self.current_user(), 'retrieve:repository@{}'.format(self.id()))
+        check_permission(self.current_user(), 'delete:repository@{}'.format(self.id()))
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -105,12 +112,27 @@ class FilesRetrieveHandler(ResourceListRetrieveHandler):
 
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.retrieve(id=self.id())
-        result = [f.to_dict() for f in repository.files]
-
+        
+        # We only return those files in the repository that are accessible to the
+        # current user. Normally, all files uploaded by the user will be accessible
+        # and optionally other files that were shared with him.
+        result = []
+        # If the user has class-level retrieve permission for files, then we don't
+        # have to check file permissions individually
+        if has_permission(self.current_user(), 'retrieve:file'):
+            result = [f.to_dict() for f in repository.files]
+        else:
+            for f in repository.files:
+                if has_permission(self.current_user(), 'retrieve:file@{}'.format(f.id)):
+                    result.append(f.to_dict())
+                    
         return result, 200
 
     def check_permissions(self):
-        self.current_user().check_permission('retrieve:repository@{}'.format(self.id()))
+        # First, the user should be allowed to retrieve the repository in question. Next, he
+        # should only be allowed to see the files created by him. We can only check this
+        # _after_ we retrieve the repository
+        check_permission(self.current_user(), 'retrieve:repository@{}'.format(self.id()))
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -137,6 +159,8 @@ class FilesCreateHandler(ResourceListCreateHandler):
         repository = repository_dao.retrieve(id=self.id())
         f_dao = FileDao(self.db_session())
 
+        args['repository'] = repository
+        
         f = f_dao.create(
             name=args['name'],
             type=args['type'],
@@ -147,14 +171,15 @@ class FilesCreateHandler(ResourceListCreateHandler):
             storage_id=args['storage_id'],
             storage_path=args['storage_path'],
             media_link=args['media_link'],
-            repository=repository,
-        )
+            repository=args['repository'])
+        
+        add_permission(self.current_user(), 'all:file@{}'.format(f.id))
 
         return f.to_dict(), 201
 
     def check_permissions(self):
-        self.current_user().check_permission('retrieve:repository@{}'.format(self.id()))
-        self.current_user().check_permission('create:file')
+        check_permission(self.current_user(), 'retrieve:repository@{}'.format(self.id()))
+        check_permission(self.current_user(), 'create:file')
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -179,8 +204,8 @@ class FileRetrieveHandler(ResourceRetrieveHandler):
         return f.to_dict(), 200
 
     def check_permissions(self):
-        self.current_user().check_permission('retrieve:repository@{}'.format(self.id()))
-        self.current_user().check_permission('retrieve:file@{}'.format(self.file_id()))
+        check_permission(self.current_user(), 'retrieve:repository@{}'.format(self.id()))
+        check_permission(self.current_user(), 'retrieve:file@{}'.format(self.file_id()))
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -206,8 +231,8 @@ class FileContentRetrieveHandler(ResourceRetrieveHandler):
             os.path.join(current_app.root_path, self.config()['UPLOAD_DIR']), filename=f.storage_id), 200
 
     def check_permissions(self):
-        self.current_user().check_permission('retrieve:repository@{}'.format(self.id()))
-        self.current_user().check_permission('retrieve:file@{}'.format(self.file_id()))
+        check_permission(self.current_user(), 'retrieve:repository@{}'.format(self.id()))
+        check_permission(self.current_user(), 'retrieve:file@{}'.format(self.file_id()))
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -233,8 +258,8 @@ class FileDeleteHandler(ResourceDeleteHandler):
         return {}, 200
 
     def check_permissions(self):
-        self.current_user().check_permission('retrieve:repository@{}'.format(self.id()))
-        self.current_user().check_permission('delete:file@{}'.format(self.file_id()))
+        check_permission(self.current_user(), 'retrieve:repository@{}'.format(self.id()))
+        check_permission(self.current_user(), 'delete:file@{}'.format(self.file_id()))
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -244,12 +269,20 @@ class FileSetsRetrieveHandler(ResourceListRetrieveHandler):
         
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.retrieve(id=self.id())
-        result = [file_set.to_dict() for file_set in repository.file_sets]
+        
+        # See FilesRetrieveHandler for permission strategy
+        result = []
+        if has_permission(self.current_user(), 'retrieve:file-set'):
+            result = [file_set.to_dict() for file_set in repository.file_sets]
+        else:
+            for file_set in repository.file_sets:
+                if has_permission(self.current_user(), 'retrieve:file-set@{}'.format(file_set.id)):
+                    result.append(file_set.to_dict())
         
         return result, 200
 
     def check_permissions(self):
-        self.current_user().check_permission('retrieve:repository@{}'.format(self.id()))
+        check_permission(self.current_user(), 'retrieve:repository@{}'.format(self.id()))
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -268,11 +301,13 @@ class FileSetsCreateHandler(ResourceListCreateHandler):
         file_set_dao = FileSetDao(self.db_session())
         file_set = file_set_dao.create(**args)
         
+        add_permission(self.current_user(), 'all:file-set@{}'.format(file_set.id))
+        
         return file_set.to_dict(), 201
 
     def check_permissions(self):
-        self.current_user().check_permission('retrieve:repository@{}'.format(self.id()))
-        self.current_user().check_permission('create:file-set')
+        check_permission(self.current_user(), 'retrieve:repository@{}'.format(self.id()))
+        check_permission(self.current_user(), 'create:file-set')
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -290,15 +325,15 @@ class FileSetRetrieveHandler(ResourceRetrieveHandler):
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.retrieve(id=self.id())
         file_set_dao = FileSetDao(self.db_session())
-        file_set = file_set_dao.retrieve(id=self.id())
+        file_set = file_set_dao.retrieve(id=self.file_set_id())
         if file_set.repository != repository:
             raise FileSetNotInRepositoryException(self.file_set_id(), repository.name)
         
         return file_set.to_dict(), 200
 
     def check_permissions(self):
-        self.current_user().check_permission('retrieve:repository@{}'.format(self.id()))
-        self.current_user().check_permission('retrieve:file-set@{}'.format(self.file_set_id()))
+        check_permission(self.current_user(), 'retrieve:repository@{}'.format(self.id()))
+        check_permission(self.current_user(), 'retrieve:file-set@{}'.format(self.file_set_id()))
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -320,7 +355,7 @@ class FileSetUpdateHandler(ResourceUpdateHandler):
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.retrieve(id=self.id())
         file_set_dao = FileSetDao(self.db_session())
-        file_set = file_set_dao.retrieve(id=self.id())
+        file_set = file_set_dao.retrieve(id=self.file_set_id())
         if file_set.repository != repository:
             raise FileSetNotInRepositoryException(self.file_set_id(), repository.name)
 
@@ -331,8 +366,8 @@ class FileSetUpdateHandler(ResourceUpdateHandler):
         return file_set.to_dict(), 200
 
     def check_permissions(self):
-        self.current_user().check_permission('retrieve:repository@{}'.format(self.id()))
-        self.current_user().check_permission('update:file-set@{}'.format(self.file_set_id()))
+        check_permission(self.current_user(), 'retrieve:repository@{}'.format(self.id()))
+        check_permission(self.current_user(), 'update:file-set@{}'.format(self.file_set_id()))
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -350,7 +385,7 @@ class FileSetDeleteHandler(ResourceDeleteHandler):
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.retrieve(id=self.id())
         file_set_dao = FileSetDao(self.db_session())
-        file_set = file_set_dao.retrieve(id=self.id())
+        file_set = file_set_dao.retrieve(id=self.file_set_id())
         if file_set.repository != repository:
             raise FileSetNotInRepositoryException(self.file_set_id(), repository.name)
         
@@ -359,8 +394,8 @@ class FileSetDeleteHandler(ResourceDeleteHandler):
         return {}, 204
 
     def check_permissions(self):
-        self.current_user().check_permission('retrieve:repository@{}'.format(self.id()))
-        self.current_user().check_permission('delete:file-set@{}'.format(self.file_set_id()))
+        check_permission(self.current_user(), 'retrieve:repository@{}'.format(self.id()))
+        check_permission(self.current_user(), 'delete:file-set@{}'.format(self.file_set_id()))
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -378,16 +413,24 @@ class FileSetFilesRetrieveHandler(ResourceListRetrieveHandler):
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.retrieve(id=self.id())
         file_set_dao = FileSetDao(self.db_session())
-        file_set = file_set_dao.retrieve(id=self.id())
+        file_set = file_set_dao.retrieve(id=self.file_set_id())
         if file_set.repository != repository:
             raise FileSetNotInRepositoryException(self.file_set_id(), repository.name)
         
-        result = [f.to_dict() for f in file_set.files]
+        # See FilesRetrieveHandler for permission strategy
+        result = []
+        if has_permission(self.current_user(), 'retrieve:file'):
+            result = [f.to_dict() for f in file_set.files]
+        else:
+            for f in file_set.files:
+                if has_permission(self.current_user(), 'retrieve:file@{}'.format(f.id)):
+                    result.append(f.to_dict())
         
         return result, 200
 
     def check_permissions(self):
-        self.current_user().check_permission('retrieve:repository@{}'.format(self.id()))
+        check_permission(self.current_user(), 'retrieve:repository@{}'.format(self.id()))
+        check_permission(self.current_user(), 'retrieve:file-set@{}'.format(self.file_set_id()))
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -409,7 +452,7 @@ class FileSetFileUpdateHandler(ResourceUpdateHandler):
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.retrieve(id=self.id())
         file_set_dao = FileSetDao(self.db_session())
-        file_set = file_set_dao.retrieve(id=self.id())
+        file_set = file_set_dao.retrieve(id=self.file_set_id())
         if file_set.repository != repository:
             raise FileSetNotInRepositoryException(self.file_set_id(), repository.name)
         
@@ -424,8 +467,9 @@ class FileSetFileUpdateHandler(ResourceUpdateHandler):
         return file_set.to_dict(), 200
 
     def check_permissions(self):
-        self.current_user().check_permission('retrieve:repository@{}'.format(self.id()))
-        self.current_user().check_permission('update:file-set@{}'.format(self.file_set_id()))
+        check_permission(self.current_user(), 'retrieve:repository@{}'.format(self.id()))
+        check_permission(self.current_user(), 'update:file-set@{}'.format(self.file_set_id()))
+        check_permission(self.current_user(), 'retrieve:file@{}'.format(self.file_id()))
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -447,7 +491,7 @@ class FileSetFileDeleteHandler(ResourceDeleteHandler):
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.retrieve(id=self.id())
         file_set_dao = FileSetDao(self.db_session())
-        file_set = file_set_dao.retrieve(id=self.id())
+        file_set = file_set_dao.retrieve(id=self.file_set_id())
         if file_set.repository != repository:
             raise FileSetNotInRepositoryException(self.file_set_id(), repository.name)
     
@@ -462,5 +506,6 @@ class FileSetFileDeleteHandler(ResourceDeleteHandler):
         return file_set.to_dict(), 200
 
     def check_permissions(self):
-        self.current_user().check_permission('retrieve:repository@{}'.format(self.id()))
-        self.current_user().check_permission('update:file-set@{}'.format(self.file_set_id()))
+        check_permission(self.current_user(), 'retrieve:repository@{}'.format(self.id()))
+        check_permission(self.current_user(), 'update:file-set@{}'.format(self.file_set_id()))
+        check_permission(self.current_user(), 'retrieve:file@{}'.format(self.file_id()))

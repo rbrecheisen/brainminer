@@ -41,16 +41,15 @@ class Principal(BaseModel):
             resource_class, resource_id = resource_class.split('@')
         # First check class-level access. If granted, we need check no further.
         for p in self.permissions:
-            if p.resource_id == resource_class:
+            if p.resource_class == resource_class and (p.resource_id is None or p.resource_id <= 0):
                 if p.action == action or p.action == 'all':
                     # Permission may have been denied so return 'granted'
                     return p.granted
             # If resource IDs were provided, check if they match
-            if resource_id:
-                if p.resource_id == '{}@{}'.format(resource_class, resource_id):
-                    if p.action == action or p.action == 'all':
-                        # Permission granted
-                        return p.granted
+            if resource_id and p.resource_id == int(resource_id):
+                if p.action == action or p.action == 'all':
+                    # Permission granted
+                    return p.granted
         # All failed, return False
         return False
     
@@ -108,10 +107,6 @@ class User(Principal):
                 return True
         # Nothing matched
         return False
-
-    def check_permission(self, permission):
-        if not self.has_permission(permission):
-            raise PermissionDeniedException(permission)
 
     def to_dict(self):
         user_groups = []
@@ -190,7 +185,7 @@ class Permission(BaseModel):
     RETRIEVE = 'retrieve'
     UPDATE = 'update'
     DELETE = 'delete'
-    ALL = ','.join([CREATE, RETRIEVE, UPDATE, DELETE])
+    ALL = 'all'
 
     # User ID in database
     id = Column(Integer, ForeignKey('base.id'), primary_key=True)
@@ -201,22 +196,30 @@ class Permission(BaseModel):
     # Principal associated with this permission
     principal = relationship('Principal', backref='permissions', foreign_keys=[principal_id])
     # ID of resource protected by permission
-    resource_id = Column(String(64), nullable=False)
+    resource_id = Column(Integer, nullable=True)
+    # Class name of resource
+    resource_class = Column(String(64), nullable=False)
     # Whether permission is granted or denied
     granted = Column(Boolean, default=True)
 
     @validates('action')
     def validate_action(self, key, action):
-        if action not in Permission.ALL:
+        if action not in [Permission.CREATE, Permission.RETRIEVE, Permission.UPDATE, Permission.DELETE, Permission.ALL]:
             raise ModelFieldValueException('Permission', 'action', action)
         return action
+    
+    def to_str(self):
+        if self.resource_id is None:
+            return '{}:{}'.format(self.action, self.resource_class)
+        return '{}:{}@{}'.format(self.action, self.resource_class, self.resource_id)
 
     def to_dict(self):
         obj = super(Permission, self).to_dict()
         obj.update({
             'action': self.action,
             'principal': self.principal.id,
-            'resource': self.resource_id,
+            'resource_id': self.resource_id,
+            'resource_class': self.resource_class,
             'granted': self.granted,
         })
         return obj
