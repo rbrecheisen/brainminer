@@ -109,7 +109,7 @@ def drop_tables():
 # ----------------------------------------------------------------------------------------------------------------------
 @api.representation('application/json')
 def output_json(data, code, headers=None):
-    if isinstance(data, dict):
+    if isinstance(data, dict) or isinstance(data, list):
         # Only wrap data in JSON string if it's a dictionary. If it's a file
         # stream we directly return it
         response = make_response(json.dumps(data), code)
@@ -143,8 +143,12 @@ def shutdown_database(e):
 
 if __name__ == '__main__':
 
+    # If we're using SQLite (instead of PostgreSQL) remove database file
     if app.config['DATABASE'] == 'sqlite':
         os.system('rm -f {}'.format(app.config['SQLITE_DB_FILE']))
+    # This code gets executed only if we're doing local testing, so remove the /tmp/files
+    # folder where all uploaded files gets stored.
+    os.system('rm -f {}/*'.format(app.config['UPLOAD_DIR']))
     
     host = os.getenv('BRAINMINER_HOST', '0.0.0.0')
     port = os.getenv('BRAINMINER_PORT', '5000')

@@ -138,6 +138,16 @@ class FileSet(BaseModel):
     repository_id = Column(Integer, ForeignKey('repository.id'), nullable=False)
     # File repository
     repository = relationship('Repository', backref='file_sets', foreign_keys=[repository_id])
+    
+    def add_file(self, f):
+        if f in self.files:
+            return
+        self.files.append(f)
+        
+    def remove_file(self, f):
+        if f not in self.files:
+            return
+        self.files.remove(f)
 
     def to_dict(self):
         files = []
