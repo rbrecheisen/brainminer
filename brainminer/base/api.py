@@ -1,3 +1,4 @@
+from flask import g
 from flask_restful import Resource
 from brainminer.auth.exceptions import (
     MissingAuthorizationHeaderException, UserNotFoundException, UserNotActiveException, InvalidPasswordException,
@@ -11,6 +12,10 @@ class BaseResource(Resource):
     def dispatch_request(self, *args, **kwargs):
         # We can some additional logging or checking here...
         return super(BaseResource, self).dispatch_request(*args, **kwargs)
+    
+    @staticmethod
+    def config():
+        return g.config
 
 
 # ----------------------------------------------------------------------------------------------------------------------

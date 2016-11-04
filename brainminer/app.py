@@ -6,7 +6,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 from brainminer.base.models import Base
 from brainminer.base.exceptions import MissingSettingException, InvalidSettingException
-from brainminer.base.api import RootResource
 from brainminer.auth.api import (
     TokensResource, UsersResource, UserResource, UserPermissionsResource, UserPermissionResource, UserGroupsResource,
     UserGroupResource, UserGroupPermissionsResource, UserGroupPermissionResource, UserGroupUsersResource,
@@ -16,7 +15,7 @@ from brainminer.storage.api import (
     FileSetResource, FileSetFilesResource, FileSetFileResource)
 from brainminer.auth.dao import UserDao, UserGroupDao
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='ui')
 app.config.from_pyfile(
     os.getenv('BRAINMINER_SETTINGS', os.path.abspath('brainminer/settings.py')))
 
@@ -36,7 +35,6 @@ if 'UPLOAD_DIR' not in app.config.keys():
     raise MissingSettingException('UPLOAD_DIR')
 
 api = Api(app)
-api.add_resource(RootResource, RootResource.URI)
 api.add_resource(TokensResource, TokensResource.URI)
 api.add_resource(UsersResource, UsersResource.URI)
 api.add_resource(UserResource, UserResource.URI.format('<int:id>'))
@@ -158,4 +156,5 @@ if __name__ == '__main__':
     port = os.getenv('BRAINMINER_PORT', '5000')
     port = int(port)
 
+    print(' * Click here for UI: http://0.0.0.0:5000/static/index.html')
     app.run(host=host, port=port)
