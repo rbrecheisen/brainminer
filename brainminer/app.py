@@ -3,13 +3,16 @@ import json
 from flask import Flask, make_response, g
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
-
 from brainminer.base.models import Base
 from brainminer.base.exceptions import MissingSettingException, InvalidSettingException
-from brainminer.auth.api import (
-    TokensResource, UsersResource, UserResource, UserPermissionsResource, UserPermissionResource, UserGroupsResource,
-    UserGroupResource, UserGroupPermissionsResource, UserGroupPermissionResource, UserGroupUsersResource,
-    UserGroupUserResource)
+from brainminer.auth.api.token import TokensResource
+from brainminer.auth.api.user import UsersResource, UserResource
+from brainminer.auth.api.user_group import UserGroupsResource, UserGroupResource
+from brainminer.auth.api.user_group_user import UserGroupUsersResource, UserGroupUserResource
+from brainminer.auth.api.user_permission import UserPermissionsResource, UserPermissionResource
+from brainminer.auth.api.user_group_permission import UserGroupPermissionsResource, UserGroupPermissionResource
+
+# TODO: Replace with subpackage classes
 from brainminer.storage.api import (
     RepositoriesResource, RepositoryResource, FilesResource, FileResource, FileContentResource, FileSetsResource,
     FileSetResource, FileSetFilesResource, FileSetFileResource)

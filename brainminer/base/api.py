@@ -1,32 +1,45 @@
 from flask import g
-from flask_restful import Resource
+from flask_restful import Resource, HTTPException, abort
 from brainminer.auth.exceptions import (
     MissingAuthorizationHeaderException, UserNotFoundException, UserNotActiveException, InvalidPasswordException,
-    SecretKeyNotFoundException, SecretKeyInvalidException, TokenDecodingFailedException)
+    SecretKeyNotFoundException, SecretKeyInvalidException, TokenDecodingFailedException, PermissionDeniedException,
+    UserNotSuperUserException, UserNotAdminException)
 from brainminer.auth.authentication import check_login, check_token
+from brainminer.auth.permissions import check_permission, check_admin, check_superuser
 
 
 # ----------------------------------------------------------------------------------------------------------------------
 class BaseResource(Resource):
 
     def dispatch_request(self, *args, **kwargs):
-        # We can some additional logging or checking here...
-        return super(BaseResource, self).dispatch_request(*args, **kwargs)
-    
+
+        code = 400
+
+        try:
+            return super(BaseResource, self).dispatch_request(*args, **kwargs)
+        except HTTPException as e:
+            message = e.data['message']
+            code = e.code
+        except Exception as e:
+            message = e.message
+
+        if message is not None:
+            print('[ERROR] {}.dispatch_request() {}'.format(self.__class__.__name__, message))
+            abort(code, message=message)
+
     @staticmethod
     def config():
         return g.config
 
+    @staticmethod
+    def db_session():
+        return g.db_session
 
-# ----------------------------------------------------------------------------------------------------------------------
-class RootResource(BaseResource):
-    
-    URI = '/'
-    
-    def get(self):
-        return {'message': 'Welcome to BrainMiner'}, 200
-    
-    
+    @staticmethod
+    def current_user():
+        return g.current_user
+
+
 # ----------------------------------------------------------------------------------------------------------------------
 class LoginProtectedResource(BaseResource):
 
@@ -47,7 +60,7 @@ class LoginProtectedResource(BaseResource):
             
         if message is not None:
             print('[ERROR] LoginProtectedResource.dispatch_request() {}'.format(message))
-            return {'message': message}, 403
+            abort(403, message=message)
         
         return super(BaseResource, self).dispatch_request(*args, **kwargs)
 
@@ -76,6 +89,28 @@ class TokenProtectedResource(BaseResource):
             
         if message is not None:
             print('[ERROR] TokenProtectedResource.dispatch_request() {}'.format(message))
-            return {'message': message}, 403
+            abort(403, message=message)
         
         return super(BaseResource, self).dispatch_request(*args, **kwargs)
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+class PermissionProtectedResource(TokenProtectedResource):
+
+    def check_admin(self):
+
+        try:
+            check_superuser(self.current_user())
+        except UserNotSuperUserException:
+            check_admin(self.current_user())
+        except UserNotAdminException as e:
+            print('[ERROR] {}.check_permission() {}'.format(self.__class__.__name__, e.message))
+            abort(403, message=e.message)
+
+    def check_permission(self, permission):
+
+        try:
+            check_permission(self.current_user(), permission)
+        except PermissionDeniedException as e:
+            print('[ERROR] {}.check_permission() {}'.format(self.__class__.__name__, e.message))
+            abort(403, message=e.message)

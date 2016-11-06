@@ -1,6 +1,5 @@
 from flask import request, g
 from jose import jwt, JWTError
-
 from brainminer.auth.dao import UserDao
 from brainminer.auth.exceptions import (
     SecretKeyNotFoundException, SecretKeyInvalidException, TokenEncodingFailedException,

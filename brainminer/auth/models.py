@@ -2,10 +2,8 @@ import flask
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, Table
 from sqlalchemy.orm import relationship, validates
 from sqlalchemy_utils import PasswordType, force_auto_coercion
-
 from brainminer.base.models import Base, BaseModel
 from brainminer.base.exceptions import ModelFieldValueException
-from brainminer.auth.exceptions import PermissionDeniedException
 
 force_auto_coercion()
 
