@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9e58c8cd-1b32-4153-89df-de48344d84d7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainminer/app.py" afterPath="$PROJECT_DIR$/brainminer/app.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainminer/auth/api/user.py" afterPath="$PROJECT_DIR$/brainminer/auth/api/user.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainminer/auth/api/user_group.py" afterPath="$PROJECT_DIR$/brainminer/auth/api/user_group.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainminer/auth/api/user_group_permission.py" afterPath="$PROJECT_DIR$/brainminer/auth/api/user_group_permission.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainminer/auth/api/user_permission.py" afterPath="$PROJECT_DIR$/brainminer/auth/api/user_permission.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainminer/auth/permissions.py" afterPath="$PROJECT_DIR$/brainminer/auth/permissions.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainminer/base/api.py" afterPath="$PROJECT_DIR$/brainminer/base/api.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainminer/storage/api/repository.py" afterPath="$PROJECT_DIR$/brainminer/storage/api/repository.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainminer/storage/api/repository_file.py" afterPath="$PROJECT_DIR$/brainminer/storage/api/repository_file.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainminer/storage/api/repository_file_set.py" afterPath="$PROJECT_DIR$/brainminer/storage/api/repository_file_set.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainminer/storage/api/repository_file_set_file.py" afterPath="$PROJECT_DIR$/brainminer/storage/api/repository_file_set_file.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/todo.md" afterPath="$PROJECT_DIR$/doc/todo.md" />
-    </list>
+    <list default="true" id="9e58c8cd-1b32-4153-89df-de48344d84d7" name="Default" comment="" />
     <ignored path="brainminer.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
