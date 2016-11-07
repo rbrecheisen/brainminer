@@ -59,10 +59,8 @@ class UserGroupResource(PermissionProtectedResource):
 
         user_group_dao = UserGroupDao(self.db_session())
         user_group = user_group_dao.retrieve(id=id)
-
         if args['name'] != user_group.name:
             user_group.name = args['name']
-
         user_group_dao.save(user_group)
 
         return user_group.to_dict(), 200

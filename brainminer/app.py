@@ -11,11 +11,11 @@ from brainminer.auth.api.user_group import UserGroupsResource, UserGroupResource
 from brainminer.auth.api.user_group_user import UserGroupUsersResource, UserGroupUserResource
 from brainminer.auth.api.user_permission import UserPermissionsResource, UserPermissionResource
 from brainminer.auth.api.user_group_permission import UserGroupPermissionsResource, UserGroupPermissionResource
-
-# TODO: Replace with subpackage classes
-from brainminer.storage.api import (
-    RepositoriesResource, RepositoryResource, FilesResource, FileResource, FileContentResource, FileSetsResource,
-    FileSetResource, FileSetFilesResource, FileSetFileResource)
+from brainminer.storage.api.repository import RepositoriesResource, RepositoryResource
+from brainminer.storage.api.repository_file import (
+    RepositoryFilesResource, RepositoryFileResource, RepositoryFileContentResource)
+from brainminer.storage.api.repository_file_set import RepositoryFileSetsResource, RepositoryFileSetResource
+from brainminer.storage.api.repository_file_set_file import RepositoryFileSetFilesResource, RepositoryFileSetFileResource
 from brainminer.auth.dao import UserDao, UserGroupDao
 
 app = Flask(__name__, static_folder='ui')
@@ -51,13 +51,13 @@ api.add_resource(UserGroupUsersResource, UserGroupUsersResource.URI.format('<int
 api.add_resource(UserGroupUserResource, UserGroupUserResource.URI.format('<int:id>', '<int:user_id>'))
 api.add_resource(RepositoriesResource, RepositoriesResource.URI)
 api.add_resource(RepositoryResource, RepositoryResource.URI.format('<int:id>'))
-api.add_resource(FilesResource, FilesResource.URI.format('<int:id>'))
-api.add_resource(FileResource, FileResource.URI.format('<int:id>', '<int:file_id>'))
-api.add_resource(FileContentResource, FileContentResource.URI.format('<int:id>', '<int:file_id>'))
-api.add_resource(FileSetsResource, FileSetsResource.URI.format('<int:id>'))
-api.add_resource(FileSetResource, FileSetResource.URI.format('<int:id>', '<int:file_set_id>'))
-api.add_resource(FileSetFilesResource, FileSetFilesResource.URI.format('<int:id>', '<int:file_set_id>'))
-api.add_resource(FileSetFileResource, FileSetFileResource.URI.format('<int:id>', '<int:file_set_id>', '<int:file_id>'))
+api.add_resource(RepositoryFilesResource, RepositoryFilesResource.URI.format('<int:id>'))
+api.add_resource(RepositoryFileResource, RepositoryFileResource.URI.format('<int:id>', '<int:file_id>'))
+api.add_resource(RepositoryFileContentResource, RepositoryFileContentResource.URI.format('<int:id>', '<int:file_id>'))
+api.add_resource(RepositoryFileSetsResource, RepositoryFileSetsResource.URI.format('<int:id>'))
+api.add_resource(RepositoryFileSetResource, RepositoryFileSetResource.URI.format('<int:id>', '<int:file_set_id>'))
+api.add_resource(RepositoryFileSetFilesResource, RepositoryFileSetFilesResource.URI.format('<int:id>', '<int:file_set_id>'))
+api.add_resource(RepositoryFileSetFileResource, RepositoryFileSetFileResource.URI.format('<int:id>', '<int:file_set_id>', '<int:file_id>'))
 
 db = SQLAlchemy(app)
 

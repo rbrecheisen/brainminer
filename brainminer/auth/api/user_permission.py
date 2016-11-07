@@ -33,7 +33,6 @@ class UserPermissionsResource(PermissionProtectedResource):
         user_dao = UserDao(self.db_session())
         user = user_dao.retrieve(id=id)
         args['principal'] = user
-
         permission_dao = PermissionDao(self.db_session())
         permission = permission_dao.create(**args)
 
@@ -53,10 +52,8 @@ class UserPermissionResource(PermissionProtectedResource):
         user = user_dao.retrieve(id=id)
         permission_dao = PermissionDao(self.db_session())
         permission = permission_dao.retrieve(id=permission_id)
-
         if permission.principal != user:
             raise PermissionNotAssignedToUserException(permission.to_str(), user.username)
-
         return permission.to_dict(), 200
 
     def put(self, id, permission_id):
@@ -74,10 +71,8 @@ class UserPermissionResource(PermissionProtectedResource):
         user = user_dao.retrieve(id=id)
         permission_dao = PermissionDao(self.db_session())
         permission = permission_dao.retrieve(id=permission_id)
-
         if permission.principal != user:
             raise PermissionNotAssignedToUserException(permission.to_str(), user.username)
-
         if args['action'] != permission.action:
             permission.action = args['action']
         if args['resource_class'] != permission.resource_class:
@@ -86,7 +81,6 @@ class UserPermissionResource(PermissionProtectedResource):
             permission.resource_id = args['resource_id']
         if args['granted'] != permission.granted:
             permission.granted = args['granted']
-
         permission_dao.save(permission)
 
         return permission.to_dict(), 200
@@ -99,10 +93,8 @@ class UserPermissionResource(PermissionProtectedResource):
         user = user_dao.retrieve(id=id)
         permission_dao = PermissionDao(self.db_session())
         permission = permission_dao.retrieve(id=permission_id)
-
         if permission.principal != user:
             raise PermissionNotAssignedToUserException(permission.to_str(), user.username)
-
         permission_dao.delete(permission)
 
         return {}, 204

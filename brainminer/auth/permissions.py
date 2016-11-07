@@ -27,7 +27,18 @@ def check_admin(principal):
     
 # ----------------------------------------------------------------------------------------------------------------------
 def has_permission(principal, permission):
-    return principal.has_permission(permission)
+
+    # Split permission up into multiple if there are multiple actions specified
+    actions, resource = permission.split(':')
+    actions = actions.split(',')
+    # Iterate through list of actions and create new permission for each.
+    # If at least 1 permission is not granted, return False
+    for action in actions:
+        p = '{}:{}'.format(action, resource)
+        if not principal.has_permission(p):
+            return False
+    # All of the permission were granted so return True
+    return True
 
 
 # ----------------------------------------------------------------------------------------------------------------------

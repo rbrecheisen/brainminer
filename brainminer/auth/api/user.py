@@ -62,7 +62,7 @@ class UserResource(PermissionProtectedResource):
 
     def put(self, id):
 
-        self.check_permission('update:user@{}'.format(id))
+        self.check_admin()
 
         parser = reqparse.RequestParser()
         parser.add_argument('username', type=str, location='json')
@@ -76,7 +76,6 @@ class UserResource(PermissionProtectedResource):
 
         user_dao = UserDao(self.db_session())
         user = user_dao.retrieve(id=id)
-
         if args['username'] != user.username:
             user.username = args['username']
         if args['password'] != user.password:
@@ -91,7 +90,6 @@ class UserResource(PermissionProtectedResource):
             user.is_admin = args['is_admin']
         if args['is_active'] != user.is_active:
             user.is_active = args['is_active']
-
         user = user_dao.save(user)
 
         return user.to_dict(), 200

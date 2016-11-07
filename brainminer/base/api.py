@@ -5,7 +5,7 @@ from brainminer.auth.exceptions import (
     SecretKeyNotFoundException, SecretKeyInvalidException, TokenDecodingFailedException, PermissionDeniedException,
     UserNotSuperUserException, UserNotAdminException)
 from brainminer.auth.authentication import check_login, check_token
-from brainminer.auth.permissions import check_permission, check_admin, check_superuser
+from brainminer.auth.permissions import has_permission, check_permission, check_admin, check_superuser
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -114,3 +114,6 @@ class PermissionProtectedResource(TokenProtectedResource):
         except PermissionDeniedException as e:
             print('[ERROR] {}.check_permission() {}'.format(self.__class__.__name__, e.message))
             abort(403, message=e.message)
+
+    def has_permission(self, permission):
+        return has_permission(self.current_user(), permission)

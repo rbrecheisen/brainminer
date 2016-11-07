@@ -33,7 +33,6 @@ class UserGroupPermissionsResource(PermissionProtectedResource):
         user_group_dao = UserGroupDao(self.db_session())
         user_group = user_group_dao.retrieve(id=id)
         args['principal'] = user_group
-
         permission_dao = PermissionDao(self.db_session())
         permission = permission_dao.create(**args)
 
@@ -73,10 +72,8 @@ class UserGroupPermissionResource(PermissionProtectedResource):
         user_group = user_group_dao.retrieve(id=id)
         permission_dao = PermissionDao(self.db_session())
         permission = permission_dao.retrieve(id=permission_id)
-
         if permission.principal != user_group:
             raise PermissionNotAssignedToUserGroupException(permission.to_str(), user_group.name)
-
         if args['action'] != permission.action:
             permission.action = args['action']
         if args['resource_class'] != permission.resource_class:
@@ -85,7 +82,6 @@ class UserGroupPermissionResource(PermissionProtectedResource):
             permission.resource_id = args['resource_id']
         if args['granted'] != permission.granted:
             permission.granted = args['granted']
-
         permission_dao.save(permission)
 
         return permission.to_dict(), 200
@@ -98,10 +94,8 @@ class UserGroupPermissionResource(PermissionProtectedResource):
         user_group = user_group_dao.retrieve(id=id)
         permission_dao = PermissionDao(self.db_session())
         permission = permission_dao.retrieve(id=permission_id)
-
         if permission.principal != user_group:
             raise PermissionNotAssignedToUserGroupException(permission.to_str(), user_group.name)
-
         permission_dao.delete(permission_dao)
 
         return {}, 204

@@ -1,5 +1,7 @@
 # To-do
 
+- Update and delete also requires retrieve permission
+- Creating entities should automatically assign ALL permission to current user
 - Deleting entities should also remove associated permissions
 - Use custom-generated IDs for the URIs instead of database IDs (Roland)
     http://toddfredrich.com/ids-in-rest-api.html
