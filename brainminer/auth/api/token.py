@@ -1,3 +1,4 @@
+from flask import g
 from brainminer.base.api import LoginProtectedResource
 from brainminer.auth.authentication import create_token
 

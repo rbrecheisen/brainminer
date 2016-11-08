@@ -80,8 +80,8 @@ def test_upload_and_download_file(root_token):
         uri('/repositories/{}/files/{}/content'.format(repository_id, file_id)), headers=token_header(root_token))
     assert response.status_code == 200
     assert response.content == 'this is some text'
-    
-    
+
+
 # ----------------------------------------------------------------------------------------------------------------------
 def test_retrieve_file_not_in_repository(root_token):
     pass

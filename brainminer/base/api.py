@@ -62,7 +62,7 @@ class LoginProtectedResource(BaseResource):
             print('[ERROR] LoginProtectedResource.dispatch_request() {}'.format(message))
             abort(403, message=message)
         
-        return super(BaseResource, self).dispatch_request(*args, **kwargs)
+        return super(LoginProtectedResource, self).dispatch_request(*args, **kwargs)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -91,7 +91,7 @@ class TokenProtectedResource(BaseResource):
             print('[ERROR] TokenProtectedResource.dispatch_request() {}'.format(message))
             abort(403, message=message)
         
-        return super(BaseResource, self).dispatch_request(*args, **kwargs)
+        return super(TokenProtectedResource, self).dispatch_request(*args, **kwargs)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -102,10 +102,11 @@ class PermissionProtectedResource(TokenProtectedResource):
         try:
             check_superuser(self.current_user())
         except UserNotSuperUserException:
-            check_admin(self.current_user())
-        except UserNotAdminException as e:
-            print('[ERROR] {}.check_permission() {}'.format(self.__class__.__name__, e.message))
-            abort(403, message=e.message)
+            try:
+                check_admin(self.current_user())
+            except UserNotAdminException as e:
+                print('[ERROR] {}.check_permission() {}'.format(self.__class__.__name__, e.message))
+                abort(403, message=e.message)
 
     def check_permission(self, permission):
 

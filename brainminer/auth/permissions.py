@@ -11,7 +11,7 @@ def is_superuser(principal):
 # ----------------------------------------------------------------------------------------------------------------------
 def check_superuser(principal):
     if not is_superuser(principal):
-        raise UserNotSuperUserException(principa.username)
+        raise UserNotSuperUserException(principal.username)
     
     
 # ----------------------------------------------------------------------------------------------------------------------

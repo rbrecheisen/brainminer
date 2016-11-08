@@ -53,6 +53,9 @@ class RepositoryFilesResource(PermissionProtectedResource):
         args['content_type'] = 'application/octet-stream'
         args['media_link'] = args['storage_path']
         args['size'] = 0
+        # Remove 'file' element in the arguments because the File constructor
+        # does not expect it
+        del args['file']
         f_dao = FileDao(self.db_session())
         f = f_dao.create(**args)
 
