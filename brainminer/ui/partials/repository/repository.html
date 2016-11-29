@@ -1,0 +1,23 @@
+<div class="row">
+    <div ng-include src="'partials/nav.html'"></div>
+    <div class="row">
+        <h5 class="col s4 offset-s4 center-align grey-text text-darken-2" ng-model="repository.name" ng-if="repository.id > 0">{{ repository.name }}</h5>
+        <h5 class="col s4 offset-s4 center-align grey-text text-darken-2" ng-if="repository.id == 0">New repository</h5>
+        <div class="row">
+            <div class="input-field col s4 offset-s4">
+                <input id="name" type="text" ng-model="repository.name" class="validate">
+                <label class="active" for="name" ng-if="repository.id > 0">Name</label>
+                <label class="active" for="name" ng-if="repository.id == 0">Name (required)</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s4 offset-s4">
+                <p class="right-align">
+                    <input class="btn waves-effect waves-light" type="button" ng-click="cancelSave()" value="Cancel">
+                    <input class="btn waves-effect waves-light" type="submit" ng-click="deleteRepository(repository)" value="Delete" ng-if="repository.id > 0">
+                    <input class="btn waves-effect waves-light" type="submit" ng-click="saveRepository(repository)" value="Save">
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

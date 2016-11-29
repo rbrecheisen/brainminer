@@ -13,7 +13,7 @@ class RepositoriesResource(PermissionProtectedResource):
         self.check_permission('retrieve:repository')
 
         parser = reqparse.RequestParser()
-        parser.add_argument('name', type=str, required=True, location='json')
+        parser.add_argument('name', type=str, location='json')
         args = parser.parse_args()
 
         repository_dao = RepositoryDao(self.db_session())

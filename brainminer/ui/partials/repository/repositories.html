@@ -1,0 +1,14 @@
+<div class="row">
+    <div ng-include src="'partials/nav.html'"></div>
+    <div class="row">
+        <h3 class="col s12 center-align grey-text text-darken-2">Repositories</h3>
+        <div class="col s12 m6 l6 offset-m3 offset-l3">
+            <input class="btn waves-effect waves-light" type="button" ng-click="createRepository()" value="Create"/>
+            <div class="collection">
+                <a href="#/repositories/{{ repository.id }}" class="collection-item" ng-repeat="repository in repositories | orderBy:'name'">
+                    {{ repository.name }} ({{ repository.files.length }} files, {{ repository.file_sets.length }} file sets)
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

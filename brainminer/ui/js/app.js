@@ -26,6 +26,14 @@ angular.module('app', ['ngRoute', 'controllers', 'services'])
                 .when('/admin', {
                     templateUrl: 'partials/admin.html',
                     controller: 'AdminController'
+                })
+                .when('/repositories', {
+                    templateUrl: 'partials/repository/repositories.html',
+                    controller: 'RepositoriesController'
+                })
+                .when('/repositories/:id?', {
+                    templateUrl: 'partials/repository/repository.html',
+                    controller: 'RepositoryController'
                 });
 
             $locationProvider.html5Mode(false);

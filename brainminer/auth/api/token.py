@@ -12,5 +12,8 @@ class TokensResource(LoginProtectedResource):
     def post():
 
         token = create_token(g.current_user)
-
-        return {'token': token}, 201
+        
+        return {
+            'token': token,
+            'is_admin': g.current_user.is_admin
+        }, 201
