@@ -18,7 +18,8 @@ from brainminer.storage.api.repository_file_set import RepositoryFileSetsResourc
 from brainminer.storage.api.repository_file_set_file import RepositoryFileSetFilesResource, RepositoryFileSetFileResource
 from brainminer.auth.dao import UserDao, UserGroupDao
 
-app = Flask(__name__, static_folder='ui')
+# Specify 'ui' folder as static content folder but set its URL path to '/'
+app = Flask(__name__, static_url_path='', static_folder='ui')
 app.config.from_pyfile(
     os.getenv('BRAINMINER_SETTINGS', os.path.abspath('brainminer/settings.py')))
 
@@ -151,13 +152,16 @@ if __name__ == '__main__':
     # If we're using SQLite (instead of PostgreSQL) remove database file
     if app.config['DATABASE'] == 'sqlite':
         os.system('rm -f {}'.format(app.config['SQLITE_DB_FILE']))
+        
     # This code gets executed only if we're doing local testing, so remove the /tmp/files
     # folder where all uploaded files gets stored.
     os.system('rm -f {}/*'.format(app.config['UPLOAD_DIR']))
     
+    # Set host and port number for local testing
     host = os.getenv('BRAINMINER_HOST', '0.0.0.0')
     port = os.getenv('BRAINMINER_PORT', '5000')
     port = int(port)
 
-    print(' * Click here for UI: http://0.0.0.0:5000/static/index.html')
+    # Run application
+    print(' * Click here for UI: http://0.0.0.0:5000/index.html')
     app.run(host=host, port=port)

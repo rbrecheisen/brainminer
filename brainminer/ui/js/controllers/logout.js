@@ -2,9 +2,10 @@
 
 angular.module('controllers')
 
-    .controller('logout', ['$location',
+    .controller('LogoutController', ['$location', 'TokenService', 'UserService',
 
-        function($location) {
-
-            alert('User logging out!');
+        function($location, TokenService, UserService) {
+            TokenService.delete();
+            UserService.setCurrentUser(null);
+            $location.path('/login');
         }]);
