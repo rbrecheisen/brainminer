@@ -11,19 +11,12 @@ angular.module('controllers')
 
             $scope.login = function() {
                 TokenService.create($scope.username, $scope.password).then(function(response) {
-                    var admin = response.data.is_admin;
                     TokenService.update(response.data.token);
-                    UserService.getByUsername($scope.username).then(function(response) {
-                        UserService.setCurrentUser(response.data[0]);
-                        if(admin)
-                            $location.path('/admin');
-                        else
-                            $location.path('/');
-                    }, function(error) {
-                        alert(JSON.stringify(error));
-                    })
-                }, function(error) {
-                    alert(JSON.stringify(error));
+                    UserService.setCurrentUser(response.data.current_user);
+                    if(UserService.getCurrentUser().is_admin)
+                        $location.path('/admin');
+                    else
+                        $location.path('/');
                 })
             };
         }]);

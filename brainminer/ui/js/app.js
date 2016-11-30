@@ -34,6 +34,14 @@ angular.module('app', ['ngRoute', 'controllers', 'services'])
                 .when('/repositories/:id?', {
                     templateUrl: 'partials/repository/repository.html',
                     controller: 'RepositoryController'
+                })
+                .when('/users', {
+                   templateUrl: 'partials/user/users.html',
+                    controller: 'UsersController'
+                })
+                .when('/users/:id?', {
+                   templateUrl: 'partials/user/user.html',
+                    controller: 'UserController'
                 });
 
             $locationProvider.html5Mode(false);

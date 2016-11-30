@@ -62,4 +62,15 @@ USERS = [
         'is_active': True,
         'is_visible': True,
     },
+    {
+        'username': 'quentin',
+        'password': 'secret',
+        'email': 'noirhomme@brainvoyager.com',
+        'first_name': 'Quentin',
+        'last_name': 'Noirhomme',
+        'is_superuser': False,
+        'is_admin': False,
+        'is_active': True,
+        'is_visible': True,
+    },
 ]

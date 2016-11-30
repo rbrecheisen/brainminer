@@ -15,5 +15,5 @@ class TokensResource(LoginProtectedResource):
         
         return {
             'token': token,
-            'is_admin': g.current_user.is_admin
+            'current_user': g.current_user.to_dict(),
         }, 201

@@ -19,8 +19,6 @@ angular.module('controllers')
                 for(var i = 0; i < response.data.length; i++) {
                     $scope.repositories.push(response.data[i]);
                 }
-            }, function(error) {
-                    alert(JSON.stringify(error));
             });
 
             $scope.createRepository = function() {
@@ -36,7 +34,7 @@ angular.module('controllers')
 
             $scope.currentUser = UserService.getCurrentUser();
             $scope.breadcrumbs = [
-                {url: '#/admin-dashboard', text: 'Dashboard'},
+                {url: '#/admin', text: 'Dashboard'},
                 {url: '#/repositories', text: 'Repositories'},
                 {url: '#/repositories/' + $routeParams.id, text: $routeParams.id}];
 
@@ -48,11 +46,9 @@ angular.module('controllers')
                 RepositoryService.get($scope.repository.id).then(function(response) {
                     $scope.repository = response.data;
                     $scope.breadcrumbs = [
-                        {url: '#/admin-dashboard', text: 'Dashboard'},
+                        {url: '#/admin', text: 'Dashboard'},
                         {url: '#/repositories', text: 'Repositories'},
                         {url: '#/repositories/' + $routeParams.id, text: $scope.repository.name}]
-                }, function(error) {
-                    alert(JSON.stringify(error));
                 });
             }
 
@@ -60,16 +56,14 @@ angular.module('controllers')
                 if(repository.id > 0) {
                     RepositoryService.update(repository.id, repository.name).then(function(x) {
                         $location.path('/repositories');
-                    }, function(error) {
-                        alert(JSON.stringify(error));
                     });
                 } else {
-                    if( ! repository.name)
-                        alert('Name is empty');
+                    if(!repository.name) {
+                        alert('Repository name cannot be empty');
+                        return;
+                    }
                     RepositoryService.create(repository.name).then(function(x) {
                         $location.path('/repositories');
-                    }, function(error) {
-                        alert(JSON.stringify(error));
                     });
                 }
             };
@@ -78,8 +72,6 @@ angular.module('controllers')
                 if(repository.id > 0) {
                     RepositoryService.delete(repository.id).then(function(x) {
                        $location.path('/repositories');
-                    }, function(error) {
-                        alert(JSON.stringify(error));
                     });
                 }
             };
