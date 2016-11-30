@@ -2,7 +2,7 @@
 
 angular.module('controllers', []);
 angular.module('services', ['ngResource', 'ngCookies']);
-angular.module('app', ['ngRoute', 'controllers', 'services'])
+angular.module('app', ['ngRoute', 'controllers', 'services', 'ngFileUpload'])
 
     .constant('environ', window.environ)
 
@@ -34,6 +34,14 @@ angular.module('app', ['ngRoute', 'controllers', 'services'])
                 .when('/repositories/:id?', {
                     templateUrl: 'partials/repository/repository.html',
                     controller: 'RepositoryController'
+                })
+                .when('/repositories/:id?/files/:file_id?', {
+                    templateUrl: 'partials/repository/file.html',
+                    controller: 'FileController'
+                })
+                .when('/repositories/:id?/file-sets/:file_set_id?', {
+                    templateUrl: 'partials/repository/file-set.html',
+                    controller: 'FileSetController'
                 })
                 .when('/users', {
                    templateUrl: 'partials/user/users.html',

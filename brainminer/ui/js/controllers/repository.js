@@ -10,15 +10,12 @@ angular.module('controllers')
 
             $scope.currentUser = UserService.getCurrentUser();
             $scope.breadcrumbs = [
-                {url: '#/admin', text: 'Dashboard'},
+                {url: $scope.currentUser.is_admin ? '#/admin' : '#/', text: 'Dashboard'},
                 {url: '#/repositories', text: 'Repositories'}
             ];
 
             RepositoryService.getAll().then(function(response) {
-                $scope.repositories = [];
-                for(var i = 0; i < response.data.length; i++) {
-                    $scope.repositories.push(response.data[i]);
-                }
+                $scope.repositories = response.data;
             });
 
             $scope.createRepository = function() {
@@ -26,15 +23,15 @@ angular.module('controllers')
             };
         }])
 
-    .controller('RepositoryController', ['$scope', '$location', '$routeParams', 'TokenService', 'UserService', 'RepositoryService',
+    .controller('RepositoryController', ['$scope', '$location', '$routeParams', 'TokenService', 'UserService', 'RepositoryService', 'FileService', 'FileSetService',
 
-        function($scope, $location, $routeParams, TokenService, UserService, RepositoryService) {
+        function($scope, $location, $routeParams, TokenService, UserService, RepositoryService, FileService, FileSetService) {
 
             TokenService.check();
 
             $scope.currentUser = UserService.getCurrentUser();
             $scope.breadcrumbs = [
-                {url: '#/admin', text: 'Dashboard'},
+                {url: $scope.currentUser.is_admin ? '#/admin' : '#/', text: 'Dashboard'},
                 {url: '#/repositories', text: 'Repositories'},
                 {url: '#/repositories/' + $routeParams.id, text: $routeParams.id}];
 
@@ -46,7 +43,7 @@ angular.module('controllers')
                 RepositoryService.get($scope.repository.id).then(function(response) {
                     $scope.repository = response.data;
                     $scope.breadcrumbs = [
-                        {url: '#/admin', text: 'Dashboard'},
+                        {url: $scope.currentUser.is_admin ? '#/admin' : '#/', text: 'Dashboard'},
                         {url: '#/repositories', text: 'Repositories'},
                         {url: '#/repositories/' + $routeParams.id, text: $scope.repository.name}]
                 });
@@ -78,5 +75,12 @@ angular.module('controllers')
 
             $scope.cancelSave = function() {
                 $location.path('/repositories');
+            };
+
+            $scope.uploadFile = function(repository) {
+                $location.path('/repositories/' + repository.id + '/files/0');
+            };
+
+            $scope.createFileSet = function(repository) {
             };
         }]);

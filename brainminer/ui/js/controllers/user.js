@@ -10,7 +10,7 @@ angular.module('controllers')
 
             $scope.currentUser = UserService.getCurrentUser();
             $scope.breadcrumbs = [
-                {url: '#/admin', text: 'Dashboard'},
+                {url: $scope.currentUser.is_admin ? '#/admin' : '#/', text: 'Dashboard'},
                 {url: '#/users', text: 'Users'}
             ];
 
@@ -41,7 +41,7 @@ angular.module('controllers')
 
             $scope.currentUser = UserService.getCurrentUser();
             $scope.breadcrumbs = [
-                {url: '#/admin', text: 'Dashboard'},
+                {url: $scope.currentUser.is_admin ? '#/admin' : '#/', text: 'Dashboard'},
                 {url: '#/users', text: 'Users'},
                 {url: '#/users/' + $routeParams.id, text: 'User'}
             ];
@@ -70,7 +70,7 @@ angular.module('controllers')
                         $scope.user.is_admin = user.is_admin ? 'true': 'false';
                         $scope.user.is_active = user.is_active ? 'true': 'false';
                         $scope.breadcrumbs = [
-                            {url: '#/admin-dashboard', text: 'Dashboard'},
+                            {url: $scope.currentUser.is_admin ? '#/admin' : '#/', text: 'Dashboard'},
                             {url: '#/users', text: 'Users'},
                             {url: '#/users/' + $routeParams.id, text: $scope.user.name}
                         ];

@@ -10,6 +10,6 @@ angular.module('controllers')
 
             $scope.currentUser = UserService.getCurrentUser();
             $scope.breadcrumbs = [
-                {url: '#/', text: 'Dashboard'}
+                {url: $scope.currentUser.is_admin ? '#/admin' : '#/', text: 'Dashboard'}
             ];
         }]);
