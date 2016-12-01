@@ -1,7 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Table
-from sqlalchemy.orm import relationship, validates
+from sqlalchemy.orm import relationship
 from brainminer.base.models import Base, BaseModel
-from brainminer.base.exceptions import ModelFieldValueException
 
 FileSetFiles = Table(
     'file_set_files', Base.metadata,
@@ -25,10 +24,10 @@ class Repository(BaseModel):
     def to_dict(self):
         files = []
         for f in self.files:
-            files.append(f.id)
+            files.append(f.to_dict())
         file_sets = []
         for file_set in self.file_sets:
-            file_sets.append(file_set.id)
+            file_sets.append(file_set.to_dict())
         obj = super(Repository, self).to_dict()
         obj.update({
             'name': self.name,
@@ -46,20 +45,10 @@ class File(BaseModel):
         'polymorphic_identity': 'file',
     }
 
-    TYPES = [
-        'text', 'binary', 'nifti', 'csv', 'none']
-
-    MODALITIES = [
-        't1', 't2', 'pd', 'fmri', 'rest-fmri', 'dti', 'none']
-
     # File ID in database
     id = Column(Integer, ForeignKey('base.id'), primary_key=True)
     # File name without path information
     name = Column(String(255), nullable=False)
-    # File type (e.g., txt, nifti, csv, binary, etc.)
-    type = Column(String(16), nullable=False)
-    # File modality (e.g., text, t1, fmri, rest, dti, etc.)
-    modality = Column(String(16), nullable=False)
     # File extension
     _extension = Column(String(8), nullable=False)
     # File content type
@@ -87,18 +76,6 @@ class File(BaseModel):
         if self._extension.startswith('.'):
             self._extension = self._extension[1:]
 
-    @validates('type')
-    def validates_type(self, key, type):
-        if type not in File.TYPES:
-            raise ModelFieldValueException('File', 'type', type)
-        return type
-
-    @validates('modality')
-    def validates_modality(self, key, modality):
-        if modality not in File.MODALITIES:
-            raise ModelFieldValueException('File', 'modality', modality)
-        return modality
-
     def to_dict(self):
         file_sets = []
         for file_set in self.file_sets:
@@ -106,8 +83,6 @@ class File(BaseModel):
         obj = super(File, self).to_dict()
         obj.update({
             'name': self.name,
-            'type': self.type,
-            'modality': self.modality,
             'extension': self.extension,
             'content_type': self.content_type,
             'size': self.size,

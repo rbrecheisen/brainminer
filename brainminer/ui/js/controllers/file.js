@@ -22,38 +22,31 @@ angular.module('controllers')
                     {url: $scope.currentUser.is_admin ? '#/admin' : '#/', text: 'Dashboard'},
                     {url: '#/repositories', text: 'Repositories'},
                     {url: '#/repositories/' + $scope.repository.id, text: $scope.repository.name},
-                    {url: '#/repositories/' + $scope.repository.id + '/files', text: '0'}];
+                    {url: '#/repositories/' + $scope.repository.id + '/files', text: $routeParams.file_id}];
                 
-                // if($routeParams.file_id > 0) {
-                //     FileService.get($routeParams.file_id).then(function(response) {
-                //         $scope.repository.file = response.data;
-                //         $scope.breadcrumbs = [
-                //             {url: $scope.currentUser.is_admin ? '#/admin' : '#/', text: 'Dashboard'},
-                //             {url: '#/repositories', text: 'Repositories'},
-                //             {url: '#/repositories/' + $scope.repository.id, text: $scope.repository.name},
-                //             {url: '#/repositories/' + $scope.repository.id + '/files', text: '0'}];
-                //     });
-                // }
-            });
-
-            $scope.uploadFiles = function(file, errFiles) {
-                $scope.f = file;
-                $scope.errFile = errFiles && errFiles[0];
-                if(file) {
-                    file.upload = Upload.upload({
-                        url: 'http://0.0.0.0:5000/repositories/' + $scope.repository.id + '/files',
-                        data: {file: file, 'type': 'text', 'modality': 'none'}
-                    });
-                    file.upload.then(function(response) {
-                        $timeout(function() {
-                            file.result = response.data;
-                        });
-                    }, function(error) {
-                        alert(JSON.stringify(error));
-                    }, function(evt) {
-                        file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                if($routeParams.file_id > 0) {
+                    FileService.get($routeParams.file_id).then(function(response) {
+                        $scope.file = response.data;
+                        $scope.breadcrumbs = [
+                            {url: $scope.currentUser.is_admin ? '#/admin' : '#/', text: 'Dashboard'},
+                            {url: '#/repositories', text: 'Repositories'},
+                            {url: '#/repositories/' + $scope.repository.id, text: $scope.repository.name},
+                            {url: '#/repositories/' + $scope.repository.id + '/files', text: $scope.file.name}];
                     });
                 }
+            });
+
+            $scope.uploadFile = function(file) {
+                FileService.upload($scope.repository.id, file).then(function(response) {
+                    $timeout(function() {
+                        console.log('Successfully uploaded file ' + response.config.data.file.name);
+                        $location.path('/repositories/' + $scope.repository.id);
+                    });
+                }, function(error) {
+                    console.log('Upload failed with status ' + error.status);
+                }, function(progress) {
+                    console.log('Upload progress: ' + parseInt(100.0 * progress.loaded / progress.total) + '%');
+                });
             };
 
             $scope.cancelUpload = function() {

@@ -18,5 +18,5 @@ class InvalidSettingException(Exception):
 class ModelFieldValueException(Exception):
 
     def __init__(self, model, field, value):
-        message = 'Model field \'{}\' has invalid value \'{}\''.format(model, field, value)
+        message = 'Model field \'{}.{}\' has invalid value \'{}\''.format(model, field, value)
         super(ModelFieldValueException, self).__init__(message)

@@ -30,16 +30,16 @@
                 </div>
             </div>
         </span>
-        <span ng-if="repository.id > 0">
-            <h5 class="col s12 center-align grey-text text-darken-2">File sets</h5>
-            <div class="col s12 m6 l6 offset-m3 offset-l3 center-align">
-                <input class="btn waves-effect waves-light" type="button" ng-click="createFileSet(repository)" value="Create"/>
-                <div class="collection">
-                    <a href="#/repositories/{{repository.id}}/file-sets/{{file_set.id}}" class="collection-item" ng-repeat="file_set in repository.file_sets | orderBy:'name'">
-                        {{ file_set.name }}
-                    </a>
-                </div>
-            </div>
-        </span>
+        <!--<span ng-if="repository.id > 0">-->
+            <!--<h5 class="col s12 center-align grey-text text-darken-2">File sets</h5>-->
+            <!--<div class="col s12 m6 l6 offset-m3 offset-l3 center-align">-->
+                <!--<input class="btn waves-effect waves-light" type="button" ng-click="createFileSet(repository)" value="Create"/>-->
+                <!--<div class="collection">-->
+                    <!--<a href="#/repositories/{{repository.id}}/file-sets/{{file_set.id}}" class="collection-item" ng-repeat="file_set in repository.file_sets | orderBy:'name'">-->
+                        <!--{{ file_set.name }}-->
+                    <!--</a>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</span>-->
     </div>
 </div>

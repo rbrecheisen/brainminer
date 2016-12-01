@@ -12,24 +12,20 @@ angular.module('services')
 
             return {
 
+                get: function(id, file_id) {
+                    return $http({
+                        method: 'GET',
+                        url: filesUri + '/' + id + '/files/' + file_id,
+                        headers: TokenService.header()
+                    })
+                },
+
                 upload: function(id, file) {
-                    Upload.upload({
+                    return Upload.upload({
                         url: filesUri + '/' + id + '/files',
-                        data: {file: file, 'type': 'text', 'modality': 'none'}
-                    }).then(function(response) {
-                        console.log('Success ' + response.config.data.file.name + 'uploaded. Response: ' + response.data);
-                    }, function(error) {
-                        console.log(JSON.stringify(error));
-                    }, function(event) {
-                        var progressPercentage = parseInt(100.0 * event.loaded / event.total);
-                        console.log('progress: ' + progressPercentage + '% ' + event.config.data.file.name);
+                        data: {file: file},
+                        headers: TokenService.header()
                     });
-                    // return $http({
-                    //     method: 'POST',
-                    //     url: filesUri + '/' + id + '/files',
-                    //     data: file,
-                    //     headers: TokenService.header()
-                    // });
                 }
             }
         }]);

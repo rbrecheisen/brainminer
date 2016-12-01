@@ -38,6 +38,7 @@ angular.module('controllers')
             $scope.repository = {};
             $scope.repository.id = $routeParams.id;
             $scope.repository.name = '';
+            $scope.repository.files = [];
 
             if($scope.repository.id > 0) {
                 RepositoryService.get($scope.repository.id).then(function(response) {
@@ -45,7 +46,7 @@ angular.module('controllers')
                     $scope.breadcrumbs = [
                         {url: $scope.currentUser.is_admin ? '#/admin' : '#/', text: 'Dashboard'},
                         {url: '#/repositories', text: 'Repositories'},
-                        {url: '#/repositories/' + $routeParams.id, text: $scope.repository.name}]
+                        {url: '#/repositories/' + $routeParams.id, text: $scope.repository.name}];
                 });
             }
 

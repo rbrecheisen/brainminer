@@ -37,17 +37,11 @@ class RepositoryFilesResource(PermissionProtectedResource):
     def post(self, id):
 
         parser = reqparse.RequestParser()
-        # parser.add_argument('type', type=str, required=True, location='form')
-        # parser.add_argument('modality', type=str, required=True, location='form')
         parser.add_argument('file', type=FileStorage, required=True, location='files')
         args = parser.parse_args()
 
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.retrieve(id=id)
-        ####
-        args['type'] = 'text'
-        args['modality'] = 'none'
-        ####
         args['repository'] = repository
         args['storage_id'] = generate_string()
         args['storage_path'] = os.path.join(current_app.root_path, self.config()['UPLOAD_DIR'], args['storage_id'])
