@@ -19,7 +19,9 @@ angular.module('controllers')
             });
 
             $scope.createRepository = function() {
-                $location.path('/repositories/0');
+                if($scope.currentUser.is_admin) {
+                    $location.path('/repositories/0');
+                }
             };
         }])
 

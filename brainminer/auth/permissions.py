@@ -5,22 +5,26 @@ from brainminer.auth.exceptions import UserNotAdminException, UserNotSuperUserEx
 
 # ----------------------------------------------------------------------------------------------------------------------
 def is_superuser(principal):
+    
     return principal.is_superuser
 
 
 # ----------------------------------------------------------------------------------------------------------------------
 def check_superuser(principal):
+    
     if not is_superuser(principal):
         raise UserNotSuperUserException(principal.username)
     
     
 # ----------------------------------------------------------------------------------------------------------------------
 def is_admin(principal):
+    
     return principal.is_admin
 
 
 # ----------------------------------------------------------------------------------------------------------------------
 def check_admin(principal):
+    
     if not is_admin(principal):
         raise UserNotAdminException(principal.username)
     
@@ -43,6 +47,7 @@ def has_permission(principal, permission):
 
 # ----------------------------------------------------------------------------------------------------------------------
 def check_permission(principal, permission):
+    
     if not has_permission(principal, permission):
         raise PermissionDeniedException(permission)
 

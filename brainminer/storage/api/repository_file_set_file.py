@@ -12,7 +12,6 @@ class RepositoryFileSetFilesResource(PermissionProtectedResource):
 
         self.check_permission('retrieve:repository@{}'.format(id))
         self.check_permission('retrieve:file-set@{}'.format(file_set_id))
-
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.retrieve(id=id)
         file_set_dao = FileSetDao(self.db_session())
@@ -39,7 +38,6 @@ class RepositoryFileSetFileResource(PermissionProtectedResource):
 
         self.check_permission('retrieve:repository@{}'.format(id))
         self.check_permission('retrieve,update:file-set@{}'.format(file_set_id))
-
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.retrieve(id=id)
         file_set_dao = FileSetDao(self.db_session())
@@ -59,7 +57,6 @@ class RepositoryFileSetFileResource(PermissionProtectedResource):
 
         self.check_permission('retrieve:repository@{}'.format(id))
         self.check_permission('retrieve,update:file-set@{}'.format(file_set_id))
-
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.retrieve(id=id)
         file_set_dao = FileSetDao(self.db_session())

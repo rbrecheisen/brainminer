@@ -12,7 +12,6 @@ class UserGroupPermissionsResource(PermissionProtectedResource):
     def get(self, id):
 
         self.check_admin()
-
         user_group_dao = UserGroupDao(self.db_session())
         user_group = user_group_dao.retrieve(id=id)
         result = [p.to_dict() for p in user_group.permissions]
@@ -22,14 +21,12 @@ class UserGroupPermissionsResource(PermissionProtectedResource):
     def post(self, id):
 
         self.check_admin()
-
         parser = reqparse.RequestParser()
         parser.add_argument('action', type=str, required=True, location='json')
         parser.add_argument('resource_class', type=str, required=True, location='json')
         parser.add_argument('resource_id', type=int, location='json')
         parser.add_argument('granted', type=bool, location='json')
         args = parser.parse_args()
-
         user_group_dao = UserGroupDao(self.db_session())
         user_group = user_group_dao.retrieve(id=id)
         args['principal'] = user_group
@@ -47,7 +44,6 @@ class UserGroupPermissionResource(PermissionProtectedResource):
     def get(self, id, permission_id):
 
         self.check_admin()
-
         user_group_dao = UserGroupDao(self.db_session())
         user_group = user_group_dao.retrieve(id=id)
         permission_dao = PermissionDao(self.db_session())
@@ -60,14 +56,12 @@ class UserGroupPermissionResource(PermissionProtectedResource):
     def put(self, id, permission_id):
 
         self.check_admin()
-
         parser = reqparse.RequestParser()
         parser.add_argument('action', type=str, location='json')
         parser.add_argument('resource_class', type=str, location='json')
         parser.add_argument('resource_id', type=int, location='json')
         parser.add_argument('granted', type=bool, location='json')
         args = parser.parse_args()
-
         user_group_dao = UserGroupDao(self.db_session())
         user_group = user_group_dao.retrieve(id=id)
         permission_dao = PermissionDao(self.db_session())
@@ -89,7 +83,6 @@ class UserGroupPermissionResource(PermissionProtectedResource):
     def delete(self, id, permission_id):
 
         self.check_admin()
-
         user_group_dao = UserGroupDao(self.db_session())
         user_group = user_group_dao.retrieve(id=id)
         permission_dao = PermissionDao(self.db_session())

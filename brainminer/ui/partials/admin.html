@@ -1,7 +1,6 @@
 <div class="row">
     <div ng-include src="'partials/nav.html'"></div>
     <div class="row">
-        <h5 class="col s12 left-align grey-text text-darken-2">Security</h5>
         <div class="col s12 m4 l4">
             <a href="#/users">
                 <div class="card white z-depth-2">
@@ -14,73 +13,12 @@
             </a>
         </div>
         <div class="col s12 m4 l4">
-            <a href="#/user-groups">
-                <div class="card white z-depth-2">
-                    <div class="card-content">
-                        <img src="../images/user-groups-32x32.png"/>
-                        <h5 class="grey-text text-darken-2">User groups</h5>
-                        <p class="grey-text">Manage groups of users</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col s12 m4 l4">
-            <a href="#/permissions">
-                <div class="card white z-depth-2">
-                    <div class="card-content">
-                        <img src="../images/permissions-32x32.png"/>
-                        <h5 class="grey-text text-darken-2">Permissions</h5>
-                        <p class="grey-text">Manage user and group permissions</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-    <div class="row">
-        <h5 class="col s12 left-align grey-text text-darken-2">Storage</h5>
-        <div class="col s12 m4 l4">
             <a href="#/repositories">
                 <div class="card white z-depth-2">
                     <div class="card-content">
                         <img src="../images/repositories-32x32.png"/>
                         <h5 class="grey-text text-darken-2">Repositories</h5>
                         <p class="grey-text">Manage repositories</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col s12 m4 l4">
-            <a href="#/file-sets">
-                <div class="card white z-depth-2">
-                    <div class="card-content">
-                        <img src="../images/file-sets-32x32.png"/>
-                        <h5 class="grey-text text-darken-2">File sets</h5>
-                        <p class="grey-text">Manage file sets</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col s12 m4 l4">
-            <a href="#/files">
-                <div class="card white z-depth-2">
-                    <div class="card-content">
-                        <img src="../images/files-32x32.png"/>
-                        <h5 class="grey-text text-darken-2">Files</h5>
-                        <p class="grey-text">Manage files</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-    <div class="row">
-        <h5 class="col s12 left-align grey-text text-darken-2">Computing</h5>
-        <div class="col s12 m4 l4">
-            <a href="#/pipelines">
-                <div class="card white z-depth-2">
-                    <div class="card-content">
-                        <img src="../images/pipelines-32x32.png"/>
-                        <h5 class="grey-text text-darken-2">Pipelines</h5>
-                        <p class="grey-text">Manage pipelines</p>
                     </div>
                 </div>
             </a>
@@ -96,16 +34,117 @@
                 </div>
             </a>
         </div>
-        <div class="col s12 m4 l4">
-            <a href="#/results">
-                <div class="card white z-depth-2">
-                    <div class="card-content">
-                        <img src="../images/task-results-32x32.png"/>
-                        <h5 class="grey-text text-darken-2">Results</h5>
-                        <p class="grey-text">Manage task results</p>
-                    </div>
-                </div>
-            </a>
-        </div>
     </div>
 </div>
+
+<!--<div class="row">-->
+    <!--<div ng-include src="'partials/nav.html'"></div>-->
+    <!--<div class="row">-->
+        <!--<h5 class="col s12 left-align grey-text text-darken-2">Security</h5>-->
+        <!--<div class="col s12 m4 l4">-->
+            <!--<a href="#/users">-->
+                <!--<div class="card white z-depth-2">-->
+                    <!--<div class="card-content">-->
+                        <!--<img src="../images/users-32x32.png"/>-->
+                        <!--<h5 class="grey-text text-darken-2">Users</h5>-->
+                        <!--<p class="grey-text">Manage users</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</a>-->
+        <!--</div>-->
+        <!--<div class="col s12 m4 l4">-->
+            <!--<a href="#/user-groups">-->
+                <!--<div class="card white z-depth-2">-->
+                    <!--<div class="card-content">-->
+                        <!--<img src="../images/user-groups-32x32.png"/>-->
+                        <!--<h5 class="grey-text text-darken-2">User groups</h5>-->
+                        <!--<p class="grey-text">Manage groups of users</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</a>-->
+        <!--</div>-->
+        <!--<div class="col s12 m4 l4">-->
+            <!--<a href="#/permissions">-->
+                <!--<div class="card white z-depth-2">-->
+                    <!--<div class="card-content">-->
+                        <!--<img src="../images/permissions-32x32.png"/>-->
+                        <!--<h5 class="grey-text text-darken-2">Permissions</h5>-->
+                        <!--<p class="grey-text">Manage user and group permissions</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</a>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+        <!--<h5 class="col s12 left-align grey-text text-darken-2">Storage</h5>-->
+        <!--<div class="col s12 m4 l4">-->
+            <!--<a href="#/repositories">-->
+                <!--<div class="card white z-depth-2">-->
+                    <!--<div class="card-content">-->
+                        <!--<img src="../images/repositories-32x32.png"/>-->
+                        <!--<h5 class="grey-text text-darken-2">Repositories</h5>-->
+                        <!--<p class="grey-text">Manage repositories</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</a>-->
+        <!--</div>-->
+        <!--<div class="col s12 m4 l4">-->
+            <!--<a href="#/file-sets">-->
+                <!--<div class="card white z-depth-2">-->
+                    <!--<div class="card-content">-->
+                        <!--<img src="../images/file-sets-32x32.png"/>-->
+                        <!--<h5 class="grey-text text-darken-2">File sets</h5>-->
+                        <!--<p class="grey-text">Manage file sets</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</a>-->
+        <!--</div>-->
+        <!--<div class="col s12 m4 l4">-->
+            <!--<a href="#/files">-->
+                <!--<div class="card white z-depth-2">-->
+                    <!--<div class="card-content">-->
+                        <!--<img src="../images/files-32x32.png"/>-->
+                        <!--<h5 class="grey-text text-darken-2">Files</h5>-->
+                        <!--<p class="grey-text">Manage files</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</a>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+        <!--<h5 class="col s12 left-align grey-text text-darken-2">Computing</h5>-->
+        <!--<div class="col s12 m4 l4">-->
+            <!--<a href="#/pipelines">-->
+                <!--<div class="card white z-depth-2">-->
+                    <!--<div class="card-content">-->
+                        <!--<img src="../images/pipelines-32x32.png"/>-->
+                        <!--<h5 class="grey-text text-darken-2">Pipelines</h5>-->
+                        <!--<p class="grey-text">Manage pipelines</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</a>-->
+        <!--</div>-->
+        <!--<div class="col s12 m4 l4">-->
+            <!--<a href="#/tasks">-->
+                <!--<div class="card white z-depth-2">-->
+                    <!--<div class="card-content">-->
+                        <!--<img src="../images/tasks-32x32.png"/>-->
+                        <!--<h5 class="grey-text text-darken-2">Tasks</h5>-->
+                        <!--<p class="grey-text">Manage tasks</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</a>-->
+        <!--</div>-->
+        <!--<div class="col s12 m4 l4">-->
+            <!--<a href="#/results">-->
+                <!--<div class="card white z-depth-2">-->
+                    <!--<div class="card-content">-->
+                        <!--<img src="../images/task-results-32x32.png"/>-->
+                        <!--<h5 class="grey-text text-darken-2">Results</h5>-->
+                        <!--<p class="grey-text">Manage task results</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</a>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->

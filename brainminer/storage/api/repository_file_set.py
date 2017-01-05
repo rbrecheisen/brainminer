@@ -12,7 +12,6 @@ class RepositoryFileSetsResource(PermissionProtectedResource):
     def get(self, id):
 
         self.check_permission('retrieve:repository@{}'.format(id))
-
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.retrieve(id=id)
         result = []
@@ -29,11 +28,9 @@ class RepositoryFileSetsResource(PermissionProtectedResource):
 
         self.check_permission('retrieve:repository@{}'.format(id))
         self.check_permission('create:file-set')
-
         parser = reqparse.RequestParser()
         parser.add_argument('name', type=str, required=True, location='json')
         args = parser.parse_args()
-
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.retrieve(id=id)
         args['repository'] = repository
@@ -52,7 +49,6 @@ class RepositoryFileSetResource(PermissionProtectedResource):
 
         self.check_permission('retrieve:repository@{}'.format(id))
         self.check_permission('retrieve:file-set@{}'.format(file_set_id))
-
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.retrieve(id=id)
         file_set_dao = FileSetDao(self.db_session())
@@ -66,11 +62,9 @@ class RepositoryFileSetResource(PermissionProtectedResource):
 
         self.check_permission('retrieve:repository@{}'.format(id))
         self.check_permission('retrieve,update:file-set@{}'.format(file_set_id))
-
         parser = reqparse.RequestParser()
         parser.add_argument('name', type=str, location='json')
         args = parser.parse_args()
-
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.retrieve(id=id)
         file_set_dao = FileSetDao(self.db_session())
@@ -87,7 +81,6 @@ class RepositoryFileSetResource(PermissionProtectedResource):
 
         self.check_permission('retrieve:repository@{}'.format(id))
         self.check_permission('retrieve,delete:file-set@{}'.format(file_set_id))
-
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.retrieve(id=id)
         file_set_dao = FileSetDao(self.db_session())

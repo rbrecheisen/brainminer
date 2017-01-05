@@ -11,11 +11,9 @@ class RepositoriesResource(PermissionProtectedResource):
     def get(self):
 
         self.check_permission('retrieve:repository')
-
         parser = reqparse.RequestParser()
         parser.add_argument('name', type=str, location='json')
         args = parser.parse_args()
-
         repository_dao = RepositoryDao(self.db_session())
         result = [repository.to_dict() for repository in repository_dao.retrieve_all(**args)]
 
@@ -24,11 +22,9 @@ class RepositoriesResource(PermissionProtectedResource):
     def post(self):
 
         self.check_permission('create:repository')
-
         parser = reqparse.RequestParser()
         parser.add_argument('name', type=str, required=True, location='json')
         args = parser.parse_args()
-
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.create(**args)
 
@@ -43,7 +39,6 @@ class RepositoryResource(PermissionProtectedResource):
     def get(self, id):
 
         self.check_permission('retrieve:repository@{}'.format(id))
-
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.retrieve(id=id)
 
@@ -52,11 +47,9 @@ class RepositoryResource(PermissionProtectedResource):
     def put(self, id):
 
         self.check_permission('retrieve,update:repository@{}'.format(id))
-
         parser = reqparse.RequestParser()
         parser.add_argument('name', type=str, location='json')
         args = parser.parse_args()
-
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.retrieve(id=id)
         if args['name'] != repository.name:
@@ -68,7 +61,6 @@ class RepositoryResource(PermissionProtectedResource):
     def delete(self, id):
 
         self.check_permission('retrieve,delete:repository@{}'.format(id))
-
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.retrieve(id=id)
         repository_dao.delete(repository)

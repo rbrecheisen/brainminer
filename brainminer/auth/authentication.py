@@ -9,6 +9,7 @@ from brainminer.auth.exceptions import (
 
 # ----------------------------------------------------------------------------------------------------------------------
 def create_token(user):
+    
     if 'SECRET_KEY' not in g.config.keys():
         raise SecretKeyNotFoundException()
     secret = g.config['SECRET_KEY']
@@ -16,13 +17,15 @@ def create_token(user):
         raise SecretKeyInvalidException()
     try:
         token = jwt.encode(user.to_dict(), secret, algorithm='HS256')
-        return token
     except JWTError as e:
         raise TokenEncodingFailedException(e.message)
+    
+    return token
 
 
 # ----------------------------------------------------------------------------------------------------------------------
 def check_jwt_token(token):
+    
     if 'SECRET_KEY' not in g.config.keys():
         raise SecretKeyNotFoundException()
     secret = g.config['SECRET_KEY']
@@ -38,11 +41,13 @@ def check_jwt_token(token):
         raise UserNotFoundException(id=data['id'])
     if not user.is_active:
         raise UserNotActiveException(id=data['id'])
+    
     return user
 
 
 # ----------------------------------------------------------------------------------------------------------------------
 def check_username_and_password(username, password):
+    
     user_dao = UserDao(g.db_session)
     user = user_dao.retrieve(username=username)
     if user is None:
@@ -51,26 +56,31 @@ def check_username_and_password(username, password):
         raise UserNotActiveException(username=username)
     if user.password != password:
         raise InvalidPasswordException()
+    
     return user
 
 
 # ----------------------------------------------------------------------------------------------------------------------
 def check_login():
+    
     g.current_user = None
     auth = request.authorization
     if auth is None:
         raise MissingAuthorizationHeaderException()
     user = check_username_and_password(auth.username, auth.password)
     g.current_user = user
+    
     return user
 
 
 # ----------------------------------------------------------------------------------------------------------------------
 def check_token():
+    
     g.current_user = None
     auth = request.authorization
     if auth is None:
         raise MissingAuthorizationHeaderException()
     user = check_jwt_token(auth.username)
     g.current_user = user
+    
     return user

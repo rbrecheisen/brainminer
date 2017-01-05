@@ -10,7 +10,6 @@ class UserGroupUsersResource(PermissionProtectedResource):
     def get(self, id):
 
         self.check_admin()
-
         user_group_dao = UserGroupDao(self.db_session())
         user_group = user_group_dao.retrieve(id=id)
         result = [user.to_dict() for user in user_group.users]
@@ -26,7 +25,6 @@ class UserGroupUserResource(PermissionProtectedResource):
     def put(self, id, user_id):
 
         self.check_admin()
-
         user_group_dao = UserGroupDao(self.db_session())
         user_group = user_group_dao.retrieve(id=id)
         user_dao = UserDao(self.db_session())
@@ -39,7 +37,6 @@ class UserGroupUserResource(PermissionProtectedResource):
     def delete(self, id, user_id):
 
         self.check_admin()
-
         user_group_dao = UserGroupDao(self.db_session())
         user_group = user_group_dao.retrieve(id=id)
         user_dao = UserDao(self.db_session())

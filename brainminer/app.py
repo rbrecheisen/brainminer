@@ -17,6 +17,7 @@ from brainminer.storage.api.repository_file import (
 from brainminer.storage.api.repository_file_set import RepositoryFileSetsResource, RepositoryFileSetResource
 from brainminer.storage.api.repository_file_set_file import RepositoryFileSetFilesResource, RepositoryFileSetFileResource
 from brainminer.auth.dao import UserDao, UserGroupDao
+from brainminer.compute.api.task import TasksResource, TaskResource
 
 # Specify 'ui' folder as static content folder but set its URL path to '/'
 app = Flask(__name__, static_url_path='', static_folder='ui')
@@ -37,6 +38,8 @@ if 'USERS' not in app.config.keys():
     raise MissingSettingException('USERS')
 if 'UPLOAD_DIR' not in app.config.keys():
     raise MissingSettingException('UPLOAD_DIR')
+if 'PIPELINES' not in app.config.keys():
+    raise MissingSettingException('PIPELINES')
 
 api = Api(app)
 api.add_resource(TokensResource, TokensResource.URI)
@@ -59,6 +62,8 @@ api.add_resource(RepositoryFileSetsResource, RepositoryFileSetsResource.URI.form
 api.add_resource(RepositoryFileSetResource, RepositoryFileSetResource.URI.format('<int:id>', '<int:file_set_id>'))
 api.add_resource(RepositoryFileSetFilesResource, RepositoryFileSetFilesResource.URI.format('<int:id>', '<int:file_set_id>'))
 api.add_resource(RepositoryFileSetFileResource, RepositoryFileSetFileResource.URI.format('<int:id>', '<int:file_set_id>', '<int:file_id>'))
+api.add_resource(TasksResource, TasksResource.URI)
+api.add_resource(TaskResource, TaskResource.URI.format('<int:id>'))
 
 db = SQLAlchemy(app)
 

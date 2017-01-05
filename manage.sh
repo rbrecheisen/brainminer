@@ -1,12 +1,5 @@
 #!/usr/bin/env bash
 
-export PYTHON=${HOME}/.virtualenvs/brainminer/bin/python
-export PYTHONPATH=$(pwd):${HOME}/.virtualenvs/brainminer/lib/python2.7:${HOME}/.virtualenvs/brainminer/lib/python2.7/site-packages
-export PYTEST=${HOME}/.virtualenvs/brainminer/bin/py.test
-export PYINSTALLER=${HOME}/.virtualenvs/brainminer/bin/pyinstaller
-export UWSGI=${HOME}/.virtualenvs/brainminer/bin/uwsgi
-export OPY=${HOME}/.virtualenvs/brainminer/lib/python2.7/site-packages/opy/opy.py
-
 ########################################################################################################################
 # HELP
 ########################################################################################################################
@@ -14,51 +7,31 @@ if [ "${1}" == "" ] || [ "${1}" == "help" ]; then
 
     echo "manage.sh <option>"
     echo ""
-    echo "start-db"
-    echo "start-server"
-    echo "package"
+    echo "start-worker"
+    echo "stop-worker"
     echo "help"
     echo ""
 
 ########################################################################################################################
-# BUILD
+# START WORKER
 ########################################################################################################################
-elif [ "${1}" == "build" ]; then
+elif [ "${1}" == "start-worker" ]; then
 
-    eval $(docker-machine env default)
-    docker build -t brainminer/nginx:v1 ./nginx
-
-########################################################################################################################
-# START
-########################################################################################################################
-elif [ "${1}" == "start" ]; then
-
-    ./manage.sh package
-    echo "Starting application server..."
-    ${UWSGI} --http-socket 0.0.0.0:5000 --master --workers 1 --module brainminer.app:app --vacuum --die-on-term
+    ./manage.sh stop-worker
+    docker run -d --name rabbitmq --hostname my-rabbitmq -p 5672:5672 rabbitmq:3.6
+    docker run -d --name redis -p 6379:6379 redis:3.0-alpine
 
 ########################################################################################################################
-# START DATABASE
+# STOP WORKER
 ########################################################################################################################
-elif [ "${1}" == "start-db" ]; then
+elif [ "${1}" == "stop-worker" ]; then
 
-    echo "Starting database..."
-
-########################################################################################################################
-# PACKAGE
-########################################################################################################################
-elif [ "${1}" == "package" ]; then
-
-    echo "Packaging application..."
-    rm -rf ./bin; mkdir ./bin
-    ${PYINSTALLER} \
-        --distpath ./bin/dist \
-        --workpath ./bin/build \
-        --specpath ./bin \
-        --paths ./brainminer \
-        --key jgbk4msytacvd5jv \
-        --onedir --noconfirm --clean ./brainminer/app.py
-
-else
-    echo "Unknown command ${1}"
+    container=$(docker ps | grep rabbitmq:3.6 | awk '{print $1}')
+    if [ "${container}" != "" ]; then
+        docker stop ${container}; docker rm ${container}
+    fi
+    container=$(docker ps | grep redis:3.0-alpine | awk '{print $1}')
+    if [ "${container}" != "" ]; then
+        docker stop ${container}; docker rm ${container}
+    fi
 fi

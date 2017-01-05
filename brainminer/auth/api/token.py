@@ -10,7 +10,7 @@ class TokensResource(LoginProtectedResource):
 
     @staticmethod
     def post():
-
+        
         token = create_token(g.current_user)
         
         return {

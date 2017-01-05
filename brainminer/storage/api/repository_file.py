@@ -16,7 +16,6 @@ class RepositoryFilesResource(PermissionProtectedResource):
     def get(self, id):
 
         self.check_permission('retrieve:repository@{}'.format(id))
-
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.retrieve(id=id)
         # We only return those files in the repository that are accessible to the
@@ -39,7 +38,6 @@ class RepositoryFilesResource(PermissionProtectedResource):
         parser = reqparse.RequestParser()
         parser.add_argument('file', type=FileStorage, required=True, location='files')
         args = parser.parse_args()
-
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.retrieve(id=id)
         args['repository'] = repository
@@ -69,7 +67,6 @@ class RepositoryFileResource(PermissionProtectedResource):
 
         self.check_permission('retrieve:repository@{}'.format(id))
         self.check_permission('retrieve:file@{}'.format(file_id))
-
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.retrieve(id=id)
         f_dao = FileDao(self.db_session())
@@ -83,7 +80,6 @@ class RepositoryFileResource(PermissionProtectedResource):
 
         self.check_permission('retrieve:repository@{}'.format(id))
         self.check_permission('retrieve,delete:file@{}'.format(file_id))
-
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.retrieve(id=id)
         f_dao = FileDao(self.db_session())
@@ -104,7 +100,6 @@ class RepositoryFileContentResource(PermissionProtectedResource):
 
         self.check_permission('retrieve:repository@{}'.format(id))
         self.check_permission('retrieve:file@{}'.format(file_id))
-
         repository_dao = RepositoryDao(self.db_session())
         repository = repository_dao.retrieve(id=id)
         f_dao = FileDao(self.db_session())

@@ -12,7 +12,6 @@ class UserPermissionsResource(PermissionProtectedResource):
     def get(self, id):
 
         self.check_admin()
-
         user_dao = UserDao(self.db_session())
         user = user_dao.retrieve(id=id)
         result = [p.to_dict() for p in user.permissions]
@@ -22,14 +21,12 @@ class UserPermissionsResource(PermissionProtectedResource):
     def post(self, id):
 
         self.check_admin()
-
         parser = reqparse.RequestParser()
         parser.add_argument('action', type=str, required=True, location='json')
         parser.add_argument('resource_class', type=str, required=True, location='json')
         parser.add_argument('resource_id', type=int, location='json')
         parser.add_argument('granted', type=bool, location='json')
         args = parser.parse_args()
-
         user_dao = UserDao(self.db_session())
         user = user_dao.retrieve(id=id)
         args['principal'] = user
@@ -47,7 +44,6 @@ class UserPermissionResource(PermissionProtectedResource):
     def get(self, id, permission_id):
 
         self.check_admin()
-
         user_dao = UserDao(self.db_session())
         user = user_dao.retrieve(id=id)
         permission_dao = PermissionDao(self.db_session())
@@ -59,14 +55,12 @@ class UserPermissionResource(PermissionProtectedResource):
     def put(self, id, permission_id):
 
         self.check_permission('update:user@{}'.format(id))
-
         parser = reqparse.RequestParser()
         parser.add_argument('action', type=str, location='json')
         parser.add_argument('resource_class', type=str, location='json')
         parser.add_argument('resource_id', type=int, location='json')
         parser.add_argument('granted', type=bool, location='json')
         args = parser.parse_args()
-
         user_dao = UserDao(self.db_session())
         user = user_dao.retrieve(id=id)
         permission_dao = PermissionDao(self.db_session())
@@ -88,7 +82,6 @@ class UserPermissionResource(PermissionProtectedResource):
     def delete(self, id, permission_id):
 
         self.check_admin()
-
         user_dao = UserDao(self.db_session())
         user = user_dao.retrieve(id=id)
         permission_dao = PermissionDao(self.db_session())
