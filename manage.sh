@@ -16,6 +16,7 @@ if [ "${1}" == "" ] || [ "${1}" == "help" ]; then
     echo ""
     echo "start-db"
     echo "start-server"
+    echo "package"
     echo "help"
     echo ""
 
