@@ -1,4 +1,4 @@
-from flask import g
+from flask import g, Response
 from flask_restful import Resource, HTTPException, abort
 from brainminer.auth.exceptions import (
     MissingAuthorizationHeaderException, UserNotFoundException, UserNotActiveException, InvalidPasswordException,
@@ -38,6 +38,16 @@ class BaseResource(Resource):
     @staticmethod
     def current_user():
         return g.current_user
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+class HtmlResource(BaseResource):
+
+    @staticmethod
+    def output_html(data, code, headers=None):
+        resp = Response(data, mimetype='text/html', headers=headers)
+        resp.status_code = code
+        return resp
 
 
 # ----------------------------------------------------------------------------------------------------------------------

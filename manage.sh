@@ -7,10 +7,18 @@ if [ "${1}" == "" ] || [ "${1}" == "help" ]; then
 
     echo "manage.sh <option>"
     echo ""
+    echo "install"
     echo "start-worker"
     echo "stop-worker"
     echo "help"
     echo ""
+
+########################################################################################################################
+# INSTALL APP
+########################################################################################################################
+elif [ "${1}" == "install" ]; then
+
+    docker build -t brecheisen/brainminer .
 
 ########################################################################################################################
 # START WORKER
@@ -18,6 +26,7 @@ if [ "${1}" == "" ] || [ "${1}" == "help" ]; then
 elif [ "${1}" == "start-worker" ]; then
 
     ./manage.sh stop-worker
+
     docker run -d --name rabbitmq --hostname my-rabbitmq -p 5672:5672 rabbitmq:3.6
     docker run -d --name redis -p 6379:6379 redis:3.0-alpine
 

@@ -10,7 +10,7 @@ def svm_train(params):
 
 # ----------------------------------------------------------------------------------------------------------------------
 @shared_task
-def svm(params):
+def svm_predict(params):
     return {'prediction': 1, 'probability': 0.8}
 
 
@@ -22,7 +22,7 @@ class SupportVectorMachineTrainer(Pipeline):
     
     
 # ----------------------------------------------------------------------------------------------------------------------
-class SupportVectorMachine(Pipeline):
+class SupportVectorMachinePredictor(Pipeline):
     
     def run(self, params):
-        return svm(params)
+        return svm_predict(params)

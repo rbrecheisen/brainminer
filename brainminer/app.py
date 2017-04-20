@@ -5,12 +5,14 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from brainminer.base.models import Base
 from brainminer.base.exceptions import MissingSettingException, InvalidSettingException
+from brainminer.view.api.index import IndexResource
 from brainminer.auth.api.token import TokensResource
 from brainminer.auth.api.user import UsersResource, UserResource
 from brainminer.auth.api.user_group import UserGroupsResource, UserGroupResource
 from brainminer.auth.api.user_group_user import UserGroupUsersResource, UserGroupUserResource
 from brainminer.auth.api.user_permission import UserPermissionsResource, UserPermissionResource
 from brainminer.auth.api.user_group_permission import UserGroupPermissionsResource, UserGroupPermissionResource
+from brainminer.storage.api.file import FilesResource, FileResource, FileContentResource
 from brainminer.storage.api.repository import RepositoriesResource, RepositoryResource
 from brainminer.storage.api.repository_file import (
     RepositoryFilesResource, RepositoryFileResource, RepositoryFileContentResource)
@@ -20,7 +22,8 @@ from brainminer.auth.dao import UserDao, UserGroupDao
 from brainminer.compute.api.task import TasksResource, TaskResource
 
 # Specify 'ui' folder as static content folder but set its URL path to '/'
-app = Flask(__name__, static_url_path='', static_folder='ui')
+# app = Flask(__name__, static_url_path='', static_folder='ui')
+app = Flask(__name__)
 app.config.from_pyfile(
     os.getenv('BRAINMINER_SETTINGS', os.path.abspath('brainminer/settings.py')))
 
@@ -41,7 +44,12 @@ if 'UPLOAD_DIR' not in app.config.keys():
 if 'PIPELINES' not in app.config.keys():
     raise MissingSettingException('PIPELINES')
 
+
 api = Api(app)
+api.add_resource(IndexResource, IndexResource.URI)
+api.add_resource(FilesResource, FilesResource.URI)
+api.add_resource(FileResource, FileResource.URI.format('<int:id>'))
+api.add_resource(FileContentResource, FileContentResource.URI.format('<int:id>'))
 api.add_resource(TokensResource, TokensResource.URI)
 api.add_resource(UsersResource, UsersResource.URI)
 api.add_resource(UserResource, UserResource.URI.format('<int:id>'))
@@ -168,5 +176,5 @@ if __name__ == '__main__':
     port = int(port)
 
     # Run application
-    print(' * Click here for UI: http://0.0.0.0:5000/index.html')
+    print(' * Click here for UI: http://0.0.0.0:5000')
     app.run(host=host, port=port)

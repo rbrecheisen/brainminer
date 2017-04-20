@@ -62,7 +62,8 @@ class File(BaseModel):
     # Media link for downloading the file
     media_link = Column(String, nullable=False)
     # File repository ID
-    repository_id = Column(Integer, ForeignKey('repository.id'), nullable=False)
+    # repository_id = Column(Integer, ForeignKey('repository.id'), nullable=False)
+    repository_id = Column(Integer, ForeignKey('repository.id'), nullable=True)
     # File repository
     repository = relationship('Repository', backref='files', foreign_keys=[repository_id])
 
@@ -89,7 +90,7 @@ class File(BaseModel):
             'storage_id': self.storage_id,
             'storage_path': self.storage_path,
             'media_link': self.media_link,
-            'repository': self.repository.name,
+            # 'repository': self.repository.name,
             'file_sets': file_sets,
         })
         return obj

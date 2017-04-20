@@ -1,7 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9e58c8cd-1b32-4153-89df-de48344d84d7" name="Default" comment="" />
+    <list default="true" id="9e58c8cd-1b32-4153-89df-de48344d84d7" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/compute/api/pipeline.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/css/app.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/favicon.ico" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/images/error-32x32.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/images/file-sets-32x32.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/images/files-32x32.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/images/permissions-32x32.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/images/pipelines-32x32.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/images/repositories-32x32.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/images/task-results-32x32.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/images/tasks-32x32.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/images/user-groups-32x32.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/images/users-32x32.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/app.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/controllers/admin.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/controllers/dashboard.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/controllers/file.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/controllers/login.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/controllers/logout.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/controllers/main.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/controllers/repository.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/controllers/user.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/lib/upload/FileAPI.flash.swf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/lib/upload/FileAPI.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/lib/upload/FileAPI.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/lib/upload/LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/lib/upload/README.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/lib/upload/bower.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/lib/upload/ng-file-upload-all.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/lib/upload/ng-file-upload-all.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/lib/upload/ng-file-upload-shim.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/lib/upload/ng-file-upload-shim.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/lib/upload/ng-file-upload.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/lib/upload/ng-file-upload.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/lib/upload/package.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/services/file-set.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/services/file.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/services/repository.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/services/token.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/services/user.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/js/settings.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/partials/admin.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/partials/dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/partials/login.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/partials/nav.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/partials/repository/file-set.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/partials/repository/file.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/partials/repository/repositories.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/partials/repository/repository.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/partials/user/user.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/brainminer/ui/partials/user/users.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/db/Dockerfile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/nginx/Dockerfile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/nginx/nginx.conf" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainminer/app.py" afterPath="$PROJECT_DIR$/brainminer/app.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainminer/base/api.py" afterPath="$PROJECT_DIR$/brainminer/base/api.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainminer/compute/pipelines/svm.py" afterPath="$PROJECT_DIR$/brainminer/compute/pipelines/svm.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainminer/compute/worker.py" afterPath="$PROJECT_DIR$/brainminer/compute/worker.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainminer/storage/models.py" afterPath="$PROJECT_DIR$/brainminer/storage/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/manage.sh" afterPath="$PROJECT_DIR$/manage.sh" />
+    </list>
     <ignored path="brainminer.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -13,9 +76,9 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/brainminer$Run_server.coverage" NAME="Run server Coverage Results" MODIFIED="1483628608791" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/brainminer$Run_worker.coverage" NAME="Run worker Coverage Results" MODIFIED="1485850944023" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/brainminer/compute" />
-    <SUITE FILE_PATH="coverage/brainminer$Run_tests.coverage" NAME="Run tests Coverage Results" MODIFIED="1480413109922" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/brainminer$Run_worker.coverage" NAME="Run worker Coverage Results" MODIFIED="1492697196258" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/brainminer/compute" />
+    <SUITE FILE_PATH="coverage/brainminer$Run_server.coverage" NAME="Run server Coverage Results" MODIFIED="1492697201813" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/brainminer$Run_tests.coverage" NAME="Run tests Coverage Results" MODIFIED="1492683408065" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -33,7 +96,28 @@
     <favorites_list name="brainminer" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="Dockerfile" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Dockerfile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="16" column="16" lean-forward="true" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="manage.sh" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/manage.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="20" column="43" lean-forward="true" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -55,27 +139,13 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/brainminer/ui/partials/user/users.html" />
-        <option value="$PROJECT_DIR$/brainminer/ui/js/services/user.js" />
-        <option value="$PROJECT_DIR$/brainminer/ui/js/errors.js" />
-        <option value="$PROJECT_DIR$/brainminer/ui/partials/error.html" />
-        <option value="$PROJECT_DIR$/brainminer/ui/js/controllers/error.js" />
-        <option value="$PROJECT_DIR$/brainminer/ui/js/settings.js" />
-        <option value="$PROJECT_DIR$/brainminer/ui/js/controllers/login.js" />
-        <option value="$PROJECT_DIR$/brainminer/ui/js/controllers/admin.js" />
-        <option value="$PROJECT_DIR$/brainminer/ui/js/controllers/dashboard.js" />
-        <option value="$PROJECT_DIR$/brainminer/ui/js/controllers/user.js" />
-        <option value="$PROJECT_DIR$/brainminer/ui/partials/repository/files.html" />
         <option value="$PROJECT_DIR$/brainminer/ui/partials/user/user.html" />
         <option value="$PROJECT_DIR$/brainminer/ui/js/services/file_set.js" />
         <option value="$PROJECT_DIR$/brainminer/ui/js/services/file-set.js" />
-        <option value="$PROJECT_DIR$/brainminer/ui/index.html" />
-        <option value="$PROJECT_DIR$/brainminer/ui/js/app.js" />
         <option value="$PROJECT_DIR$/brainminer/storage/api/file_modality.py" />
         <option value="$PROJECT_DIR$/brainminer/storage/api/file_type.py" />
         <option value="$PROJECT_DIR$/brainminer/base/exceptions.py" />
         <option value="$PROJECT_DIR$/brainminer/ui/partials/repository/file.html" />
-        <option value="$PROJECT_DIR$/brainminer/storage/models.py" />
         <option value="$PROJECT_DIR$/brainminer/ui/js/controllers/file.js" />
         <option value="$PROJECT_DIR$/brainminer/ui/js/services/file.js" />
         <option value="$PROJECT_DIR$/brainminer/ui/partials/repository/repository.html" />
@@ -89,7 +159,6 @@
         <option value="$PROJECT_DIR$/brainminer/auth/permissions.py" />
         <option value="$PROJECT_DIR$/brainminer/compute/exceptions.py" />
         <option value="$PROJECT_DIR$/brainminer/storage/api/repository.py" />
-        <option value="$PROJECT_DIR$/brainminer/storage/api/repository_file.py" />
         <option value="$PROJECT_DIR$/brainminer/storage/api/repository_file_set.py" />
         <option value="$PROJECT_DIR$/brainminer/storage/api/repository_file_set_file.py" />
         <option value="$PROJECT_DIR$/archive/manage.sh" />
@@ -97,15 +166,30 @@
         <option value="$PROJECT_DIR$/brainminer/compute/pipelines/base.py" />
         <option value="$PROJECT_DIR$/brainminer/compute/api/pipeline.py" />
         <option value="$PROJECT_DIR$/brainminer/compute/api/task.py" />
-        <option value="$PROJECT_DIR$/brainminer/compute/worker.py" />
-        <option value="$PROJECT_DIR$/brainminer/compute/pipelines/svm.py" />
         <option value="$PROJECT_DIR$/brainminer/settings.py" />
-        <option value="$PROJECT_DIR$/brainminer/app.py" />
-        <option value="$PROJECT_DIR$/manage.sh" />
         <option value="$PROJECT_DIR$/brainminer/ui/partials/admin.html" />
         <option value="$PROJECT_DIR$/brainminer/ui/partials/dashboard.html" />
-        <option value="$PROJECT_DIR$/brainminer/ui/partials/repository/repositories.html" />
         <option value="$PROJECT_DIR$/brainminer/ui/js/controllers/repository.js" />
+        <option value="$PROJECT_DIR$/brainminer/compute/worker.py" />
+        <option value="$PROJECT_DIR$/brainminer/compute/pipelines/svm.py" />
+        <option value="$PROJECT_DIR$/brainminer/ui/partials/tasks/tasks.html" />
+        <option value="$PROJECT_DIR$/brainminer/ui/index_simple.html" />
+        <option value="$PROJECT_DIR$/brainminer/storage/dao.py" />
+        <option value="$PROJECT_DIR$/brainminer/storage/api/repository_file.py" />
+        <option value="$PROJECT_DIR$/brainminer/ui/js/app.js" />
+        <option value="$PROJECT_DIR$/brainminer/ui/partials/repository/repositories.html" />
+        <option value="$PROJECT_DIR$/brainminer/ui/index.html" />
+        <option value="$PROJECT_DIR$/brainminer/ui/js/services/task.js" />
+        <option value="$PROJECT_DIR$/brainminer/ui/js/controllers/task.js" />
+        <option value="$PROJECT_DIR$/brainminer/storage/models.py" />
+        <option value="$PROJECT_DIR$/brainminer/ui/api/index.py" />
+        <option value="$PROJECT_DIR$/brainminer/view/api/index.py" />
+        <option value="$PROJECT_DIR$/brainminer/base/api.py" />
+        <option value="$PROJECT_DIR$/brainminer/app.py" />
+        <option value="$PROJECT_DIR$/brainminer/storage/api/file.py" />
+        <option value="$PROJECT_DIR$/Dockerfile" />
+        <option value="$PROJECT_DIR$/run.sh" />
+        <option value="$PROJECT_DIR$/manage.sh" />
       </list>
     </option>
   </component>
@@ -116,8 +200,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="184" />
-    <option name="y" value="35" />
+    <option name="x" value="96" />
+    <option name="y" value="23" />
     <option name="width" value="1650" />
     <option name="height" value="954" />
   </component>
@@ -139,6 +223,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -151,24 +237,8 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="brainminer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="brainminer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="brainminer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -182,13 +252,13 @@
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/archive" />
+      <recent name="$PROJECT_DIR$/brainminer/view" />
       <recent name="$PROJECT_DIR$/brainminer/ui/partials/repository" />
       <recent name="$PROJECT_DIR$/brainminer/ui" />
       <recent name="$PROJECT_DIR$/brainminer/ui/static" />
-      <recent name="$PROJECT_DIR$/brainminer" />
     </key>
   </component>
-  <component name="RunManager" selected="Bash.Run worker backends">
+  <component name="RunManager" selected="Python.Run server">
     <configuration default="true" type="BashConfigurationType" factoryName="Bash">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="INTERPRETER_PATH" value="/bin/bash" />
@@ -503,21 +573,21 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="184" y="35" width="1650" height="954" extended-state="0" />
+    <frame x="96" y="23" width="1650" height="954" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2238806" sideWeight="0.60324824" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22885571" sideWeight="0.5974478" order="2" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25058004" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21144278" sideWeight="0.39675173" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32889965" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946634" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3062645" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22885571" sideWeight="0.40255222" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32830626" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33674777" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3364269" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -573,67 +643,65 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="31" />
+      <option name="time" value="36" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/brainminer/storage/api.py" />
-    <entry file="file://$PROJECT_DIR$/brainminer/storage/api/file_type.py" />
-    <entry file="file://$PROJECT_DIR$/brainminer/base/exceptions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/ui/js/services/file.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/ui/js/controllers/file.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="36" column="15" lean-forward="false" selection-start-line="36" selection-start-column="15" selection-end-line="36" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/ui/js/services/repository.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="60" column="12" lean-forward="false" selection-start-line="60" selection-start-column="12" selection-end-line="60" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/ui/partials/repository/repository.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="549">
-          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/Dockerfile">
+    <entry file="file://$PROJECT_DIR$/archive/nginx/nginx.conf">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/archive/ui/partials/dashboard.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="9" selection-end-column="3" />
+        <state relative-caret-position="165">
+          <caret line="11" column="22" lean-forward="true" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/archive/ui/partials/admin.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="38" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/archive/ui/partials/repository/file.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="107" lean-forward="false" selection-start-line="20" selection-start-column="107" selection-end-line="20" selection-end-column="107" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/archive/ui/js/services/file.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="30" column="12" lean-forward="true" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/brainminer/compute/worker.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="60" lean-forward="false" selection-start-line="23" selection-start-column="60" selection-end-line="23" selection-end-column="60" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/base/api.py">
+    <entry file="file://$PROJECT_DIR$/archive/ui/js/services/repository.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="34" />
+        <state relative-caret-position="60">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/brainminer/tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -641,175 +709,245 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/auth/api/user_group.py">
+    <entry file="file://$PROJECT_DIR$/archive/ui/js/services/token.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="8" lean-forward="false" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
+        <state relative-caret-position="390">
+          <caret line="26" column="49" lean-forward="true" selection-start-line="26" selection-start-column="49" selection-end-line="26" selection-end-column="49" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/storage/handlers.py" />
-    <entry file="file://$PROJECT_DIR$/brainminer/auth/api/user_group_permission.py">
+    <entry file="file://$USER_HOME$/.virtualenvs/brainminer/lib/python2.7/site-packages/flask/config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="84" column="26" lean-forward="false" selection-start-line="84" selection-start-column="26" selection-end-line="84" selection-end-column="26" />
+        <state relative-caret-position="61">
+          <caret line="110" column="8" lean-forward="false" selection-start-line="110" selection-start-column="8" selection-end-line="110" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/auth/api/user_group_user.py">
+    <entry file="file://$USER_HOME$/Library/Caches/PyCharm2016.3/python_stubs/-2105126930/__builtin__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="38" column="26" lean-forward="false" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="26" />
+        <state relative-caret-position="181">
+          <caret line="4336" column="8" lean-forward="false" selection-start-line="4336" selection-start-column="8" selection-end-line="4336" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/auth/api/user_permission.py">
+    <entry file="file://$PROJECT_DIR$/brainminer/base/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="645">
-          <caret line="83" column="26" lean-forward="false" selection-start-line="83" selection-start-column="26" selection-end-line="83" selection-end-column="26" />
+        <state relative-caret-position="-26">
+          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/auth/authentication.py">
+    <entry file="file://$PROJECT_DIR$/brainminer/base/util.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="84" column="4" lean-forward="false" selection-start-line="84" selection-start-column="4" selection-end-line="84" selection-end-column="4" />
+        <state relative-caret-position="1455">
+          <caret line="97" column="0" lean-forward="false" selection-start-line="81" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/auth/dao.py">
+    <entry file="file://$PROJECT_DIR$/brainminer/base/dao.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/auth/exceptions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/auth/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="474">
-          <caret line="205" column="18" lean-forward="false" selection-start-line="205" selection-start-column="18" selection-end-line="205" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/auth/permissions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="49" column="4" lean-forward="false" selection-start-line="49" selection-start-column="4" selection-end-line="49" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/archive/todo.md">
-      <provider editor-type-id="MarkdownFxPreviewEditor">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="0">
-            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/compute/api.py" />
-    <entry file="file://$PROJECT_DIR$/brainminer/compute/exceptions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/auth/api/user.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-555">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/storage/api/repository_file_set.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="82" column="80" lean-forward="false" selection-start-line="82" selection-start-column="80" selection-end-line="82" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/storage/api/repository_file_set_file.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="519">
-          <caret line="58" column="80" lean-forward="false" selection-start-line="58" selection-start-column="80" selection-end-line="58" selection-end-column="80" />
+        <state relative-caret-position="975">
+          <caret line="65" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/brainminer/storage/dao.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/archive/ui/js/controllers/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/archive/ui/partials/repository/repositories.html">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
-          <caret line="8" column="48" lean-forward="false" selection-start-line="8" selection-start-column="48" selection-end-line="8" selection-end-column="48" />
+          <caret line="8" column="20" lean-forward="true" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/storage/exceptions.py">
+    <entry file="file://$PROJECT_DIR$/archive/ui/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        <state relative-caret-position="390">
+          <caret line="40" column="37" lean-forward="false" selection-start-line="40" selection-start-column="37" selection-end-line="40" selection-end-column="37" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/storage/models.py">
+    <entry file="file://$PROJECT_DIR$/brainminer/ui/index_simple.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="39" lean-forward="false" selection-start-line="1" selection-start-column="39" selection-end-line="1" selection-end-column="39" />
+        <state relative-caret-position="210">
+          <caret line="14" column="7" lean-forward="false" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/archive/ui/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="63" column="12" lean-forward="true" selection-start-line="63" selection-start-column="12" selection-end-line="63" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/archive/ui/js/controllers/repository.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-285">
+          <caret line="25" column="11" lean-forward="true" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/archive/ui/js/controllers/file.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-330">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/archive/ui/partials/task/tasks.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="24" lean-forward="true" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/archive/ui/js/controllers/task.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="32" column="43" lean-forward="true" selection-start-line="32" selection-start-column="43" selection-end-line="32" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/archive/ui/partials/task/task.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/archive/ui/partials/repository/repository.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="40" lean-forward="true" selection-start-line="21" selection-start-column="40" selection-end-line="21" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/archive/ui/js/services/task.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="40" lean-forward="false" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/brainminer/storage/api/repository.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="930">
-          <caret line="62" column="73" lean-forward="false" selection-start-line="62" selection-start-column="73" selection-end-line="62" selection-end-column="73" />
+        <state relative-caret-position="15">
+          <caret line="1" column="48" lean-forward="true" selection-start-line="1" selection-start-column="48" selection-end-line="1" selection-end-column="48" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nginx/nginx.conf">
+    <entry file="file://$PROJECT_DIR$/brainminer/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="919">
+          <caret line="88" column="46" lean-forward="true" selection-start-line="88" selection-start-column="46" selection-end-line="88" selection-end-column="46" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nginx/Dockerfile">
+    <entry file="file://$PROJECT_DIR$/brainminer/storage/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="349">
+          <caret line="68" column="0" lean-forward="true" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.virtualenvs/brainminer/lib/python2.7/site-packages/flask_restful/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-6404">
+          <caret line="74" column="8" lean-forward="false" selection-start-line="74" selection-start-column="8" selection-end-line="74" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/brainminer/storage/api/repository_file.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1179">
-          <caret line="101" column="65" lean-forward="false" selection-start-line="101" selection-start-column="65" selection-end-line="101" selection-end-column="65" />
+        <state relative-caret-position="454">
+          <caret line="111" column="0" lean-forward="true" selection-start-line="109" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/archive/manage.sh">
+    <entry file="file://$USER_HOME$/.virtualenvs/brainminer/lib/python2.7/site-packages/flask/templating.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+        <state relative-caret-position="259">
+          <caret line="136" column="4" lean-forward="false" selection-start-line="136" selection-start-column="4" selection-end-line="136" selection-end-column="4" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
+    <entry file="file://$USER_HOME$/.virtualenvs/brainminer/lib/python2.7/site-packages/flask/helpers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="25" lean-forward="false" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
+        <state relative-caret-position="91">
+          <caret line="127" column="16" lean-forward="true" selection-start-line="127" selection-start-column="16" selection-end-line="127" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.virtualenvs/brainminer/lib/python2.7/site-packages/flask/wrappers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="194" column="6" lean-forward="false" selection-start-line="194" selection-start-column="6" selection-end-line="194" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/brainminer/base/api.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/brainminer/compute/api/task.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="38" lean-forward="true" selection-start-line="17" selection-start-column="38" selection-end-line="17" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/brainminer/view/api/index.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -817,104 +955,95 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/compute/pipelines/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="61" column="12" lean-forward="true" selection-start-line="61" selection-start-column="12" selection-end-line="61" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/compute/worker.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="48" lean-forward="false" selection-start-line="9" selection-start-column="48" selection-end-line="9" selection-end-column="48" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/brainminer/compute/pipelines/svm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        <state relative-caret-position="420">
+          <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/compute/api/task.py">
+    <entry file="file://$PROJECT_DIR$/brainminer/compute/pipelines/base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="15" lean-forward="true" selection-start-line="17" selection-start-column="15" selection-end-line="17" selection-end-column="15" />
+        <state relative-caret-position="210">
+          <caret line="14" column="22" lean-forward="true" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/brainminer/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="65" column="39" lean-forward="false" selection-start-line="65" selection-start-column="39" selection-end-line="65" selection-end-column="39" />
+        <state relative-caret-position="-30">
+          <caret line="47" column="14" lean-forward="true" selection-start-line="47" selection-start-column="14" selection-end-line="47" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/ui/index.html">
+    <entry file="file://$PROJECT_DIR$/db/Dockerfile">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/ui/js/app.js">
+    <entry file="file://$PROJECT_DIR$/archive/nginx/Dockerfile">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="55" lean-forward="false" selection-start-line="14" selection-start-column="55" selection-end-line="14" selection-end-column="55" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/ui/partials/dashboard.html">
+    <entry file="file://$PROJECT_DIR$/brainminer/storage/api/file.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="34" column="35" lean-forward="true" selection-start-line="34" selection-start-column="35" selection-end-line="34" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
-          <caret line="11" column="22" lean-forward="true" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
+          <caret line="11" column="25" lean-forward="false" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/ui/partials/admin.html">
+    <entry file="file://$PROJECT_DIR$/archive/manage.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="38" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+        <state relative-caret-position="630">
+          <caret line="51" column="35" lean-forward="true" selection-start-line="51" selection-start-column="35" selection-end-line="51" selection-end-column="35" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/ui/partials/repository/file.html">
+    <entry file="file://$PROJECT_DIR$/run.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="107" lean-forward="false" selection-start-line="20" selection-start-column="107" selection-end-line="20" selection-end-column="107" />
+        <state relative-caret-position="75">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/ui/partials/repository/repositories.html">
+    <entry file="file://$PROJECT_DIR$/Dockerfile">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/brainminer/ui/js/controllers/repository.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="54" lean-forward="true" selection-start-line="22" selection-start-column="54" selection-end-line="22" selection-end-column="54" />
+        <state relative-caret-position="240">
+          <caret line="16" column="16" lean-forward="true" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/manage.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="36" column="2" lean-forward="true" selection-start-line="36" selection-start-column="2" selection-end-line="36" selection-end-column="2" />
+        <state relative-caret-position="300">
+          <caret line="20" column="43" lean-forward="true" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
+          <folding />
         </state>
       </provider>
     </entry>

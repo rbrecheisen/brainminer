@@ -44,12 +44,20 @@ angular.module('app', ['ngRoute', 'controllers', 'services', 'ngFileUpload'])
                     controller: 'FileSetController'
                 })
                 .when('/users', {
-                   templateUrl: 'partials/user/users.html',
+                    templateUrl: 'partials/user/users.html',
                     controller: 'UsersController'
                 })
                 .when('/users/:id?', {
-                   templateUrl: 'partials/user/user.html',
+                    templateUrl: 'partials/user/user.html',
                     controller: 'UserController'
+                })
+                .when('/tasks', {
+                    templateUrl: 'partials/task/tasks.html',
+                    controller: 'TasksController'
+                })
+                .when('/tasks/:id?', {
+                    templateUrl: 'partials/task/task.html',
+                    controller: 'TaskController'
                 });
 
             $locationProvider.html5Mode(false);
