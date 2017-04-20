@@ -12,7 +12,7 @@ from brainminer.auth.api.user_group import UserGroupsResource, UserGroupResource
 from brainminer.auth.api.user_group_user import UserGroupUsersResource, UserGroupUserResource
 from brainminer.auth.api.user_permission import UserPermissionsResource, UserPermissionResource
 from brainminer.auth.api.user_group_permission import UserGroupPermissionsResource, UserGroupPermissionResource
-from brainminer.storage.api.file import FilesResource, FileResource, FileContentResource
+from brainminer.storage.api.file import FilesResource, FileResource, FileContentResource, FileClassifiersResource
 from brainminer.storage.api.repository import RepositoriesResource, RepositoryResource
 from brainminer.storage.api.repository_file import (
     RepositoryFilesResource, RepositoryFileResource, RepositoryFileContentResource)
@@ -50,6 +50,7 @@ api.add_resource(IndexResource, IndexResource.URI)
 api.add_resource(FilesResource, FilesResource.URI)
 api.add_resource(FileResource, FileResource.URI.format('<int:id>'))
 api.add_resource(FileContentResource, FileContentResource.URI.format('<int:id>'))
+api.add_resource(FileClassifiersResource, FileClassifiersResource.URI.format('<int:id>'))
 api.add_resource(TokensResource, TokensResource.URI)
 api.add_resource(UsersResource, UsersResource.URI)
 api.add_resource(UserResource, UserResource.URI.format('<int:id>'))

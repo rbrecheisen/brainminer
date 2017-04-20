@@ -10,7 +10,7 @@ class IndexResource(HtmlResource):
         return self.output_html('''
             <h3>Upload file</h3>
             <form method="post" enctype="multipart/form-data" action="/files">
-            <p><input type=file name=file>
-            <input type=submit value=Upload>
+                <p><input type=file name=file>
+                <input type=submit value=Upload></p>
             </form>
             ''', 200)

@@ -37,11 +37,10 @@ class FilesResource(HtmlResource):
         <span>You can get it here: <a href="/files/{}/content">download</a></span>
         <br>
         <h3>To train a classifier with this file, click the following link:</h3>
-        <a href="/train/{}">train classifier</a>
-        <br>
-        <h3>To run a prediction, click the following link:</h3>
-        <a href="/predict/{}">train classifier</a>
-        '''.format(f.id, f.id, f.id), 201)
+        <form method="post" action="/files/{}/classifiers">
+            <input type="submit" value="Train">        
+        </form>
+        '''.format(f.id, f.id), 201)
     
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -77,3 +76,25 @@ class FileContentResource(BaseResource):
 
         return send_from_directory(
             os.path.join(current_app.root_path, self.config()['UPLOAD_DIR']), filename=f.storage_id), 200
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+class FileClassifiersResource(BaseResource):
+
+    URI = '/files/{}/classifiers'
+
+    def post(self, id):
+
+        f_dao = FileDao(self.db_session())
+        f = f_dao.retrieve(id=id)
+
+        return f.to_dict(), 201
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+class FileClassifierResource(BaseResource):
+
+    URI = '/classifiers/{}/files/{}'
+
+    def put(self, id, file_id):
+        pass
