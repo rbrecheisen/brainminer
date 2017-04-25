@@ -36,9 +36,10 @@ class FilesResource(HtmlResource):
         <h3>Thanks for uploading your file!</h3>
         <span>You can get it here: <a href="/files/{}/content">download</a></span>
         <br>
-        <h3>To train a classifier with this file, click the following link:</h3>
-        <form method="post" action="/files/{}/classifiers">
-            <input type="submit" value="Train">        
+        <h3>Next step is to create a new classifier. By default, a new instance of a SVM classifier
+         will be created. Click the following link:</h3>
+        <form method="post" action="/classifiers">
+            <input type="submit" value="Create classifier">
         </form>
         '''.format(f.id, f.id), 201)
     

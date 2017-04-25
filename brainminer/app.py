@@ -5,21 +5,32 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from brainminer.base.models import Base
 from brainminer.base.exceptions import MissingSettingException, InvalidSettingException
-from brainminer.view.api.index import IndexResource
-from brainminer.auth.api.token import TokensResource
-from brainminer.auth.api.user import UsersResource, UserResource
-from brainminer.auth.api.user_group import UserGroupsResource, UserGroupResource
-from brainminer.auth.api.user_group_user import UserGroupUsersResource, UserGroupUserResource
-from brainminer.auth.api.user_permission import UserPermissionsResource, UserPermissionResource
-from brainminer.auth.api.user_group_permission import UserGroupPermissionsResource, UserGroupPermissionResource
-from brainminer.storage.api.file import FilesResource, FileResource, FileContentResource, FileClassifiersResource
-from brainminer.storage.api.repository import RepositoriesResource, RepositoryResource
-from brainminer.storage.api.repository_file import (
-    RepositoryFilesResource, RepositoryFileResource, RepositoryFileContentResource)
-from brainminer.storage.api.repository_file_set import RepositoryFileSetsResource, RepositoryFileSetResource
-from brainminer.storage.api.repository_file_set_file import RepositoryFileSetFilesResource, RepositoryFileSetFileResource
 from brainminer.auth.dao import UserDao, UserGroupDao
-from brainminer.compute.api.task import TasksResource, TaskResource
+from brainminer.view.api.index import IndexResource
+from brainminer.storage.api.file import FilesResource, FileResource, FileContentResource
+from brainminer.compute.api.classifier import (
+    ClassifiersResource,
+    ClassifierResource,
+    ClassifierSessionsResource,
+    ClassifierSessionResource,
+    ClassifierSessionFilesResource,
+    ClassifierSessionPredictionsResource,
+    ClassifierSessionPredictionResource,
+    ClassifierSessionPredictionFilesResource)
+
+# from brainminer.auth.api.token import TokensResource
+# from brainminer.auth.api.user import UsersResource, UserResource
+# from brainminer.auth.api.user_group import UserGroupsResource, UserGroupResource
+# from brainminer.auth.api.user_group_user import UserGroupUsersResource, UserGroupUserResource
+# from brainminer.auth.api.user_permission import UserPermissionsResource, UserPermissionResource
+# from brainminer.auth.api.user_group_permission import UserGroupPermissionsResource, UserGroupPermissionResource
+# from brainminer.storage.api.repository import RepositoriesResource, RepositoryResource
+# from brainminer.storage.api.repository_file import (
+#     RepositoryFilesResource, RepositoryFileResource, RepositoryFileContentResource)
+# from brainminer.storage.api.repository_file_set import RepositoryFileSetsResource, RepositoryFileSetResource
+# from brainminer.storage.api.repository_file_set_file import RepositoryFileSetFilesResource,
+#       RepositoryFileSetFileResource
+# from brainminer.compute.api.task import TasksResource, TaskResource
 
 # Specify 'ui' folder as static content folder but set its URL path to '/'
 # app = Flask(__name__, static_url_path='', static_folder='ui')
@@ -50,29 +61,47 @@ api.add_resource(IndexResource, IndexResource.URI)
 api.add_resource(FilesResource, FilesResource.URI)
 api.add_resource(FileResource, FileResource.URI.format('<int:id>'))
 api.add_resource(FileContentResource, FileContentResource.URI.format('<int:id>'))
-api.add_resource(FileClassifiersResource, FileClassifiersResource.URI.format('<int:id>'))
-api.add_resource(TokensResource, TokensResource.URI)
-api.add_resource(UsersResource, UsersResource.URI)
-api.add_resource(UserResource, UserResource.URI.format('<int:id>'))
-api.add_resource(UserPermissionsResource, UserPermissionsResource.URI.format('<int:id>'))
-api.add_resource(UserPermissionResource, UserPermissionResource.URI.format('<int:id>', '<int:permission_id>'))
-api.add_resource(UserGroupsResource, UserGroupsResource.URI)
-api.add_resource(UserGroupResource, UserGroupResource.URI.format('<int:id>'))
-api.add_resource(UserGroupPermissionsResource, UserGroupPermissionsResource.URI.format('<int:id>'))
-api.add_resource(UserGroupPermissionResource, UserGroupPermissionResource.URI.format('<int:id>', '<int:permission_id>'))
-api.add_resource(UserGroupUsersResource, UserGroupUsersResource.URI.format('<int:id>'))
-api.add_resource(UserGroupUserResource, UserGroupUserResource.URI.format('<int:id>', '<int:user_id>'))
-api.add_resource(RepositoriesResource, RepositoriesResource.URI)
-api.add_resource(RepositoryResource, RepositoryResource.URI.format('<int:id>'))
-api.add_resource(RepositoryFilesResource, RepositoryFilesResource.URI.format('<int:id>'))
-api.add_resource(RepositoryFileResource, RepositoryFileResource.URI.format('<int:id>', '<int:file_id>'))
-api.add_resource(RepositoryFileContentResource, RepositoryFileContentResource.URI.format('<int:id>', '<int:file_id>'))
-api.add_resource(RepositoryFileSetsResource, RepositoryFileSetsResource.URI.format('<int:id>'))
-api.add_resource(RepositoryFileSetResource, RepositoryFileSetResource.URI.format('<int:id>', '<int:file_set_id>'))
-api.add_resource(RepositoryFileSetFilesResource, RepositoryFileSetFilesResource.URI.format('<int:id>', '<int:file_set_id>'))
-api.add_resource(RepositoryFileSetFileResource, RepositoryFileSetFileResource.URI.format('<int:id>', '<int:file_set_id>', '<int:file_id>'))
-api.add_resource(TasksResource, TasksResource.URI)
-api.add_resource(TaskResource, TaskResource.URI.format('<int:id>'))
+api.add_resource(ClassifiersResource, ClassifiersResource.URI)
+api.add_resource(ClassifierResource, ClassifierResource.URI.format('<int:id>'))
+api.add_resource(ClassifierSessionsResource, ClassifierSessionsResource.URI.format('<int:id>'))
+api.add_resource(ClassifierSessionResource, ClassifierSessionResource.URI.format('<int:id>', '<int:session_id>'))
+api.add_resource(ClassifierSessionFilesResource,
+                 ClassifierSessionFilesResource.URI.format('<int:id>', '<int:session_id>', '<int:file_id>'))
+api.add_resource(ClassifierSessionPredictionsResource,
+                 ClassifierSessionPredictionsResource.URI.format('<int:id>', '<int:session_id>'))
+api.add_resource(ClassifierSessionPredictionResource,
+                 ClassifierSessionPredictionResource.URI.format('<int:id>', '<int:session_id>', '<int:prediction_id>'))
+api.add_resource(ClassifierSessionPredictionFilesResource,
+                 ClassifierSessionPredictionFilesResource.URI.format(
+                     '<int:id>',
+                     '<int:session_id>',
+                     '<int:prediction_id>'))
+
+# api.add_resource(TokensResource, TokensResource.URI)
+# api.add_resource(UsersResource, UsersResource.URI)
+# api.add_resource(UserResource, UserResource.URI.format('<int:id>'))
+# api.add_resource(UserPermissionsResource, UserPermissionsResource.URI.format('<int:id>'))
+# api.add_resource(UserPermissionResource, UserPermissionResource.URI.format('<int:id>', '<int:permission_id>'))
+# api.add_resource(UserGroupsResource, UserGroupsResource.URI)
+# api.add_resource(UserGroupResource, UserGroupResource.URI.format('<int:id>'))
+# api.add_resource(UserGroupPermissionsResource, UserGroupPermissionsResource.URI.format('<int:id>'))
+# api.add_resource(UserGroupPermissionResource,
+#   UserGroupPermissionResource.URI.format('<int:id>', '<int:permission_id>'))
+# api.add_resource(UserGroupUsersResource, UserGroupUsersResource.URI.format('<int:id>'))
+# api.add_resource(UserGroupUserResource, UserGroupUserResource.URI.format('<int:id>', '<int:user_id>'))
+# api.add_resource(RepositoriesResource, RepositoriesResource.URI)
+# api.add_resource(RepositoryResource, RepositoryResource.URI.format('<int:id>'))
+# api.add_resource(RepositoryFilesResource, RepositoryFilesResource.URI.format('<int:id>'))
+# api.add_resource(RepositoryFileResource, RepositoryFileResource.URI.format('<int:id>', '<int:file_id>'))
+# api.add_resource(RepositoryFileContentResource, RepositoryFileContentResource.URI.format('<int:id>', '<int:file_id>'))
+# api.add_resource(RepositoryFileSetsResource, RepositoryFileSetsResource.URI.format('<int:id>'))
+# api.add_resource(RepositoryFileSetResource, RepositoryFileSetResource.URI.format('<int:id>', '<int:file_set_id>'))
+# api.add_resource(RepositoryFileSetFilesResource,
+#   RepositoryFileSetFilesResource.URI.format('<int:id>', '<int:file_set_id>'))
+# api.add_resource(RepositoryFileSetFileResource,
+#   RepositoryFileSetFileResource.URI.format('<int:id>', '<int:file_set_id>', '<int:file_id>'))
+# api.add_resource(TasksResource, TasksResource.URI)
+# api.add_resource(TaskResource, TaskResource.URI.format('<int:id>'))
 
 db = SQLAlchemy(app)
 
