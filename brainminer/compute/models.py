@@ -13,7 +13,6 @@ class Classifier(BaseModel):
 
     # Classifier ID in database
     id = Column(Integer, ForeignKey('base.id'), primary_key=True)
-    
     # Classifier name
     name = Column(String(255), nullable=False, unique=True)
         
@@ -39,10 +38,11 @@ class Session(BaseModel):
 
     # Session ID in database
     id = Column(Integer, ForeignKey('base.id'), primary_key=True)
-    
+    # Classifier object file path
+    object_file_path = Column(String)
     # Session classifier
     classifier_id = Column(Integer, ForeignKey('classifier.id'), nullable=False)
-    classifier = relationship('classifier', backref='sessions', foreign_keys=[classifier_id])
+    classifier = relationship('Classifier', backref='sessions', foreign_keys=[classifier_id])
 
     def to_dict(self):
         predictions = []
@@ -51,6 +51,7 @@ class Session(BaseModel):
         obj = super(Session, self).to_dict()
         obj.update({
             'predictions': predictions,
+            'object_file_path': self.object_file_path,
         })
         return obj
 
@@ -65,10 +66,9 @@ class Prediction(BaseModel):
 
     # Prediction ID in database
     id = Column(Integer, ForeignKey('base.id'), primary_key=True)
-    
-    # Session
+    # Session instance
     session_id = Column(Integer, ForeignKey('session.id'), nullable=False)
-    session = relationship('session', backref='predictions', foreign_keys=[session_id])
+    session = relationship('Session', backref='predictions', foreign_keys=[session_id])
     
     def to_dict(self):
         obj = super(Prediction, self).to_dict()

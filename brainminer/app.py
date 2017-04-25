@@ -8,15 +8,9 @@ from brainminer.base.exceptions import MissingSettingException, InvalidSettingEx
 from brainminer.auth.dao import UserDao, UserGroupDao
 from brainminer.view.api.index import IndexResource
 from brainminer.storage.api.file import FilesResource, FileResource, FileContentResource
-from brainminer.compute.api.classifier import (
-    ClassifiersResource,
-    ClassifierResource,
-    ClassifierSessionsResource,
-    ClassifierSessionResource,
-    ClassifierSessionFilesResource,
-    ClassifierSessionPredictionsResource,
-    ClassifierSessionPredictionResource,
-    ClassifierSessionPredictionFilesResource)
+from brainminer.compute.api.classifier import ClassifiersResource, ClassifierSessionsResource
+from brainminer.compute.api.session import SessionFilesResource, SessionPredictionsResource
+from brainminer.compute.api.prediction import PredictionFilesResource
 
 # from brainminer.auth.api.token import TokensResource
 # from brainminer.auth.api.user import UsersResource, UserResource
@@ -62,20 +56,10 @@ api.add_resource(FilesResource, FilesResource.URI)
 api.add_resource(FileResource, FileResource.URI.format('<int:id>'))
 api.add_resource(FileContentResource, FileContentResource.URI.format('<int:id>'))
 api.add_resource(ClassifiersResource, ClassifiersResource.URI)
-api.add_resource(ClassifierResource, ClassifierResource.URI.format('<int:id>'))
 api.add_resource(ClassifierSessionsResource, ClassifierSessionsResource.URI.format('<int:id>'))
-api.add_resource(ClassifierSessionResource, ClassifierSessionResource.URI.format('<int:id>', '<int:session_id>'))
-api.add_resource(ClassifierSessionFilesResource,
-                 ClassifierSessionFilesResource.URI.format('<int:id>', '<int:session_id>', '<int:file_id>'))
-api.add_resource(ClassifierSessionPredictionsResource,
-                 ClassifierSessionPredictionsResource.URI.format('<int:id>', '<int:session_id>'))
-api.add_resource(ClassifierSessionPredictionResource,
-                 ClassifierSessionPredictionResource.URI.format('<int:id>', '<int:session_id>', '<int:prediction_id>'))
-api.add_resource(ClassifierSessionPredictionFilesResource,
-                 ClassifierSessionPredictionFilesResource.URI.format(
-                     '<int:id>',
-                     '<int:session_id>',
-                     '<int:prediction_id>'))
+api.add_resource(SessionFilesResource, SessionFilesResource.URI.format('<int:id>', '<int:file_id>'))
+api.add_resource(SessionPredictionsResource, SessionPredictionsResource.URI.format('<int:id>'))
+api.add_resource(PredictionFilesResource, PredictionFilesResource.URI.format('<int:id>', '<int:file_id>'))
 
 # api.add_resource(TokensResource, TokensResource.URI)
 # api.add_resource(UsersResource, UsersResource.URI)
