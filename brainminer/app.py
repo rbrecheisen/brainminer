@@ -10,7 +10,6 @@ from brainminer.view.api.index import IndexResource
 from brainminer.storage.api.file import FilesResource, FileResource, FileContentResource
 from brainminer.compute.api.classifier import ClassifiersResource, ClassifierSessionsResource
 from brainminer.compute.api.session import SessionFilesResource, SessionPredictionsResource
-from brainminer.compute.api.prediction import PredictionFilesResource
 
 # from brainminer.auth.api.token import TokensResource
 # from brainminer.auth.api.user import UsersResource, UserResource
@@ -59,7 +58,6 @@ api.add_resource(ClassifiersResource, ClassifiersResource.URI)
 api.add_resource(ClassifierSessionsResource, ClassifierSessionsResource.URI.format('<int:id>'))
 api.add_resource(SessionFilesResource, SessionFilesResource.URI.format('<int:id>', '<int:file_id>'))
 api.add_resource(SessionPredictionsResource, SessionPredictionsResource.URI.format('<int:id>'))
-api.add_resource(PredictionFilesResource, PredictionFilesResource.URI.format('<int:id>', '<int:file_id>'))
 
 # api.add_resource(TokensResource, TokensResource.URI)
 # api.add_resource(UsersResource, UsersResource.URI)

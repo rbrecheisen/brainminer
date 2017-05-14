@@ -1,4 +1,5 @@
 from flask_restful import reqparse
+from brainminer.base.util import generate_string
 from brainminer.base.api import HtmlResource
 from brainminer.compute.dao import ClassifierDao, SessionDao
 
@@ -7,15 +8,20 @@ from brainminer.compute.dao import ClassifierDao, SessionDao
 class ClassifiersResource(HtmlResource):
     
     URI = '/classifiers'
+
+    def get(self):
+        return self.output_html('No classifiers available', 200)
     
     def post(self):
 
+        name = 'SVM_' + generate_string(8)
         classifier_dao = ClassifierDao(self.db_session())
-        classifier = classifier_dao.create(**{'name': 'SVM'})
+        classifier = classifier_dao.create(**{'name': name})
 
         html = '<h3>Congratulations!</h3>'
-        html += '<p>You created your classifier successfully!</p>'
-        html += '<p>Next step is to create a new training session for the classifier. Click the following link:</p>'
+        html += '<p>You successfully create a classifier with the following name: {}</p>'.format(name)
+        html += '<p>Next step is to create a training session for your classifier.'
+        html += '<p>Click the following link to do this:</p>'
         html += '<form method="post" action="/classifiers/{}/sessions">'.format(classifier.id)
         html += '  <input type="submit" value="Create training session">'
         html += '</form>'
@@ -27,6 +33,9 @@ class ClassifiersResource(HtmlResource):
 class ClassifierSessionsResource(HtmlResource):
     
     URI = '/classifiers/{}/sessions'
+
+    def get(self, id):
+        return self.output_html('No trained classifier sessions available', 200)
     
     def post(self, id):
 

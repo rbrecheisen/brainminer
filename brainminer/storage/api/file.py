@@ -32,16 +32,15 @@ class FilesResource(HtmlResource):
         f_dao = FileDao(self.db_session())
         f = f_dao.create(**args)
 
-        return self.output_html('''
-        <h3>Thanks for uploading your file!</h3>
-        <span>You can get it here: <a href="/files/{}/content">download</a></span>
-        <br>
-        <span>Next step is to create a new classifier. By default, a new instance of a SVM classifier
-         will be created. Click the following link:</span>
-        <form method="post" action="/classifiers">
-            <input type="submit" value="Create classifier">
-        </form>
-        '''.format(f.id, f.id), 201)
+        html = '<h3>Thanks for uploading your file!</h3>'
+        html += '<p>You can get it here: <a href="/files/{}/content">download</a></p>'.format(f.id)
+        html += '<br>'
+        html += '<p>Next step is to create a new classifier by clicking the button below.</p>'
+        html += '<form method="post" action="/classifiers">'
+        html += '  <input type="submit" value="Create classifier">'
+        html += '</form>'
+
+        return self.output_html(html, 201)
     
 
 # ----------------------------------------------------------------------------------------------------------------------

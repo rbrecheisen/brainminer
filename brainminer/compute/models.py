@@ -38,38 +38,18 @@ class Session(BaseModel):
 
     # Session ID in database
     id = Column(Integer, ForeignKey('base.id'), primary_key=True)
+    # Training file path
+    training_file_path = Column(String)
     # Classifier object file path
-    object_file_path = Column(String)
+    classifier_file_path = Column(String)
     # Session classifier
     classifier_id = Column(Integer, ForeignKey('classifier.id'), nullable=False)
     classifier = relationship('Classifier', backref='sessions', foreign_keys=[classifier_id])
 
     def to_dict(self):
-        predictions = []
-        for prediction in self.predictions:
-            predictions.append(prediction.to_dict())
         obj = super(Session, self).to_dict()
         obj.update({
-            'predictions': predictions,
-            'object_file_path': self.object_file_path,
+            'training_file_path': self.training_file_path,
+            'classifier_file_path': self.classifier_file_path,
         })
-        return obj
-
-
-# ----------------------------------------------------------------------------------------------------------------------
-class Prediction(BaseModel):
-    
-    __tablename__ = 'prediction'
-    __mapper_args__ = {
-        'polymorphic_identity': 'prediction',
-    }
-
-    # Prediction ID in database
-    id = Column(Integer, ForeignKey('base.id'), primary_key=True)
-    # Session instance
-    session_id = Column(Integer, ForeignKey('session.id'), nullable=False)
-    session = relationship('Session', backref='predictions', foreign_keys=[session_id])
-    
-    def to_dict(self):
-        obj = super(Prediction, self).to_dict()
         return obj
