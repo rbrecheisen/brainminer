@@ -10,6 +10,12 @@ class ClassifiersResource(HtmlResource):
     URI = '/classifiers'
 
     def get(self):
+        # This endpoint should return a list of classifiers in a pull-down menu. After
+        # selecting a classifier we can immediately proceed with creating a training session.
+        # Each classifier has an associated list (possibly empty) with training sessions (link).
+
+        # In the final version the post() should be removed. We don't want people to create
+        # classifiers themselves
         return self.output_html('No classifiers available', 200)
     
     def post(self):
@@ -35,8 +41,8 @@ class ClassifierSessionsResource(HtmlResource):
     URI = '/classifiers/{}/sessions'
 
     def get(self, id):
-        return self.output_html('No trained classifier sessions available', 200)
-    
+        return self.output_html('No classifier training sessions available', 200)
+
     def post(self, id):
 
         classifier_dao = ClassifierDao(self.db_session())
