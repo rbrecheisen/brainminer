@@ -9,6 +9,7 @@ elif [ "${1}" == "up" ]; then
     ./manage.sh down
 	docker run -d --name brainminer -p 5000:5000 \
 	    -v $(pwd)/brainminer:/var/www/brainminer/brainminer \
+	    -v $(pwd)/Rscripts:/var/www/brainminer/Rscripts \
 	    brecheisen/brainminer
 	echo "BrainMiner is now running on http://localhost:5000"
 	./manage.sh logs
