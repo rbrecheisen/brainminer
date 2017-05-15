@@ -13,8 +13,10 @@ class Classifier(BaseModel):
 
     # Classifier ID in database
     id = Column(Integer, ForeignKey('base.id'), primary_key=True)
+    # External ID
+    external_id = Column(String, nullable=False, unique=True)
     # Classifier name
-    name = Column(String(255), nullable=False, unique=True)
+    name = Column(String, nullable=False, unique=True)
         
     def to_dict(self):
         sessions = []
@@ -23,6 +25,7 @@ class Classifier(BaseModel):
         obj = super(Classifier, self).to_dict()
         obj.update({
             'name': self.name,
+            'external_id': self.external_id,
             'sessions': sessions,
         })
         return obj
