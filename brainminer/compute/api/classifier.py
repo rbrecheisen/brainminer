@@ -14,7 +14,7 @@ class ClassifiersResource(HtmlResource):
     URI = '/classifiers'
 
     def get(self):
-    
+        
         classifier_dao = ClassifierDao(self.db_session())
         classifiers = classifier_dao.retrieve_all()
         if len(classifiers) == 0:

@@ -156,7 +156,7 @@ def init_db(drop=False):
     if drop:
         drop_tables()
     Base.metadata.create_all(bind=db.engine)
-    init_tables()
+    # init_tables()
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -188,5 +188,4 @@ if __name__ == '__main__':
     port = int(port)
 
     # Run application
-    print(' * Click here for UI: http://0.0.0.0:5000')
     app.run(host=host, port=port)
