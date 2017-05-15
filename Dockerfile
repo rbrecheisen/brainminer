@@ -4,8 +4,8 @@ MAINTAINER Ralph Brecheisen <ralph.brecheisen@gmail.com>
 
 COPY brainminer /var/www/brainminer/brainminer
 COPY run_brainminer.sh /var/www/brainminer/run_brainminer.sh
+COPY install_Python_packages.txt /var/www/brainminer/install_Python_packages.txt
 COPY install_R_packages.R /var/www/brainminer/install_R_packages.R
-COPY requirements.txt /tmp/requirements.txt
 
 WORKDIR /var/www/brainminer
 
@@ -18,8 +18,7 @@ RUN apt-get update \
         python-pip \
     && rm -rf /var/lib/apt/lists/* \
     && pip install --upgrade pip \
-    && pip install -r /tmp/requirements.txt \
-    && rm /tmp/requirements.txt \
+    && pip install -r install_Python_packages.txt \
     && Rscript install_R_packages.R \
     && echo
 
