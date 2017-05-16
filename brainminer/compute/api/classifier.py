@@ -1,6 +1,6 @@
 import os
 from flask_restful import reqparse
-from flask import current_app
+from flask import current_app, request
 from werkzeug.datastructures import FileStorage
 from brainminer.base.util import generate_string
 from brainminer.base.api import HtmlResource
@@ -51,7 +51,8 @@ class ClassifiersResource(HtmlResource):
             html += '<form method="post" enctype="multipart/form-data" action="/classifiers/{}/sessions">'.format(
                 classifier.id)
             html += '  <input type="file" name="file">'
-            html += '  <input type="submit" value="Train classifier">'
+            html += '  <input type="submit" value="Train classifier"><br><br>'
+            html += '  <input type="checkbox" name="R" value="true">Use R'
             html += '</form>'
             
         else:
@@ -97,9 +98,13 @@ class ClassifierSessionsResource(HtmlResource):
 
     def post(self, id):
 
+        r = request
         parser = reqparse.RequestParser()
         parser.add_argument('file', type=FileStorage, required=True, location='files')
+        parser.add_argument('R', type=str, location='form')
         args = parser.parse_args()
+
+        R = args['R']
 
         args['storage_id'] = generate_string()
         args['storage_path'] = os.path.join(current_app.root_path, self.config()['UPLOAD_DIR'], args['storage_id'])
@@ -109,7 +114,9 @@ class ClassifierSessionsResource(HtmlResource):
         args['content_type'] = 'application/octet-stream'
         args['media_link'] = args['storage_path']
         args['size'] = 0
+
         del args['file']
+        del args['R']
 
         f_dao = FileDao(self.db_session())
         f = f_dao.create(**args)
@@ -117,6 +124,8 @@ class ClassifierSessionsResource(HtmlResource):
         classifier_dao = ClassifierDao(self.db_session())
         classifier = classifier_dao.retrieve(id=id)
         print('Training classifier {} on file {}'.format(classifier.name, f.name))
+        if R == 'true':
+            print('Use R scripts...')
         
         # After classifier training finishes, create a session that captures the results
         
