@@ -1,75 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9e58c8cd-1b32-4153-89df-de48344d84d7" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Rscripts/test.R" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/manage.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/nginx/Dockerfile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/nginx/nginx.conf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/todo.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/css/app.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/favicon.ico" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/images/error-32x32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/images/file-sets-32x32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/images/files-32x32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/images/permissions-32x32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/images/pipelines-32x32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/images/repositories-32x32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/images/task-results-32x32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/images/tasks-32x32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/images/user-groups-32x32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/images/users-32x32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/app.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/controllers/admin.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/controllers/dashboard.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/controllers/file.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/controllers/login.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/controllers/logout.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/controllers/main.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/controllers/repository.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/controllers/task.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/controllers/user.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/lib/upload/FileAPI.flash.swf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/lib/upload/FileAPI.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/lib/upload/FileAPI.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/lib/upload/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/lib/upload/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/lib/upload/bower.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/lib/upload/ng-file-upload-all.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/lib/upload/ng-file-upload-all.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/lib/upload/ng-file-upload-shim.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/lib/upload/ng-file-upload-shim.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/lib/upload/ng-file-upload.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/lib/upload/ng-file-upload.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/lib/upload/package.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/services/file-set.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/services/file.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/services/repository.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/services/task.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/services/token.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/services/user.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/js/settings.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/partials/admin.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/partials/dashboard.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/partials/login.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/partials/nav.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/partials/repository/file-set.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/partials/repository/file.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/partials/repository/repositories.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/partials/repository/repository.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/partials/task/task.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/partials/task/tasks.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/partials/user/user.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/archive/ui/partials/user/users.html" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/brainminer.iml" afterPath="$PROJECT_DIR$/.idea/brainminer.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dockerfile" afterPath="$PROJECT_DIR$/Dockerfile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainminer/compute/api/classifier.py" afterPath="$PROJECT_DIR$/brainminer/compute/api/classifier.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainminer/view/api/index.py" afterPath="$PROJECT_DIR$/brainminer/view/api/index.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/manage.sh" afterPath="$PROJECT_DIR$/manage.sh" />
-    </list>
+    <list default="true" id="9e58c8cd-1b32-4153-89df-de48344d84d7" name="Default" comment="" />
     <ignored path="brainminer.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -101,18 +33,7 @@
     <favorites_list name="brainminer" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="classifier.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/brainminer/compute/api/classifier.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="71" column="4" lean-forward="true" selection-start-line="71" selection-start-column="4" selection-end-line="71" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -228,60 +149,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="brainminer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="brainminer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="brainminer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="brainminer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="brainminer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="brainminer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="brainminer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="compute" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="brainminer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="brainminer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="brainminer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="compute" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="api" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -617,20 +484,19 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="873" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="23" width="1440" height="873" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25679544" sideWeight="0.523614" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25679544" sideWeight="0.5275288" order="2" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28306264" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946634" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3047375" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25679544" sideWeight="0.47638604" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25679544" sideWeight="0.47247118" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32830626" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37644047" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37644047" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -951,8 +817,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/brainminer/compute/api/classifier.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="71" column="4" lean-forward="true" selection-start-line="71" selection-start-column="4" selection-end-line="71" selection-end-column="4" />
+        <state relative-caret-position="75">
+          <caret line="54" column="30" lean-forward="true" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
           <folding />
         </state>
       </provider>
