@@ -9,7 +9,7 @@ elif [ "${1}" == "up" ]; then
     ./manage.sh down
 	docker run -d --name brainminer -p 5000:5000 \
 	    -v $(pwd)/brainminer:/var/www/brainminer/brainminer \
-	    -v $(pwd)/Rscripts:/var/www/brainminer/Rscripts \
+	    -v $(pwd)/R:/var/www/brainminer/R \
 	    brecheisen/brainminer
 	echo "BrainMiner is now running on http://localhost:5000"
 	./manage.sh logs
@@ -17,7 +17,8 @@ elif [ "${1}" == "up" ]; then
 
 elif [ "${1}" == "down" ]; then
 
-	docker stop brainminer; docker rm brainminer
+	docker stop brainminer
+    docker rm brainminer
 
 elif [ "${1}" == "shell" ]; then
 
@@ -26,23 +27,6 @@ elif [ "${1}" == "shell" ]; then
 elif [ "${1}" == "logs" ]; then
 
     docker logs -f brainminer
-
-elif [ "${1}" == "start-worker" ]; then
-
-    ./manage.sh stop-worker
-    docker run -d --name rabbitmq --hostname my-rabbitmq -p 5672:5672 rabbitmq:3.6
-    docker run -d --name redis -p 6379:6379 redis:3.0-alpine
-
-elif [ "${1}" == "stop-worker" ]; then
-
-    container=$(docker ps | grep rabbitmq:3.6 | awk '{print $1}')
-    if [ "${container}" != "" ]; then
-        docker stop ${container}; docker rm ${container}
-    fi
-    container=$(docker ps | grep redis:3.0-alpine | awk '{print $1}')
-    if [ "${container}" != "" ]; then
-        docker stop ${container}; docker rm ${container}
-    fi
 
 else
 
@@ -55,5 +39,6 @@ else
     echo "  logs  Shows trailing log of the container."
     echo "  help  Shows this help."
     echo ""
+    echo "After startup, BrainMiner will run on http://localhost:5000."
 
 fi
