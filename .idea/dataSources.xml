@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="NeuroIMAGE" uuid="aab4b9ed-a2be-4e25-b28d-e2976d98e49a">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$USER_HOME$/data/imagemend/neuroimage/20160415_RUNMC_NeuroIMAGE_CleanSample.xlsx.sqlite3</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Surface" uuid="1ff9c892-3765-4fc5-bda5-febf41d80324">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$USER_HOME$/data/imagemend/neuroimage/CorticalMeasures_SurfAvg_NeuroIMAGE.csv.sqlite3</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Thickness" uuid="5ce9313f-83fb-4866-a4ae-fc4d71f0ef9a">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$USER_HOME$/data/imagemend/neuroimage/CorticalMeasures_ThickAvg_NeuroIMAGE.csv.sqlite3</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Volume" uuid="c451bd2f-4354-440b-9d73-c75dcd9227aa">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$USER_HOME$/data/imagemend/neuroimage/SubcorticalMeasures_Volume_NeuroIMAGE.csv.sqlite3</jdbc-url>
+    </data-source>
+  </component>
+</project>
