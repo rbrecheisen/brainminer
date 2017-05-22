@@ -1,15 +1,17 @@
-import os
 import json
+import os
+
 from flask import Flask, make_response, g
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
-from brainminer.base.models import Base
-from brainminer.base.exceptions import MissingSettingException, InvalidSettingException
+
 from brainminer.auth.dao import UserDao, UserGroupDao
-from brainminer.view.api.index import IndexResource
-from brainminer.storage.api.file import FilesResource, FileResource, FileContentResource
+from brainminer.base.exceptions import MissingSettingException, InvalidSettingException
+from brainminer.base.models import Base
 from brainminer.compute.api.classifier import ClassifiersResource, ClassifierSessionsResource
 from brainminer.compute.api.session import SessionFilesResource, SessionPredictionsResource
+from brainminer.index import IndexResource
+from brainminer.storage.api.file import FilesResource, FileResource, FileContentResource
 
 # from brainminer.auth.api.token import TokensResource
 # from brainminer.auth.api.user import UsersResource, UserResource

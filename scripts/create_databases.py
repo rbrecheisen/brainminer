@@ -22,6 +22,7 @@ def run():
     ]
     
     for i in range(len(file_names)):
+
         f = file_names[i]
         f_db = f + '.sqlite3'
         if os.path.isfile(f_db):

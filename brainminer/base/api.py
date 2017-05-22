@@ -11,21 +11,21 @@ from brainminer.auth.permissions import has_permission, check_permission, check_
 # ----------------------------------------------------------------------------------------------------------------------
 class BaseResource(Resource):
 
-    def dispatch_request(self, *args, **kwargs):
-
-        code = 400
-
-        try:
-            return super(BaseResource, self).dispatch_request(*args, **kwargs)
-        except HTTPException as e:
-            message = e.data['message']
-            code = e.code
-        except Exception as e:
-            message = e.message
-
-        if message is not None:
-            print('[ERROR] {}.dispatch_request() {}'.format(self.__class__.__name__, message))
-            abort(code, message=message)
+    # def dispatch_request(self, *args, **kwargs):
+    #
+    #     code = 400
+    #
+    #     try:
+    #         return super(BaseResource, self).dispatch_request(*args, **kwargs)
+    #     except HTTPException as e:
+    #         message = e.data['message']
+    #         code = e.code
+    #     except Exception as e:
+    #         message = e.message
+    #
+    #     if message is not None:
+    #         print('[ERROR] {}.dispatch_request() {}'.format(self.__class__.__name__, message))
+    #         abort(code, message=message)
 
     @staticmethod
     def config():

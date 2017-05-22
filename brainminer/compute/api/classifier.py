@@ -2,10 +2,14 @@ import os
 from flask_restful import reqparse
 from flask import current_app, request
 from werkzeug.datastructures import FileStorage
-from brainminer.base.util import generate_string
+from brainminer.base.util import generate_string, get_xy, score_svm, train_svm
 from brainminer.base.api import HtmlResource
 from brainminer.storage.dao import FileDao
 from brainminer.compute.dao import ClassifierDao, SessionDao
+
+import pandas as pd
+from sklearn.externals import joblib
+from sklearn.model_selection import StratifiedKFold
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -52,7 +56,11 @@ class ClassifiersResource(HtmlResource):
                 classifier.id)
             html += '  <input type="file" name="file">'
             html += '  <input type="submit" value="Train classifier"><br><br>'
-            html += '  <input type="checkbox" name="R" value="true">Use R'
+            html += '  <input type="checkbox" name="R" value="true">Use R<br><br>'
+            html += '  <input type="text" name="target_column" value="Diagnosis"> Target column<br><br>'
+            html += '  <input type="text" name="exclude_columns"> Exclude columns (comma-separated list)<br><br>'
+            html += '  <input type="text" name="nr_iters" value="1">Nr. iterations<br><br>'
+            html += '  <input type="text" name="nr_folds" value="2">Nr. folds (>= 2)<br><br>'
             html += '</form>'
             
         else:
@@ -102,9 +110,17 @@ class ClassifierSessionsResource(HtmlResource):
         parser = reqparse.RequestParser()
         parser.add_argument('file', type=FileStorage, required=True, location='files')
         parser.add_argument('R', type=str, location='form')
+        parser.add_argument('target_column', type=str, location='form')
+        parser.add_argument('exclude_columns', type=str, location='form')
+        parser.add_argument('nr_iters', type=str, location='form')
+        parser.add_argument('nr_folds', type=str, location='form')
         args = parser.parse_args()
 
         R = args['R']
+        target_column = args['target_column']
+        exclude_columns = args['exclude_columns'].split(',')
+        nr_iters = int(args['nr_iters'])
+        nr_folds = int(args['nr_folds'])
 
         args['storage_id'] = generate_string()
         args['storage_path'] = os.path.join(current_app.root_path, self.config()['UPLOAD_DIR'], args['storage_id'])
@@ -117,6 +133,10 @@ class ClassifierSessionsResource(HtmlResource):
 
         del args['file']
         del args['R']
+        del args['target_column']
+        del args['exclude_columns']
+        del args['nr_iters']
+        del args['nr_folds']
 
         f_dao = FileDao(self.db_session())
         f = f_dao.create(**args)
@@ -125,27 +145,37 @@ class ClassifierSessionsResource(HtmlResource):
         classifier = classifier_dao.retrieve(id=id)
         print('Training classifier {} on file {}'.format(classifier.name, f.name))
         if R == 'true':
-            print('Use R scripts...')
+            print('R scripting is not implemented yet...')
         
         # After classifier training finishes, create a session that captures the results
-        
+        print('Calculating classifier performance...')
+        scores = 0
+        features = pd.read_csv(f.storage_path)
+        x, y = get_xy(features, target_column=target_column, exclude_columns=exclude_columns)
+        for i in range(nr_iters):
+            for train, test in StratifiedKFold(n_splits=nr_folds).split(x, y):
+                _, score = score_svm(x, y, train, test)
+                scores += score
+        avg_score = scores / (nr_iters * nr_folds)
+
+        path = f.storage_path + '.classifier'
+        print('Building optimized classifier and storing in {}'.format(path))
+        classifier_model = train_svm(x, y)
+        joblib.dump(classifier_model, path)
+
         session_dao = SessionDao(self.db_session())
         session = session_dao.create(**{
             'classifier': classifier,
             'training_file_path': f.storage_path,
-            'classifier_file_path': '/path_to_classifier',
+            'classifier_file_path': path,
         })
 
-        html = '<h3>Nice!</h3>'
-        html += '<p>You have successfully trained your classifier!</p>'
-        html += '<p>'
-        html += 'You can view the uploaded file here:<br>'
-        html += '<a target="_blank" href="/files/{}/content">{}</a>'.format(f.id, f.storage_id)
-        html += '</p>'
-        html += '<p>'
-        html += 'The next step is to use your classifier for predictions. Again, upload a<br>'
-        html += 'CSV file with the cases you want to predict.'
-        html += '</p>'
+        html = '<h3>Congratulations!</h3>'
+        html += '<p>You have successfully trained your classifier! It has an average '
+        html += 'classification accuracy of {} after {} iterations and {} folds.</p>'.format(
+            avg_score, nr_iters, nr_folds)
+        html += '<p>The next step is to use your classifier for predictions. Again, upload a<br>'
+        html += 'CSV file with the cases you want to predict.</p>'
         html += '<form method="post" enctype="multipart/form-data" action="/sessions/{}/predictions">'.format(session.id)
         html += '  <input type="file" name="file">'
         html += '  <input type="submit" value="Upload predictions">'

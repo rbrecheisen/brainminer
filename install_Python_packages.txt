@@ -10,3 +10,7 @@ pyinstaller>=3.2
 uwsgi>=2.0.14
 requests>=2.11.1
 celery[librabbitmq,redis]
+scikit-learn
+Gpy
+numpy
+pandas
