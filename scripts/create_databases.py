@@ -16,20 +16,37 @@ def get_subject_session_count(session_counts, subject_id):
 
 def run():
 
-    session_counts = {}
+    session_ids = {}
 
-    df = pd.read_csv('/Users/Ralph/development/brainminer/data/CorticalMeasures_SurfAvg_NeuroIMAGE.csv')
-    for i in df.index:
-        subject_id, session_id = get_subject_and_session_id(df, i)
-        if subject_id not in session_counts:
-            session_counts[subject_id] = [session_id]
-        else:
-            session_counts[subject_id].append(session_id)
+    # df = pd.read_csv('/Users/Ralph/development/brainminer/data/CorticalMeasures_SurfAvg_NeuroIMAGE.csv')
+    # for i in df.index:
+    #     subject_id, session_id = get_subject_and_session_id(df, i)
+    #     if subject_id not in session_ids:
+    #         session_ids[subject_id] = [session_id]
+    #     else:
+    #         session_ids[subject_id].append(session_id)
+    #
+    # # For each subject we have 2 session IDs. Create two files, each with the same subject IDs but data
+    # # from different sessions.
+    #
+    # subjects1 = []
+    # for sid in session_ids.keys():
+    #     if len(session_ids[sid]) == 2:
+    #         idd = session_ids[sid][0]
+    #         subjects1.append(idd)
+    #
+    # subjects2 = []
+    # for sid in session_ids.keys():
+    #     if len(session_ids[sid]) == 2:
+    #         idd = session_ids[sid][1]
+    #         subjects2.append(idd)
 
-    for i in df.index:
-        subject_id, session_id = get_subject_and_session_id(df, i)
-        if get_subject_session_count(session_counts, subject_id) == 2:
-            print('got one')
+    # Open CSV files and merge them
+    df1 = pd.read_csv('/Users/Ralph/development/brainminer/data/CorticalMeasures_SurfAvg_NeuroIMAGE.csv')
+    df2 = pd.read_csv('/Users/Ralph/development/brainminer/data/CorticalMeasures_ThickAvg_NeuroIMAGE.csv')
+    df3 = pd.read_csv('/Users/Ralph/development/brainminer/data/SubcorticalMeasures_Volume_NeuroIMAGE.csv')
+    df = pd.concat([df1, df2, df3], axis=1)
+    df.to_csv('/Users/Ralph/development/brainminer/data/All.csv', index=True)
 
 
 # def run():
