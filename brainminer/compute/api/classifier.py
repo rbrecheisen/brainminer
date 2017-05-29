@@ -30,7 +30,7 @@ class ClassifiersResource(HtmlResource):
         
         html = ''
         
-        if not args['classifier'] is None:
+        if args['classifier'] is not None:
             
             classifier = classifier_dao.retrieve(id=args['classifier'])
             html += '<h3>Congratulations!</h3>'
@@ -106,7 +106,6 @@ class ClassifierSessionsResource(HtmlResource):
 
     def post(self, id):
 
-        r = request
         parser = reqparse.RequestParser()
         parser.add_argument('file', type=FileStorage, required=True, location='files')
         parser.add_argument('R', type=str, location='form')

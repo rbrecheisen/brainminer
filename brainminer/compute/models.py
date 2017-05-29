@@ -32,11 +32,11 @@ class Classifier(BaseModel):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-class Session(BaseModel):
+class ClassifierSession(BaseModel):
 
-    __tablename__ = 'session'
+    __tablename__ = 'classifier_session'
     __mapper_args__ = {
-        'polymorphic_identity': 'session',
+        'polymorphic_identity': 'classifier_session',
     }
 
     # Session ID in database
@@ -50,7 +50,7 @@ class Session(BaseModel):
     classifier = relationship('Classifier', backref='sessions', foreign_keys=[classifier_id])
 
     def to_dict(self):
-        obj = super(Session, self).to_dict()
+        obj = super(ClassifierSession, self).to_dict()
         obj.update({
             'training_file_path': self.training_file_path,
             'classifier_file_path': self.classifier_file_path,

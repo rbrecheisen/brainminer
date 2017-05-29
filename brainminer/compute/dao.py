@@ -1,5 +1,5 @@
 from brainminer.base.dao import BaseDao
-from brainminer.compute.models import Classifier, Session
+from brainminer.compute.models import Classifier, ClassifierSession
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -11,4 +11,4 @@ class ClassifierDao(BaseDao):
 # ----------------------------------------------------------------------------------------------------------------------
 class SessionDao(BaseDao):
     def __init__(self, db_session):
-        super(SessionDao, self).__init__(Session, db_session)
+        super(SessionDao, self).__init__(ClassifierSession, db_session)
