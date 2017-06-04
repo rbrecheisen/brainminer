@@ -1,6 +1,6 @@
 import os
 from flask_restful import reqparse
-from flask import current_app, request
+from flask import current_app
 from werkzeug.datastructures import FileStorage
 from brainminer.base.util import generate_string, get_xy, score_svm, train_svm
 from brainminer.base.api import HtmlResource
@@ -170,9 +170,10 @@ class ClassifierSessionsResource(HtmlResource):
         })
 
         html = '<h3>Congratulations!</h3>'
+
         html += '<p>You have successfully trained your classifier! It has an average '
-        html += 'classification accuracy of {} after {} iterations and {} folds.</p>'.format(
-            avg_score, nr_iters, nr_folds)
+        html += 'classification accuracy of {} after {} iterations and {} folds.</p>'.format(avg_score, nr_iters, nr_folds)
+
         html += '<p>The next step is to use your classifier for predictions. Again, upload a<br>'
         html += 'CSV file with the cases you want to predict.</p>'
         html += '<form method="post" enctype="multipart/form-data" action="/sessions/{}/predictions">'.format(session.id)

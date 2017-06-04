@@ -5,13 +5,17 @@ from flask import Flask, make_response, g
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 
-from brainminer.auth.dao import UserDao, UserGroupDao
-from brainminer.base.exceptions import MissingSettingException, InvalidSettingException
+# from brainminer.auth.dao import UserDao, UserGroupDao
+# from brainminer.base.exceptions import MissingSettingException, InvalidSettingException
+# from brainminer.compute.api.classifier import ClassifiersResource, ClassifierSessionsResource
+# from brainminer.compute.api.session import SessionFilesResource, SessionPredictionsResource
+# from brainminer.index import IndexResource
+# from brainminer.storage.api.file import FilesResource, FileResource, FileContentResource
+
 from brainminer.base.models import Base
-from brainminer.compute.api.classifier import ClassifiersResource, ClassifierSessionsResource
-from brainminer.compute.api.session import SessionFilesResource, SessionPredictionsResource
-from brainminer.index import IndexResource
-from brainminer.storage.api.file import FilesResource, FileResource, FileContentResource
+from brainminer.application.index import IndexResource
+from brainminer.application.classifier import ClassifiersResource, ClassifierSessionsResource
+from brainminer.application.session import SessionResource, SessionPredictionsResource
 
 # from brainminer.auth.api.token import TokensResource
 # from brainminer.auth.api.user import UsersResource, UserResource
@@ -50,16 +54,23 @@ if 'UPLOAD_DIR' not in app.config.keys():
 if 'PIPELINES' not in app.config.keys():
     raise MissingSettingException('PIPELINES')
 
-
 api = Api(app)
 api.add_resource(IndexResource, IndexResource.URI)
-api.add_resource(FilesResource, FilesResource.URI)
-api.add_resource(FileResource, FileResource.URI.format('<int:id>'))
-api.add_resource(FileContentResource, FileContentResource.URI.format('<int:id>'))
 api.add_resource(ClassifiersResource, ClassifiersResource.URI)
 api.add_resource(ClassifierSessionsResource, ClassifierSessionsResource.URI.format('<int:id>'))
-api.add_resource(SessionFilesResource, SessionFilesResource.URI.format('<int:id>', '<int:file_id>'))
+api.add_resource(SessionResource, SessionResource.URI.format('<int:id>'))
 api.add_resource(SessionPredictionsResource, SessionPredictionsResource.URI.format('<int:id>'))
+
+
+# api = Api(app)
+# api.add_resource(IndexResource, IndexResource.URI)
+# api.add_resource(FilesResource, FilesResource.URI)
+# api.add_resource(FileResource, FileResource.URI.format('<int:id>'))
+# api.add_resource(FileContentResource, FileContentResource.URI.format('<int:id>'))
+# api.add_resource(ClassifiersResource, ClassifiersResource.URI)
+# api.add_resource(ClassifierSessionsResource, ClassifierSessionsResource.URI.format('<int:id>'))
+# api.add_resource(SessionFilesResource, SessionFilesResource.URI.format('<int:id>', '<int:file_id>'))
+# api.add_resource(SessionPredictionsResource, SessionPredictionsResource.URI.format('<int:id>'))
 
 # api.add_resource(TokensResource, TokensResource.URI)
 # api.add_resource(UsersResource, UsersResource.URI)

@@ -100,6 +100,14 @@ def generate_string(n=64):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
+def get_x(features):
+    predictors = list(features.columns)
+    x = features[predictors]
+    x = x.as_matrix()
+    return x
+
+
+# ----------------------------------------------------------------------------------------------------------------------
 def get_xy(features, target_column=None, exclude_columns=list()):
     predictors = list(features.columns)
     for column in exclude_columns:
