@@ -1,4 +1,5 @@
 import os
+import subprocess
 from werkzeug.datastructures import FileStorage
 from flask_restful import reqparse
 from flask import current_app
@@ -10,7 +11,7 @@ from brainminer.base.api import HtmlResource
 
 import pandas as pd
 from sklearn.externals import joblib
-from sklearn.model_selection import StratifiedKFold
+# from sklearn.model_selection import StratifiedKFold
 
 
 class ClassifiersResource(HtmlResource):
@@ -18,49 +19,73 @@ class ClassifiersResource(HtmlResource):
     URI = '/classifiers'
 
     def get(self):
-
+        """
+        Returns a pull-down menu containing all supported classifiers. If the list is empty, 
+        it will be automatically populated in the database.
+        :return: 
+        """
         classifier_dao = ClassifierDao(self.db_session())
         classifiers = classifier_dao.retrieve_all()
         if len(classifiers) == 0:
             classifiers.append(classifier_dao.create(**{'name': 'SVM', 'external_id': 'SVM-' + generate_string(8)}))
 
         html = ''
+        html += '<h3>Step 1 - Select a classifier</h3>'
+        html += '<p>Select a classifier from the pull-down menu below. Then click<br>'
+        html += 'the select button to proceed.</p>'
         html += '<form method="post" action="/classifiers">'
-        html += '  <select name="classifier">'
+        html += '  <select name="classifier_id">'
+
         for classifier in classifiers:
-            html += '    <option value="{}">SVM</option>'.format(classifier.id)
+            html += '    <option value="{}">Support Vector Machine</option>'.format(classifier.id)
+
         html += '  </select>'
-        html += '  <input type="submit" value="Select classifier">'
+        html += '  <input type="submit" value="Select">'
         html += '</form>'
 
         return self.output_html(html, 200)
 
     def post(self):
-
+        """
+        Handles selection of a classifier type (note that usually a PUT request would be
+        used for this because the classifier resources already exists but UI forms do not
+        support PUT requests, only GET and POST). 
+        :return: 
+        """
         parser = reqparse.RequestParser()
-        parser.add_argument('classifier', type=int, location='form')
+        parser.add_argument('classifier_id', type=int, location='form')
         args = parser.parse_args()
 
-        i = args['classifier']
+        classifier_dao = ClassifierDao(self.db_session())
+        classifier = classifier_dao.retrieve(id=args['classifier_id'])
+        nr_sessions = len(classifier.sessions)
 
         # Retrieve training sessions from classifier and display them (if list > 0)
         # Also show a form to create a new training session
 
         html = ''
-        html += '<p>You selected classifier {}. Click "Train" to start training.<br>'.format(i)
-        html += 'Or select one of the training sessions to run a prediction.</p>'
+        html += '<h3>Step 2 - Train your classifier</h3>'
+        html += '<p>You selected the {} classifier. Provide the name of the target<br>'.format(classifier.name)
+        html += 'label you wish to predict. Also, specify which column name is associated<br>'
+        html += 'with identifying your cases, e.g., SubjectID.</p>'
 
-        html += '<form method="get" action="/classifiers/{}/sessions">'.format(i)
-        html += '  <input type="submit" value="View training sessions">'
-        html += '</form>'
+        if nr_sessions > 0:
+            html += '<p>There are training sessions associated with your classifier. To run<br>'
+            html += 'a prediction right-away, select a session.</p>'
+            html += '<ul>'
+            for session in classifier.sessions:
+                html += '<li><a href="/sessions/{}">Session {}</a></li>'.format(session.id, session.id)
+            html += '</ul>'
 
-        html += '<form method="post" enctype="multipart/form-data" action="/classifiers/{}/sessions">'.format(i)
+        html += '<form method="post" enctype="multipart/form-data" action="/classifiers/{}/sessions">'.format(classifier.id)
         html += '  <input type="file" name="file"><br><br>'
-        html += '  <input type="text" name="target_column" value="Diagnosis"> Target column<br><br>'
-        html += '  <input type="text" name="exclude_columns"> Exclude columns (comma-separated list)<br><br>'
-        html += '  <input type="text" name="nr_iters" value="1">Nr. iterations<br><br>'
-        html += '  <input type="text" name="nr_folds" value="2">Nr. folds (>= 2)<br><br>'
-        html += '  <input type="submit" value="Train classifier"><br><br>'
+        html += '  <input type="text" name="target_column" value="Diagnosis">Target label<br><br>'
+        html += '  <input type="text" name="subject_id" value="MRid">Case identifier<br><br>'
+        # html += '  <input type="text" name="exclude_columns"> Exclude columns (comma-separated list)<br><br>'
+        # html += '  <input type="text" name="nr_iters" value="1">Nr. iterations<br><br>'
+        # html += '  <input type="text" name="nr_folds" value="2">Nr. folds (>= 2)<br><br>'
+        html += '  <input type="checkbox" name="R" value="true">Use R<br><br>'
+        html += '  <input type="submit" value="Train"><br><br>'
         html += '</form>'
 
         return self.output_html(html, 200)
@@ -71,26 +96,51 @@ class ClassifierSessionsResource(HtmlResource):
     URI = '/classifiers/{}/sessions'
 
     def get(self, id):
+        """
+        Returns a list of training sessions for this classifier (if available). This 
+        allows re-running a prediction for a classifier that was already trained.
+        :param id: 
+        :return: 
+        """
+        classifier_dao = ClassifierDao(self.db_session())
+        classifier = classifier_dao.retrieve(id=id)
 
-        html = 'Sessions:'
+        html = ''
+        html += '<p>This classifier has {} training sessions.<br>'.format(len(classifier.sessions))
+        if len(classifier.sessions) > 0:
+            html += 'Click a link below to use one of the sessions.'
+        html += '</p><ul>'
+
+        for session in classifier.sessions:
+            html += '<li><a href="/sessions/{}">Session {}</a></li>'.format(session.id, session.id)
+
+        html += '</ul>'
+
         return self.output_html(html, 200)
 
     def post(self, id):
-
+        """
+        Creates a new training session for classifier {id}. The classifier uses the
+        uploaded file for training.
+        :param id: 
+        :return: 
+        """
         parser = reqparse.RequestParser()
         parser.add_argument('file', type=FileStorage, required=True, location='files')
         parser.add_argument('R', type=str, location='form')
         parser.add_argument('target_column', type=str, location='form')
-        parser.add_argument('exclude_columns', type=str, location='form')
-        parser.add_argument('nr_iters', type=str, location='form')
-        parser.add_argument('nr_folds', type=str, location='form')
+        # parser.add_argument('exclude_columns', type=str, location='form')
+        # parser.add_argument('nr_iters', type=str, location='form')
+        # parser.add_argument('nr_folds', type=str, location='form')
+        parser.add_argument('subject_id', type=str, required=True, location='form')
         args = parser.parse_args()
 
+        subject_id = args['subject_id']
         R = args['R']
         target_column = args['target_column']
-        exclude_columns = args['exclude_columns'].split(',')
-        nr_iters = int(args['nr_iters'])
-        nr_folds = int(args['nr_folds'])
+        # exclude_columns = args['exclude_columns'].split(',')
+        # nr_iters = int(args['nr_iters'])
+        # nr_folds = int(args['nr_folds'])
 
         args['storage_id'] = generate_string()
         args['storage_path'] = os.path.join(current_app.root_path, self.config()['UPLOAD_DIR'], args['storage_id'])
@@ -101,12 +151,13 @@ class ClassifierSessionsResource(HtmlResource):
         args['media_link'] = args['storage_path']
         args['size'] = 0
 
+        del args['subject_id']
         del args['file']
         del args['R']
         del args['target_column']
-        del args['exclude_columns']
-        del args['nr_iters']
-        del args['nr_folds']
+        # del args['exclude_columns']
+        # del args['nr_iters']
+        # del args['nr_folds']
 
         f_dao = FileDao(self.db_session())
         f = f_dao.create(**args)
@@ -115,16 +166,19 @@ class ClassifierSessionsResource(HtmlResource):
         classifier = classifier_dao.retrieve(id=id)
         print('Training classifier {} on file {}'.format(classifier.name, f.name))
         if R == 'true':
-            print('R scripting is not implemented yet...')
+            print('Running R script (works only in Docker)...')
+            # This call raises an error outside of Docker. Need to test Docker version...
+            subprocess.check_call([
+                '/usr/local/bin/Rscript',
+                '/Users/Ralph/development/brainminer/R/svm_linear.R',
+                '1'], shell=True)
 
         # After classifier training finishes, create a session that captures the results
         print('Calculating classifier performance...')
-        scores = 0
-        features = pd.read_csv(f.storage_path)
-        x, y = get_xy(features, target_column=target_column, exclude_columns=exclude_columns)
+        features = pd.read_csv(f.storage_path, index_col=subject_id)
+        x, y = get_xy(features, target_column=target_column)
 
-        avg_score = 0
-
+        # scores = 0
         # # Run performance evaluation on classifier
         # for i in range(nr_iters):
         #     for train, test in StratifiedKFold(n_splits=nr_folds).split(x, y):
@@ -144,16 +198,10 @@ class ClassifierSessionsResource(HtmlResource):
             'classifier_file_path': path,
         })
 
-        html = '<h3>Congratulations!</h3>'
+        html = '<h3>Step 3 - View training session</h3>'
+        html += '<p>You have successfully trained your classifier. Click the link below<br>'
+        html += 'To view the training session and upload a file with cases to predict.</p>'
 
-        html += '<p>You have successfully trained your classifier! It has an average '
-        html += 'accuracy of {} after {} iterations and {} folds.</p>'.format(avg_score, nr_iters, nr_folds)
-
-        html += '<p>The next step is to view your trained classifier and use it for predictions.<br>'
-        html += 'Click the button below to proceed.</p>'
-
-        html += '<form method="get" action="/sessions/{}">'.format(session.id)
-        html += '  <input type="submit" value="View session">'
-        html += '</form>'
+        html += '<a href="/sessions/{}">Session {}</a>'.format(session.id, session.id)
 
         return self.output_html(html, 201)

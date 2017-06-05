@@ -21,10 +21,13 @@ class SessionResource(HtmlResource):
         session = session_dao.retrieve(id=id)
 
         html = ''
-        html += '<p>Upload a CSV file below with cases to predict.</p>'
+        html += '<h3>Step 4 - Run predictions</h3>'
+        html += '<p>Upload a CSV file below with cases to predict. Specify the label <br>'
+        html += 'the column identifying your cases, e.g., SubjectID.</p>'
 
         html += '<form method="post" enctype="multipart/form-data" action="/sessions/{}/predictions">'.format(session.id)
-        html += '  <input type="file" name="file">'
+        html += '  <input type="file" name="file"><br><br>'
+        html += '  <input type="text" name="subject_id" value="MRid">Case identifier<br><br>'
         html += '  <input type="submit" value="Upload predictions">'
         html += '</form>'
 
@@ -39,6 +42,7 @@ class SessionPredictionsResource(HtmlResource):
 
         parser = reqparse.RequestParser()
         parser.add_argument('file', type=FileStorage, required=True, location='files')
+        parser.add_argument('subject_id', type=str, required=True, location='form')
         args = parser.parse_args()
 
         args['storage_id'] = generate_string()
@@ -55,16 +59,22 @@ class SessionPredictionsResource(HtmlResource):
         session = session_dao.retrieve(id=id)
 
         # Load features
-        features = pd.read_csv(args['storage_path'])
+        features = pd.read_csv(args['storage_path'], index_col=args['subject_id'])
         x = get_x(features)
         classifier = joblib.load(session.classifier_file_path)
         predictions = classifier.predict(x)
 
         html = ''
-        html += '<p>Predictions:</p>'
-        for p in predictions:
-            html += '{}'.format(p)
+        html += '<h3>Congratulations!</h3>'
+        html += '<p>You have successfully run one or more predictions. The results<br>'
+        html += 'are listed below.</p>'
+        html += '<table border="1">'
+        html += '<tr><th>Case ID</th><th>Predicted target</th></tr>'
 
+        for i in range(len(features.index)):
+            html += '<tr><td>{}</td><td>{}</td></tr>'.format(features.index[i], predictions[i])
+
+        html += '</table>'
         html += '<p>Click the button "Restart" to start over. You can train a new<br>'
         html += 'classifier or select an existing training session and run another<br>'
         html += 'prediction.</p>'

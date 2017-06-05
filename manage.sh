@@ -2,7 +2,7 @@
 
 if [ "${1}" == "build" ]; then
 
-    docker build -t brecheisen/brainminer .
+    docker build -t imagemend/brainminer .
 
 elif [ "${1}" == "up" ]; then
 
@@ -10,7 +10,7 @@ elif [ "${1}" == "up" ]; then
 	docker run -d --name brainminer -p 5000:5000 \
 	    -v $(pwd)/brainminer:/var/www/brainminer/brainminer \
 	    -v $(pwd)/R:/var/www/brainminer/R \
-	    brecheisen/brainminer
+	    imagemend/brainminer
 	echo "BrainMiner is now running on http://localhost:5000"
 	./manage.sh logs
 
