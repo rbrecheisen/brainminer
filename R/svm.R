@@ -1,4 +1,3 @@
-# This R script requires command-line arguments
+# This R script prints command-line arguments
 args <- commandArgs(TRUE)
-trainingFileName <- args[1]
-print(trainingFileName)
+print(args[1])

@@ -14,6 +14,7 @@ RUN apt-get update \
     && apt-get install -yy vim curl \
     && apt-get install -yy r-base \
     && pip install --upgrade pip \
-    && pip install -r install_Python_packages.txt
+    && pip install -r install_Python_packages.txt \
+    && Rscript install_R_packages.R
 
 CMD ["./run_brainminer.sh"]
