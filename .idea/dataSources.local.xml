@@ -6,28 +6,24 @@
       <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
       <secret-storage>master_key</secret-storage>
       <auth-required>false</auth-required>
-      <introspection-schemas>*:</introspection-schemas>
     </data-source>
     <data-source name="Surface" uuid="1ff9c892-3765-4fc5-bda5-febf41d80324">
       <database-info product="SQLite" version="3.16.1" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native" />
       <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
       <secret-storage>master_key</secret-storage>
       <auth-required>false</auth-required>
-      <introspection-schemas>*:</introspection-schemas>
     </data-source>
     <data-source name="Thickness" uuid="5ce9313f-83fb-4866-a4ae-fc4d71f0ef9a">
       <database-info product="SQLite" version="3.16.1" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native" />
       <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
       <secret-storage>master_key</secret-storage>
       <auth-required>false</auth-required>
-      <introspection-schemas>*:</introspection-schemas>
     </data-source>
     <data-source name="Volume" uuid="c451bd2f-4354-440b-9d73-c75dcd9227aa">
       <database-info product="SQLite" version="3.16.1" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native" />
       <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
       <secret-storage>master_key</secret-storage>
       <auth-required>false</auth-required>
-      <introspection-schemas>*:</introspection-schemas>
     </data-source>
   </component>
 </project>

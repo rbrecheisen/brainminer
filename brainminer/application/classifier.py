@@ -1,5 +1,4 @@
 import os
-import subprocess
 from werkzeug.datastructures import FileStorage
 from flask_restful import reqparse
 from flask import current_app
@@ -167,11 +166,7 @@ class ClassifierSessionsResource(HtmlResource):
         print('Training classifier {} on file {}'.format(classifier.name, f.name))
         if R == 'true':
             print('Running R script (works only in Docker)...')
-            # This call raises an error outside of Docker. Need to test Docker version...
-            subprocess.check_call([
-                '/usr/local/bin/Rscript',
-                '/Users/Ralph/development/brainminer/R/svm_linear.R',
-                '1'], shell=True)
+            os.system('/usr/local/bin/Rscript /Users/Ralph/development/brainminer/R/svm.R 1')
 
         # After classifier training finishes, create a session that captures the results
         print('Calculating classifier performance...')

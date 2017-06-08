@@ -1,4 +1,4 @@
-FROM rocker/tidyverse
+FROM python:2.7
 
 MAINTAINER Ralph Brecheisen <ralph.brecheisen@gmail.com>
 
@@ -11,16 +11,9 @@ COPY install_R_packages.R /var/www/brainminer/install_R_packages.R
 WORKDIR /var/www/brainminer
 
 RUN apt-get update \
-    && apt-get install -yy \
-        vim \
-        curl \
-        python2.7 \
-        python2.7-dev \
-        python-pip \
-    && rm -rf /var/lib/apt/lists/* \
+    && apt-get install -yy vim curl \
+    && apt-get install -yy r-base \
     && pip install --upgrade pip \
-    && pip install -r install_Python_packages.txt \
-    && Rscript install_R_packages.R \
-    && echo
+    && pip install -r install_Python_packages.txt
 
 CMD ["./run_brainminer.sh"]
