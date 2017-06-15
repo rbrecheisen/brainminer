@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="NeuroIMAGE" uuid="aab4b9ed-a2be-4e25-b28d-e2976d98e49a">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source name="Surface" uuid="1ff9c892-3765-4fc5-bda5-febf41d80324">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source name="Thickness" uuid="5ce9313f-83fb-4866-a4ae-fc4d71f0ef9a">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source name="Volume" uuid="c451bd2f-4354-440b-9d73-c75dcd9227aa">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+</component>
