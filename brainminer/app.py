@@ -5,7 +5,7 @@ from flask import Flask, make_response, g
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 
-# from brainminer.auth.dao import UserDao, UserGroupDao
+from brainminer.auth.dao import UserDao, UserGroupDao
 # from brainminer.base.exceptions import MissingSettingException, InvalidSettingException
 # from brainminer.compute.api.classifier import ClassifiersResource, ClassifierSessionsResource
 # from brainminer.compute.api.session import SessionFilesResource, SessionPredictionsResource
@@ -34,25 +34,7 @@ from brainminer.application.session import SessionResource, SessionPredictionsRe
 # Specify 'ui' folder as static content folder but set its URL path to '/'
 # app = Flask(__name__, static_url_path='', static_folder='ui')
 app = Flask(__name__)
-app.config.from_pyfile(
-    os.getenv('BRAINMINER_SETTINGS', os.path.abspath('brainminer/settings.py')))
-
-if 'SQLITE_DB_FILE' not in app.config.keys():
-    raise MissingSettingException('SQLITE_DB_FILE')
-if 'SQLALCHEMY_DATABASE_URI' not in app.config.keys():
-    raise MissingSettingException('SQLALCHEMY_DATABASE_URI')
-if 'DATABASE' not in app.config.keys():
-    raise MissingSettingException('DATABASE')
-if 'SECRET_KEY' not in app.config.keys():
-    raise MissingSettingException('SECRET_KEY')
-if 'PASSWORD_SCHEMES' not in app.config.keys():
-    raise MissingSettingException('PASSWORD_SCHEMES')
-if 'USERS' not in app.config.keys():
-    raise MissingSettingException('USERS')
-if 'UPLOAD_DIR' not in app.config.keys():
-    raise MissingSettingException('UPLOAD_DIR')
-if 'PIPELINES' not in app.config.keys():
-    raise MissingSettingException('PIPELINES')
+app.config.from_pyfile(os.getenv('BRAINMINER_SETTINGS', os.path.abspath('brainminer/settings.py')))
 
 api = Api(app)
 api.add_resource(IndexResource, IndexResource.URI)
@@ -109,18 +91,18 @@ def init_tables():
     for item in app.config['USERS']:
         if item['username'] == 'root':
             if not item['is_superuser']:
-                raise InvalidSettingException('USERS', 'User \'root\' not super user')
+                raise RuntimeError('USERS', 'User \'root\' not super user')
             found = True
             break
     if not found:
-        raise InvalidSettingException('USERS', 'User \'root\' missing')
+        raise RuntimeError('USERS', 'User \'root\' missing')
     # Check there is only 1 super user in the settings
     count = 0
     for item in app.config['USERS']:
         if item['is_superuser']:
             count += 1
     if count != 1:
-        raise InvalidSettingException('USERS', 'More than 1 super user ({})'.format(count))
+        raise RuntimeError('USERS', 'More than 1 super user ({})'.format(count))
     # Create users
     user_dao = UserDao(db.session)
     for item in app.config['USERS']:
